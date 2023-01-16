@@ -11,7 +11,7 @@
   <tr>
   <td align='center'>김민섭</td>
   <td align='center'>[팀장] Back-end</td>
-  <td align='center'><a href="https://github.com/Natreeum">Natreeum</a></td>
+  <td align='center'><a href="https://github.com/natreeum">natreeum</a></td>
   <td align='center'>projectkmscom@gmail.com</td>
  </tr>
  <tr>
