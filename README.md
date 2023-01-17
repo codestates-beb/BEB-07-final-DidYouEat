@@ -1,6 +1,7 @@
 # 🍽️ DiD You Eat ?
 
 <h2> 팀원 소개 </h2>
+<br>
 <table>
  <tr>
   <td align='center'>이름</td>
