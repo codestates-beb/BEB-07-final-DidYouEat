@@ -4,7 +4,7 @@ export default function Header() {
   return (
     <div className="header">
       <div className="header__logo">
-        <Link onClick={() => location.reload()} href="/" className="header__h1">
+        <Link href="/" className="header__h1">
           DiD You Eat?
         </Link>
       </div>

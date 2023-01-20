@@ -5,22 +5,41 @@
   display: flex;
   flex-direction: column;
   padding: 10px;
+  overflow: hidden;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
 
+  &__main {
+    height: 100%;
+    width: 300px;
+  }
   &__h1 {
     font-size: 25px;
-    font-weight: normal;
     font-family: var(--font-eng-emphasis);
   }
 
   &__h1__right {
     font-size: 25px;
-    font-weight: normal;
     font-family: var(--font-eng-emphasis);
     text-align: right;
   }
   &__h1-center {
     text-align: center;
     font-size: 25px;
+    font-family: var(--font-eng-emphasis);
+  }
+  &__h1-left {
+    text-align: left;
+    font-size: 25px;
+    font-family: var(--font-eng-emphasis);
+    width: 250px;
+    position: relative;
+    left: -30px;
+    margin-top: 50px;
+  }
+  &__h2-center {
+    text-align: center;
     font-weight: normal;
     font-family: var(--font-eng-emphasis);
   }
@@ -34,25 +53,37 @@
     align-items: center;
     justify-content: center;
   }
+  &__scroll3 {
+    margin-top: 100px;
+    margin-bottom: 100px;
+  }
   &__scroll3-1 {
     display: grid;
+    column-gap: 20px;
+    row-gap: 10px;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);
   }
-
+  &__scroll4 {
+    margin-top: 100px;
+    margin-bottom: 100px;
+  }
   &__h2-1 {
+    width: max-content;
     font-size: 15px;
     font-weight: normal;
     text-align: center;
     grid-area: 1/1/2/2;
   }
   &__h2-2 {
+    width: max-content;
     font-size: 15px;
     font-weight: normal;
     text-align: center;
     grid-area: 1/2/2/3;
   }
   &__h2-3 {
+    width: max-content;
     font-size: 15px;
     font-weight: normal;
     text-align: center;
@@ -83,8 +114,22 @@
     align-items: center;
   }
   &__illustration1 {
+    margin: -50px;
+    margin-top: -100px;
+    position: relative;
+    left: -100px;
   }
   &__illustration3 {
+    position: relative;
+    left: 100px;
+    margin-top: -350px;
+    margin-right: -50px;
+  }
+
+  &__illustration2 {
+    position: relative;
+    margin-top: -100px;
+    margin-left: -100px;
   }
   &__button {
     background-color: black;
@@ -98,5 +143,14 @@
     color: gray;
     text-decoration: underline;
     margin: 30px;
+  }
+
+  &__nft {
+    margin: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
   }
 }
