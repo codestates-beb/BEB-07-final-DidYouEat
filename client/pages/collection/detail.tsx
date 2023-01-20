@@ -1,10 +1,10 @@
 import Header from '@/src/components/Header';
-import NFT from '@/src/components/nft';
+import Link from 'next/link';
 export default function Collection() {
   return (
     <div className="detail">
       <Header />
-      <button className="detail__back">{`<<`}</button>
+      <Link className="detail__back" href="/collection">{`<<`}</Link>
       <h1 className="detail__title">Restaurant Name</h1>
       <div className="detail__col2"></div>
       <div className="detail__info">
