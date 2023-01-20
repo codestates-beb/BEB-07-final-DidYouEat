@@ -1,12 +1,12 @@
 import Image from 'next/image';
-import Header from "@/src/components/Header"
+import Header from '@/src/components/Header';
 export default function Home() {
   return (
     <>
       <div className="landing">
-        <Header/>
+        <Header />
         <div className="landing__scroll1">
-          <h1 className="landing__h1__right">A New Way to Capture My Favorite Restaurants</h1> 
+          <h1 className="landing__h1__right">A New Way to Capture My Favorite Restaurants</h1>
           <Image
             className="landing__illustration1"
             src="/../public/images/Landing1.png"
@@ -48,6 +48,6 @@ export default function Home() {
           <a className="landing__showOwner">Are You a Shop Owner?</a>
         </div>
       </div>
-      </>
+    </>
   );
 }
