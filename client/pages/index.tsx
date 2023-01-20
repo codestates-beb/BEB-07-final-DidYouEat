@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Header from '@/src/components/Header';
+import Link from 'next/link';
 export default function Home() {
   return (
     <>
@@ -45,7 +46,9 @@ export default function Home() {
         </div>
         <div className="landing__scroll5">
           <button className="landing__button">Get Started</button>
-          <a className="landing__showOwner">Are You a Shop Owner?</a>
+          <Link href="/admin" className="landing__showOwner">
+            Are You a Shop Owner?
+          </Link>
         </div>
       </div>
     </>
