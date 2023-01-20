@@ -1,0 +1,56 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Item {
+  token_id           Int         @id
+  created_at         DateTime
+  comment            String
+  User               User?       @relation(fields: [userWallet_address], references: [wallet_address])
+  userWallet_address String?
+  Collection         Collection? @relation(fields: [Colelction_id], references: [colelction_id])
+  Colelction_id      String?
+}
+
+model User {
+  wallet_address String @id
+  username       String
+  items          Item[]
+}
+
+model Owner {
+  owner_id    String       @id
+  owner_pw    String
+  collections Collection[]
+}
+
+model Collection {
+  colelction_id String  @id
+  img_url       String
+  created_at    String
+  coordinate_x  Int
+  coordinate_y  Int
+  events        Event[]
+  items         Item[]
+  minted        Int
+  shop_owner_id String
+  shop_name     String
+  Owner         Owner?  @relation(fields: [Owner_id], references: [owner_id])
+  Owner_id      String?
+}
+
+model Event {
+  id            Int         @id
+  collection_id String
+  content       String
+  Collection    Collection? @relation(fields: [Colelction_id], references: [colelction_id])
+  Colelction_id String?
+}
