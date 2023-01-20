@@ -1,5 +1,72 @@
+body{
+  background-color: var(--point-color);
+  height:100%;
+  width: 100%;
+  scroll-behavior: smooth;
+}
 .landing {
-  &__h1 {
-    font-size: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px
+  &__h1{
+    font-size: 25px;
+    font-weight: normal;
+    font-family: var(--font-eng-emphasis); 
+  }
+  &__h1__right {
+    font-size: 25px;
+    font-weight: normal;
+    font-family: var(--font-eng-emphasis);
+    text-align: right;
+  }
+  &__h1-center{
+    text-align: center;
+    font-size: 25px;
+    font-weight: normal;
+    font-family: var(--font-eng-emphasis);
+  }
+  &__h2 {
+    font-size: 15px;
+    font-weight: normal;
+    text-align: center;
+  }
+  &__scroll1{
+    display: block;
+  }
+  &__scroll2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  &__scroll3-1{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;  
+  }
+  &__scroll5{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  &__illustration1{
+  }
+  &__illustration3{
+
+  }
+  &__button{
+    background-color: black;
+    color:white;
+    border:none;
+    width: 130px;
+    height: 50px;
+    font-family: var(--font-eng-emphasis);
+  }
+  &__showOwner{
+    color: gray;
+    text-decoration: underline;
+    margin: 30px;
   }
 }
