@@ -3,8 +3,8 @@ import Header from '../src/components/Header'
 export default function Home() {
   return (
     <>
-    <Header/>
       <div className="landing">
+        <Header/>
         <div className="landing__scroll1">
           <h1 className="landing__h1__right">A New Way to Capture My Favorite Restaurants</h1> 
           <Image
@@ -48,6 +48,6 @@ export default function Home() {
           <a className="landing__showOwner">Are You a Shop Owner?</a>
         </div>
       </div>
-    </>
+      </>
   );
 }

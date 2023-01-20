@@ -1,13 +1,12 @@
-body{
-  background-color: var(--point-color);
-  height:100%;
-  width: 100%;
-  scroll-behavior: smooth;
-}
 .landing {
+  position: absolute;
+  background-color: var(--point-color);
+  scroll-behavior: smooth;
   display: flex;
   flex-direction: column;
-  gap: 30px
+  padding:10px;
+
+
   &__h1{
     font-size: 25px;
     font-weight: normal;

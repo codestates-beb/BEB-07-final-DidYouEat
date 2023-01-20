@@ -1,9 +1,9 @@
 .header{
     background-color: transparent;
     width: 100%;
-    height: 50px; 
+    height: 70px; 
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     grid-template-rows: 1fr;
     align-items: center;
     margin-bottom: 20px;
@@ -18,7 +18,7 @@
         letter-spacing: -1.5px;
     }
     &__button{
-        grid-area: 1/5/2/6;
+        grid-area: 1/5/2/7;
     }
     &__connect{
         background-color: transparent;
