@@ -1,5 +1,5 @@
 import Header from '@/src/components/Header';
-// import { useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 export default function Info() {
   function handleSubmit() {
