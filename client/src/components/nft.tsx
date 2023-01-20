@@ -1,5 +1,6 @@
+import Link from "next/link"
 export default function NFT() {
     return (
-        <div className="collection__col1"></div>
+        <Link href="/collection/detail"> <div className="collection__col1"></div></Link>
     )
 }

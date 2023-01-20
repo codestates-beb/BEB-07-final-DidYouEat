@@ -16,7 +16,10 @@
     &__h1{
         font-size: 25px;
         letter-spacing: -1.5px;
+        color:black;
+        text-decoration: none;
     }
+    
     &__button{
         grid-area: 1/5/2/7;
     }
