@@ -1,5 +1,5 @@
 import Header from "@/src/components/Header"
-
+import NFT from "@/src/components/nft"
 export default function Collection() {
 
   return(
@@ -7,29 +7,20 @@ export default function Collection() {
       <Header/>
       <h1 className="collection__h1">My collection</h1>
       <div className="collection__row">
-        <div className="collection__col1">1</div>
-        <div className="collection__col2">2</div>
-        <div className="collection__col3">3</div>
-        <div className="collection__col4">4</div>
+        <NFT/>
+        <NFT/>
+        <NFT/>
+        <NFT/>
+        <NFT/>
+        <NFT/>
+        <NFT/>
+        <NFT/>
+        <NFT/>
+        <NFT/>
+        <NFT/>
+        <NFT/>
       </div>
-      <div className="collection__row">
-        <div className="collection__col1">1</div>
-        <div className="collection__col2">2</div>
-        <div className="collection__col3">3</div>
-        <div className="collection__col4">4</div>
-      </div>
-      <div className="collection__row">
-        <div className="collection__col1">1</div>
-        <div className="collection__col2">2</div>
-        <div className="collection__col3">3</div>
-        <div className="collection__col4">4</div>
-      </div>
-      <div className="collection__row">
-        <div className="collection__col1">1</div>
-        <div className="collection__col2">2</div>
-        <div className="collection__col3">3</div>
-        <div className="collection__col4">4</div>
-      </div>
+
       
       <button className="collection__scanQR">Scan QR code</button>
     </div>
