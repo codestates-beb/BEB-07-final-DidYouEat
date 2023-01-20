@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Header from '@/src/components/Header';
+import Link from 'next/link';
 export default function Home() {
   return (
     <>
@@ -35,9 +36,18 @@ export default function Home() {
         <div className="landing__scroll3">
           <h1 className="landing__h1-center">It is THIS easy</h1>
           <div className="landing__scroll3-1">
-            <h2 className="landing__h2">1. Open Camera</h2>
-            <h2 className="landing__h2">2. Scan QR code</h2>
-            <h2 className="landing__h2">3. Get NFTs!</h2>
+            <h2 className="landing__h2-1">1. Open Camera</h2>
+            <h2 className="landing__h2-2">2. Scan QR code</h2>
+            <h2 className="landing__h2-3">3. Get NFTs!</h2>
+            <div className="landing__emoji1">
+              <Image src="/images/emoji1.png" alt="camera" width={30} height={30}></Image>
+            </div>
+            <div className="landing__emoji2">
+              <Image className="landing__emoji2" src="/images/emoji2.png" alt="QR code" width={30} height={30}></Image>
+            </div>
+            <div className="landing__emoji3">
+              <Image className="landing__emoji3" src="/images/emoji3.png" alt="NFT" width={30} height={30}></Image>
+            </div>
           </div>
         </div>
         <div className="landing__scroll4">
@@ -45,7 +55,9 @@ export default function Home() {
         </div>
         <div className="landing__scroll5">
           <button className="landing__button">Get Started</button>
-          <a className="landing__showOwner">Are You a Shop Owner?</a>
+          <Link href="/admin" className="landing__showOwner">
+            Are You a Shop Owner?
+          </Link>
         </div>
       </div>
     </>
