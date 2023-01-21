@@ -1,5 +1,7 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Res } from '@nestjs/common';
 import { signServices } from './auth.service';
+import { Response } from 'express';
+import { ownerSignDto } from 'src/dto/ownerSign.dto';
 
 @Controller('/api/auth')
 export class AuthController {
@@ -7,16 +9,16 @@ export class AuthController {
 
   @Get()
   authMain(): object {
-    return {};
+    return { status: 'success' };
   }
 
   @Post('owner/signup')
-  signUp(@Body() body: object): object {
-    return this.authServices.authMain(body);
+  signUp(@Body() body: ownerSignDto, @Res() res: Response): object {
+    return this.authServices.signUp(body, res);
   }
 
   @Post('owner/signin')
-  signIn(): object {
-    return {};
+  signIn(@Body() body: ownerSignDto, @Res() res: Response): object {
+    return this.authServices.signIn(body, res);
   }
 }
