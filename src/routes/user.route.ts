@@ -28,6 +28,14 @@ userRouter.get("/:wallet_address", async (req: Request, res: Response) => {
     else {
       let user = await userUtil.createUser(req.params.wallet_address);
 
+      if (!user) {
+        data = {
+          status: "success",
+          message: "create error",
+        };
+        return res.status(400).json(data); // 좀 더 알아봐야함
+      }
+
       data = {
         status: "success",
         message: user,
@@ -50,7 +58,7 @@ userRouter.get(
     let data: content;
 
     try {
-      const tokens = await userUtil.getAllTokens(req.params.wallet_address);
+      const tokens = await userUtil.getAllToken(req.params.wallet_address);
       data = {
         status: "success",
         message: tokens,
@@ -72,6 +80,14 @@ userRouter.patch("/changenick", async (req: Request, res: Response) => {
   try {
     const { wallet_address, new_nick } = req.body;
     const updatedUser = await userUtil.changeNick(wallet_address, new_nick);
+
+    if (!updatedUser) {
+      data = {
+        status: "failed",
+        message: "no user",
+      };
+      return res.status(400).json(data);
+    }
 
     data = {
       status: "success",

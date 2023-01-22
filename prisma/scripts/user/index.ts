@@ -1,12 +1,12 @@
 import { getUser } from "./getUser";
 import { createUser } from "./createUser";
-import { getAllTokens } from "./getAllTokens";
+import { getAllToken } from "./getAllToken";
 import { changeNick } from "./changeNick";
 
 const userUtil = {
   getUser,
   createUser,
-  getAllTokens,
+  getAllToken,
   changeNick,
 };
 

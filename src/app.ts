@@ -18,6 +18,8 @@ app.get("/", (req: Request, res: Response) => {
 //routes
 
 app.use("/dev/user", router.userRouter);
+app.use("/dev/owner", router.ownerRouter);
+app.use("/dev/collection", router.collectionRouter);
 
 app.listen(PORT, () => {
   console.log(`server is listening at post ${PORT}`);
