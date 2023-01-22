@@ -7,7 +7,7 @@ const PORT: number = 4000;
 
 type content = {
   status: string;
-  message: object | string;
+  message: object | string | Array<object>;
 };
 
 const app = express();
@@ -58,7 +58,24 @@ app.get("/dev/user/:wallet_address", async (req: Request, res: Response) => {
 
 app.get(
   "/dev/user/:wallet_address/tokens",
-  async (req: Request, res: Response) => {}
+  async (req: Request, res: Response) => {
+    let data: content;
+
+    try {
+      const tokens = await userUtil.getAllTokens(req.params.wallet_address);
+      data = {
+        status: "success",
+        message: tokens,
+      };
+      return res.status(200).json(data);
+    } catch (e) {
+      data = {
+        status: "failed",
+        message: "Bad Request",
+      };
+      return res.status(400).json(data);
+    }
+  }
 );
 
 app.listen(PORT, () => {

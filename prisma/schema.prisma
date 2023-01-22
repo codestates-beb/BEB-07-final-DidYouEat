@@ -14,10 +14,10 @@ model Item {
   token_id           Int         @id
   created_at         DateTime
   comment            String
-  User               User?       @relation(fields: [userWallet_address], references: [wallet_address])
-  userWallet_address String?
-  Collection         Collection? @relation(fields: [Colelction_id], references: [colelction_id])
-  Colelction_id      String?
+  User               User?       @relation(fields: [user_wallet_address], references: [wallet_address])
+  user_wallet_address String?
+  Collection         Collection? @relation(fields: [colelction_id], references: [colelction_id])
+  colelction_id      String?
 }
 
 model User {
@@ -43,14 +43,14 @@ model Collection {
   minted        Int
   shop_owner_id String
   shop_name     String
-  Owner         Owner?  @relation(fields: [Owner_id], references: [owner_id])
-  Owner_id      String?
+  Owner         Owner?  @relation(fields: [owner_id], references: [owner_id])
+  owner_id      String?
 }
 
 model Event {
   id            Int         @id
   collection_id String
   content       String
-  Collection    Collection? @relation(fields: [Colelction_id], references: [colelction_id])
-  Colelction_id String?
+  Collection    Collection? @relation(fields: [colelction_id], references: [colelction_id])
+  colelction_id String?
 }
