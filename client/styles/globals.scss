@@ -26,6 +26,11 @@
   --footer-color: #6e6e73;
 }
 
+a {
+  text-decoration: none;
+  color: var(--point-color);
+}
+
 body {
   font-size: var(--text-size);
   font-family: var(--font-eng-mono);

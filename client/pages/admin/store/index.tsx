@@ -31,10 +31,11 @@ export default function Store() {
           <Link href="/admin/store/1">
             <AdminCollection></AdminCollection>
           </Link>
-
-          <div className="admin-store__create-collection">
-            <span>새로운 매장 컬렉션을 생성합니다.</span>
-          </div>
+          <Link href="/admin/store/create">
+            <div className="admin-store__create-collection">
+              <span>새로운 매장 컬렉션을 생성합니다.</span>
+            </div>
+          </Link>
         </div>
       </div>
       <AdminFooter></AdminFooter>
