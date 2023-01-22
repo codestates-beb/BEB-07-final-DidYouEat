@@ -128,7 +128,7 @@ async function collectionSeed() {
 
   await prisma.collection.create({
     data: {
-      collection_id: "collectioin6",
+      collection_id: "collection6",
       img_url: "http://test6",
       coordinate_x: 234,
       coordinate_y: 43,
