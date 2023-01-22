@@ -5,31 +5,31 @@ async function userSeed() {
   await prisma.user.create({
     data: {
       wallet_address: "0xd05873F2E169829901dB479FA16aa52673a6DDd5",
-      username: "user1",
+      nickname: "user1",
     },
   });
   await prisma.user.create({
     data: {
       wallet_address: "0x28E5f0F592B43B3dCE2536Fc2f7eaD7F82466842",
-      username: "0x28E5f0F592B43B3dCE2536Fc2f7eaD7F82466842",
+      nickname: "0x28E5f0F592B43B3dCE2536Fc2f7eaD7F82466842",
     },
   });
   await prisma.user.create({
     data: {
       wallet_address: "0xe351c0d1e6818adEC7b5db725dB3a9b18Edcd24A",
-      username: "user3",
+      nickname: "user3",
     },
   });
   await prisma.user.create({
     data: {
       wallet_address: "0x6d2b77eF75ED55BdA240f7F9Ba29D1aEfDdF9A9b",
-      username: "user4",
+      nickname: "user4",
     },
   });
   await prisma.user.create({
     data: {
       wallet_address: "0x447093C80C28671BdB7F45719b1940adF9Db8199",
-      username: "0x447093C80C28671BdB7F45719b1940adF9Db8199",
+      nickname: "0x447093C80C28671BdB7F45719b1940adF9Db8199",
     },
   });
 }

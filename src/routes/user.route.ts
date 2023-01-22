@@ -66,4 +66,25 @@ userRouter.get(
   }
 );
 
+userRouter.patch("/changenick", async (req: Request, res: Response) => {
+  let data: content;
+
+  try {
+    const { wallet_address, new_nick } = req.body;
+    const updatedUser = await userUtil.changeNick(wallet_address, new_nick);
+
+    data = {
+      status: "success",
+      message: updatedUser,
+    };
+    return res.status(200).json(data);
+  } catch (e) {
+    data = {
+      status: "failed",
+      message: "Bad Request",
+    };
+    return res.status(400).json(data);
+  }
+});
+
 export { userRouter };

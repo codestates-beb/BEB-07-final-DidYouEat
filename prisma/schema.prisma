@@ -22,7 +22,7 @@ model Item {
 
 model User {
   wallet_address String @id
-  username       String
+  nickname       String
   items          Item[]
 }
 

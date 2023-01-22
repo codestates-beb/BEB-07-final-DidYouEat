@@ -4,7 +4,7 @@ const createUser = async (wallet_address: string) => {
   const user = await prisma.user.create({
     data: {
       wallet_address,
-      username: wallet_address,
+      nickname: wallet_address,
     },
   });
 
