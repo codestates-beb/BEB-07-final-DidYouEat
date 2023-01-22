@@ -1,9 +1,9 @@
-import Header from '@/src/components/Header';
-import { useForm } from 'react-hook-form';
+import Header from "@/src/components/Header";
+import { useForm } from "react-hook-form";
 
 export default function Info() {
   function handleSubmit() {
-    console.log('submit');
+    console.log("submit");
   }
   return (
     <div className="info">
