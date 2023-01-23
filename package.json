@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon dist/src/app.js",
     "start:dev": "nodemon src/app.ts",
-    "build": "tsc"
+    "build": "tsc && prisma db push && prisma db seed"
   },
   "keywords": [],
   "author": "",
