@@ -1,6 +1,6 @@
 import { prisma } from "../../prisma";
 
-const getAllCollection = async (owner_id: string) => {
+const getAllOwnerCollection = async (owner_id: string) => {
   const owner = await prisma.owner.findUnique({
     where: {
       owner_id,
@@ -13,4 +13,4 @@ const getAllCollection = async (owner_id: string) => {
   else return [];
 };
 
-export { getAllCollection };
+export { getAllOwnerCollection };

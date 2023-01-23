@@ -12,7 +12,7 @@ tokenRouter.get("/", async (req: Request, res: Response) => {
   let data: content;
 
   try {
-    const tokens = await tokenUtil.getAllToken();
+    const tokens = await tokenUtil.getAllTokens();
 
     if (!tokens) {
       data = {

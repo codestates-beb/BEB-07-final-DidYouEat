@@ -1,6 +1,6 @@
 import { prisma } from "../../prisma";
 
-const getAllToken = async (wallet_address: string) => {
+const getAllUserTokens = async (wallet_address: string) => {
   try {
     const user = await prisma.user.findUnique({
       where: {
@@ -19,4 +19,4 @@ const getAllToken = async (wallet_address: string) => {
   }
 };
 
-export { getAllToken };
+export { getAllUserTokens };

@@ -1,7 +1,9 @@
-import { getAllCollection } from "./getAllCollection";
+import { getAllOwnerCollection } from "./getAllOwnerCollection";
+import { getAllOwners } from "./getAllOwners";
 
 const ownerUtil = {
-  getAllCollection,
+  getAllOwnerCollection,
+  getAllOwners,
 };
 
 export { ownerUtil };

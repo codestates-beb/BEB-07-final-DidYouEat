@@ -1,6 +1,6 @@
 import { prisma } from "../../prisma";
 
-const getAllToken = async () => {
+const getAllTokens = async () => {
   try {
     const tokens = await prisma.token.findMany();
 
@@ -11,4 +11,4 @@ const getAllToken = async () => {
   }
 };
 
-export { getAllToken };
+export { getAllTokens };

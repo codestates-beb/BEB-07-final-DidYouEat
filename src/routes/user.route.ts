@@ -12,7 +12,7 @@ userRouter.get("/", async (req: Request, res: Response) => {
   let data: content;
 
   try {
-    const users = await userUtil.getAllUser();
+    const users = await userUtil.getAllUsers();
 
     if (!users) {
       data = {
@@ -87,7 +87,7 @@ userRouter.get(
     let data: content;
 
     try {
-      const tokens = await userUtil.getAllToken(req.params.wallet_address);
+      const tokens = await userUtil.getAllUserTokens(req.params.wallet_address);
       data = {
         status: "success",
         message: tokens,

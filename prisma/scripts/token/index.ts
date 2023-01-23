@@ -1,8 +1,8 @@
-import { getAllToken } from "./getAllToken";
+import { getAllTokens } from "./getAllTokens";
 import { getTokenDetail } from "./getTokenDetail";
 
 const tokenUtil = {
-  getAllToken,
+  getAllTokens,
   getTokenDetail,
 };
 
