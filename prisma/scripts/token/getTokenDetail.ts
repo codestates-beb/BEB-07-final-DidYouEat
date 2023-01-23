@@ -1,17 +1,17 @@
 import { prisma } from "../../prisma";
 
-const getItemDetail = async (token_id: number) => {
+const getTokenDetail = async (token_id: number) => {
   try {
-    const item = await prisma.item.findUnique({
+    const token = await prisma.token.findUnique({
       where: {
         token_id,
       },
     });
-    return item;
+    return token;
   } catch (e) {
     console.log(e);
     return null;
   }
 };
 
-export { getItemDetail };
+export { getTokenDetail };

@@ -17,10 +17,10 @@ app.get("/", (req: Request, res: Response) => {
 
 //routes
 
-app.use("/dev/user", router.userRouter);
-app.use("/dev/owner", router.ownerRouter);
-app.use("/dev/collection", router.collectionRouter);
-app.use("/dev/item", router.itemRouter);
+app.use("/dev/users", router.userRouter);
+app.use("/dev/owners", router.ownerRouter);
+app.use("/dev/collections", router.collectionRouter);
+app.use("/dev/tokens", router.tokenRouter);
 
 app.listen(PORT, () => {
   console.log(`server is listening at post ${PORT}`);

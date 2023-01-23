@@ -10,7 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Item {
+model Token {
   token_id           Int         @id
   created_at         DateTime    @default(now())
   comment            String?
@@ -23,7 +23,7 @@ model Item {
 model User {
   wallet_address String @id
   nickname       String
-  items          Item[]
+  tokens         Token[]
 }
 
 model Owner {
@@ -39,7 +39,7 @@ model Collection {
   coordinate_x  Int
   coordinate_y  Int
   events        Event[]
-  items         Item[]
+  tokens        Token[]
   minted        Int
   shop_name     String
   owner         Owner?  @relation(fields: [owner_id], references: [owner_id])

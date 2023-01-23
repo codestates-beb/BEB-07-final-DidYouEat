@@ -9,7 +9,7 @@ type content = {
 };
 
 ownerRouter.get(
-  "/:owner_id/collection",
+  "/:owner_id/collections",
   async (req: Request, res: Response) => {
     let data: content;
 

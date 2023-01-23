@@ -7,11 +7,11 @@ const getAllToken = async (wallet_address: string) => {
         wallet_address,
       },
       include: {
-        items: true,
+        tokens: true,
       },
     });
 
-    if (user) return user.items;
+    if (user) return user.tokens;
     else return [];
   } catch (e) {
     console.log(e);

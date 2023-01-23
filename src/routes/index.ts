@@ -1,13 +1,13 @@
 import { userRouter } from "./user.route";
 import { ownerRouter } from "./owner.route";
 import { collectionRouter } from "./collection.route";
-import { itemRouter } from "./item.route";
+import { tokenRouter } from "./token.route";
 
 const router = {
   userRouter,
   ownerRouter,
   collectionRouter,
-  itemRouter,
+  tokenRouter,
 };
 
 export { router };

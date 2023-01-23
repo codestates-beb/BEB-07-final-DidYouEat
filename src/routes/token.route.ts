@@ -1,30 +1,30 @@
 import express, { Request, Response } from "express";
-import { itemUtil } from "../../prisma/scripts/item";
+import { tokenUtil } from "../../prisma/scripts/token";
 
-const itemRouter = express.Router();
+const tokenRouter = express.Router();
 
 type content = {
   status: string;
   message: object | string | Array<object>;
 };
 
-itemRouter.get("/", async (req: Request, res: Response) => {
+tokenRouter.get("/", async (req: Request, res: Response) => {
   let data: content;
 
   try {
-    const items = await itemUtil.getAllItem();
+    const tokens = await tokenUtil.getAllToken();
 
-    if (!items) {
+    if (!tokens) {
       data = {
         status: "success",
         message: "no data",
       };
-      return res.status(200).json(items);
+      return res.status(200).json(tokens);
     }
 
     data = {
       status: "success",
-      message: items,
+      message: tokens,
     };
 
     return res.status(200).json(data);
@@ -37,13 +37,13 @@ itemRouter.get("/", async (req: Request, res: Response) => {
   }
 });
 
-itemRouter.get("/:token_id", async (req: Request, res: Response) => {
+tokenRouter.get("/:token_id", async (req: Request, res: Response) => {
   let data: content;
 
   try {
-    const item = await itemUtil.getItemDetail(parseInt(req.params.token_id));
+    const token = await tokenUtil.getTokenDetail(parseInt(req.params.token_id));
 
-    if (!item) {
+    if (!token) {
       data = {
         status: "success",
         message: "no data",
@@ -53,7 +53,7 @@ itemRouter.get("/:token_id", async (req: Request, res: Response) => {
 
     data = {
       status: "success",
-      message: item,
+      message: token,
     };
     return res.status(200).json(data);
   } catch (e) {
@@ -65,4 +65,4 @@ itemRouter.get("/:token_id", async (req: Request, res: Response) => {
   }
 });
 
-export { itemRouter };
+export { tokenRouter };

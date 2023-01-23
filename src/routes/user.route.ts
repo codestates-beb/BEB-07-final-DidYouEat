@@ -8,6 +8,35 @@ type content = {
   message: object | string | Array<object>;
 };
 
+userRouter.get("/", async (req: Request, res: Response) => {
+  let data: content;
+
+  try {
+    const users = await userUtil.getAllUser();
+
+    if (!users) {
+      data = {
+        status: "success",
+        message: "no user",
+      };
+      return res.status(200).json(users);
+    }
+
+    data = {
+      status: "success",
+      message: users,
+    };
+
+    return res.status(200).json(data);
+  } catch (e) {
+    data = {
+      status: "failed",
+      message: "Bad Request",
+    };
+    return res.status(400).json(data);
+  }
+});
+
 userRouter.get("/:wallet_address", async (req: Request, res: Response) => {
   let data: content;
 
@@ -33,7 +62,7 @@ userRouter.get("/:wallet_address", async (req: Request, res: Response) => {
           status: "success",
           message: "create error",
         };
-        return res.status(400).json(data); // 좀 더 알아봐야함
+        return res.status(200).json(data); // 좀 더 알아봐야함
       }
 
       data = {
@@ -78,8 +107,8 @@ userRouter.patch("/changenick", async (req: Request, res: Response) => {
   let data: content;
 
   try {
-    const { wallet_address, new_nick } = req.body;
-    const updatedUser = await userUtil.changeNick(wallet_address, new_nick);
+    const { wallet_address, nickname } = req.body;
+    const updatedUser = await userUtil.changeNick(wallet_address, nickname);
 
     if (!updatedUser) {
       data = {
