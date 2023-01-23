@@ -46,7 +46,7 @@ tokenRouter.get("/:token_id", async (req: Request, res: Response) => {
     if (!token) {
       data = {
         status: "success",
-        message: "no data",
+        message: "no token info",
       };
       return res.status(200).json(data);
     }
