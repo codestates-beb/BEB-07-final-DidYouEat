@@ -69,7 +69,7 @@ async function collectionSeed() {
   await prisma.collection.create({
     data: {
       collection_id: "collection1",
-      img_url: "http://test1",
+      img_url: "https://post-melon.s3.ap-northeast-1.amazonaws.com/1.png",
       coordinate_x: 135,
       coordinate_y: 178,
       minted: 3,
@@ -81,7 +81,7 @@ async function collectionSeed() {
   await prisma.collection.create({
     data: {
       collection_id: "collection2",
-      img_url: "http://test2",
+      img_url: "https://post-melon.s3.ap-northeast-1.amazonaws.com/2.png",
       coordinate_x: 23,
       coordinate_y: 168,
       minted: 1,
@@ -93,7 +93,7 @@ async function collectionSeed() {
   await prisma.collection.create({
     data: {
       collection_id: "collection3",
-      img_url: "http://test3",
+      img_url: "https://post-melon.s3.ap-northeast-1.amazonaws.com/3.png",
       coordinate_x: 49,
       coordinate_y: 81,
       minted: 2,
@@ -105,7 +105,7 @@ async function collectionSeed() {
   await prisma.collection.create({
     data: {
       collection_id: "collection4",
-      img_url: "http://test4",
+      img_url: "https://post-melon.s3.ap-northeast-1.amazonaws.com/4.png",
       coordinate_x: 214,
       coordinate_y: 50,
       minted: 1,
@@ -117,7 +117,7 @@ async function collectionSeed() {
   await prisma.collection.create({
     data: {
       collection_id: "collection5",
-      img_url: "http://test5",
+      img_url: "https://post-melon.s3.ap-northeast-1.amazonaws.com/5.png",
       coordinate_x: 12,
       coordinate_y: 96,
       minted: 4,
@@ -129,7 +129,7 @@ async function collectionSeed() {
   await prisma.collection.create({
     data: {
       collection_id: "collection6",
-      img_url: "http://test6",
+      img_url: "https://post-melon.s3.ap-northeast-1.amazonaws.com/6.png",
       coordinate_x: 234,
       coordinate_y: 43,
       minted: 2,
