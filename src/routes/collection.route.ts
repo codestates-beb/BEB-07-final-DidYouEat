@@ -47,10 +47,10 @@ collectionRouter.get("/:collection_id", async (req: Request, res: Response) => {
 
     if (!detail) {
       data = {
-        status: "failed",
-        message: "Bad Request",
+        status: "success",
+        message: "no collection info",
       };
-      return res.status(400).json(data);
+      return res.status(200).json(data);
     }
 
     data = {

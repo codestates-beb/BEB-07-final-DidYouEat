@@ -112,10 +112,10 @@ userRouter.patch("/changenick", async (req: Request, res: Response) => {
 
     if (!updatedUser) {
       data = {
-        status: "failed",
+        status: "success",
         message: "no user",
       };
-      return res.status(400).json(data);
+      return res.status(200).json(data);
     }
 
     data = {
