@@ -145,7 +145,7 @@ async function tokenSeed() {
   await prisma.token.create({
     data: {
       token_id: 1,
-      comment: "taste good",
+      comment: "this is comment 1",
       user_wallet_address: "0xd05873F2E169829901dB479FA16aa52673a6DDd5",
       collection_id: "collection1",
     },
@@ -170,6 +170,7 @@ async function tokenSeed() {
   await prisma.token.create({
     data: {
       token_id: 4,
+      comment: "this is comment 4",
       user_wallet_address: "0xd05873F2E169829901dB479FA16aa52673a6DDd5",
       collection_id: "collection2",
     },
@@ -186,6 +187,7 @@ async function tokenSeed() {
   await prisma.token.create({
     data: {
       token_id: 6,
+      comment: "this is comment 6",
       user_wallet_address: "0x447093C80C28671BdB7F45719b1940adF9Db8199",
       collection_id: "collection2",
     },
@@ -194,6 +196,7 @@ async function tokenSeed() {
   await prisma.token.create({
     data: {
       token_id: 7,
+      comment: "this is comment 7",
       user_wallet_address: "0xd05873F2E169829901dB479FA16aa52673a6DDd5",
       collection_id: "collection2",
     },
@@ -210,6 +213,7 @@ async function tokenSeed() {
   await prisma.token.create({
     data: {
       token_id: 9,
+      comment: "this is comment 9",
       user_wallet_address: "0x447093C80C28671BdB7F45719b1940adF9Db8199",
       collection_id: "collection3",
     },
@@ -234,6 +238,7 @@ async function tokenSeed() {
   await prisma.token.create({
     data: {
       token_id: 12,
+      comment: "this is comment 12",
       user_wallet_address: "0x6d2b77eF75ED55BdA240f7F9Ba29D1aEfDdF9A9b",
       collection_id: "collection5",
     },
@@ -266,6 +271,7 @@ async function tokenSeed() {
   await prisma.token.create({
     data: {
       token_id: 16,
+      comment: "this is comment 16",
       user_wallet_address: "0x447093C80C28671BdB7F45719b1940adF9Db8199",
       collection_id: "collection5",
     },
@@ -274,6 +280,7 @@ async function tokenSeed() {
   await prisma.token.create({
     data: {
       token_id: 17,
+      comment: "this is comment 17",
       user_wallet_address: "0x28E5f0F592B43B3dCE2536Fc2f7eaD7F82466842",
       collection_id: "collection5",
     },
@@ -282,6 +289,7 @@ async function tokenSeed() {
   await prisma.token.create({
     data: {
       token_id: 18,
+      comment: "this is comment 18",
       user_wallet_address: "0xd05873F2E169829901dB479FA16aa52673a6DDd5",
       collection_id: "collection5",
     },
@@ -298,6 +306,7 @@ async function tokenSeed() {
   await prisma.token.create({
     data: {
       token_id: 20,
+      comment: "this is comment 20",
       user_wallet_address: "0xe351c0d1e6818adEC7b5db725dB3a9b18Edcd24A",
       collection_id: "collection6",
     },
