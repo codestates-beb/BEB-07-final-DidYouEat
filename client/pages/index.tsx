@@ -10,6 +10,7 @@ export default function Home() {
         <div className="landing__main">
           <div className="landing__scroll1">
             <h1 className="landing__h1__right">A New Way to Capture My Favorite Restaurants</h1>
+
             <Image
               className="landing__illustration1"
               src="/images/Landing1.png"
@@ -73,8 +74,8 @@ export default function Home() {
           </div>
           <div className="landing__scroll5">
             <button className="landing__button">Get Started</button>
-            <Link href="/admin" className="landing__showOwner">
-              Are You a Shop Owner?
+            <Link href="/admin" className="landing__shopOwner">
+              사장님이신가요?
             </Link>
           </div>
         </div>
