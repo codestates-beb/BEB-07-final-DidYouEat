@@ -1,5 +1,5 @@
 import Header from "@/src/components/Header";
-import NFT from "@/src/components/NFT";
+import NFT from "@/src/components/nft";
 export default function Collection() {
   return (
     <div className="collection">
