@@ -1,7 +1,7 @@
-import Image from 'next/image';
-import Header from '@/src/components/Header';
-import Link from 'next/link';
-import NFT from '@/src/components/nft';
+import Image from "next/image";
+import Header from "@/src/components/Header";
+import Link from "next/link";
+import NFT from "@/src/components/nft";
 export default function Home() {
   return (
     <>

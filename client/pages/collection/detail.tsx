@@ -1,5 +1,5 @@
-import Header from '@/src/components/Header';
-import Link from 'next/link';
+import Header from "@/src/components/Header";
+import Link from "next/link";
 export default function Collection() {
   return (
     <div className="detail">
