@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 export default function CreateStore() {
   const now = new Date();
+  const [date, setDate] = useState(new Date());
 
   return (
     <div className="create-store">
@@ -22,7 +23,9 @@ export default function CreateStore() {
 
       <div className="create-store__fieldset-container">
         <fieldset className="create-store__fieldset">
-          <h5 className="create-store-date">생성날짜 : 2023년 1월 30일</h5>
+          <h5 className="create-store-date">
+            생성날짜 : {date.getFullYear()}년 {date.getMonth() + 1}월 {date.getDate()}일
+          </h5>
         </fieldset>
         <fieldset className="create-store__fieldset">
           {/* <h5>매장이름</h5> */}

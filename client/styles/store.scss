@@ -1,6 +1,18 @@
 .admin-store {
   background-color: var(--main-text-color);
-
+  &__heading {
+    border-bottom: 1px solid var(--footer-color);
+    border-top: 1px solid var(--footer-color);
+    height: 52px;
+    display: flex;
+    align-items: center;
+    & > h2 {
+      color: var(--main-bg-color);
+      width: 990px;
+      margin: auto;
+      font-weight: 200;
+    }
+  }
   &__collection-layout {
     margin: auto;
     padding-bottom: 80px;
@@ -93,6 +105,39 @@
 .store-detail {
   background-color: var(--main-text-color);
   color: var(--main-bg-color);
+
+  &__heading {
+    border-bottom: 1px solid var(--footer-color);
+    border-top: 1px solid var(--footer-color);
+    height: 52px;
+    display: flex;
+    align-items: center;
+    & > h2 {
+      width: 990px;
+      margin: auto;
+      font-weight: 200;
+    }
+  }
+  &__title {
+    width: 990px;
+    margin: auto;
+    padding: 0 0 30px;
+    & > h1 {
+      text-align: center;
+      font-weight: 300;
+      font-size: 30px;
+    }
+    & > p {
+      text-align: center;
+      font-size: 12px;
+      line-height: 20px;
+      & span {
+        color: var(--point-color);
+        font-size: 10px;
+        cursor: pointer;
+      }
+    }
+  }
   &__container {
     width: 990px;
     margin: auto;
@@ -101,11 +146,102 @@
   &__image-qr {
     display: flex;
     justify-content: space-around;
+    align-items: center;
     cursor: pointer;
+    transition: all 300ms ease-in-out;
   }
   &__description {
     margin: 40px 0;
+
+    & > p {
+      padding: 15px 0;
+    }
+    &__detail {
+      border-top: 1px solid var(--footer-color);
+      padding: 40px 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      & > h2 {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-weight: 200;
+        font-size: 18px;
+
+        & .plus-button {
+          position: absolute;
+          right: 0;
+          width: 1em;
+          height: 2px;
+          background-color: var(--main-bg-color);
+          cursor: pointer;
+
+          &::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            width: 1em;
+            height: 2px;
+            background-color: var(--main-bg-color);
+            transform: rotate(90deg);
+          }
+          transition: all 300ms ease-in-out;
+        }
+        & .rotate-x {
+          transform: rotate(45deg);
+        }
+      }
+    }
+
+    &__link {
+      border-top: 1px solid var(--footer-color);
+      padding: 40px 0;
+
+      display: flex;
+      justify-content: space-around;
+    }
   }
+}
+
+.show {
+  padding-top: 15px;
+  max-height: 1000px;
+  transition: all 0.5s linear;
+}
+
+.hide {
+  margin: 0;
+  max-height: 0px;
+  transition: all 0.5s ease;
+
+  overflow: hidden;
+}
+.classic-button {
+  width: 300px;
+  padding: 18px 31px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  opacity: 0.9;
+  &:hover {
+    opacity: 1;
+  }
+  &:active {
+    opacity: 0.8;
+  }
+}
+
+.white-color {
+  background-color: var(--main-bg-color);
+  color: var(--main-text-color);
+}
+.yellow-color {
+  background-color: var(--point-color);
+  color: var(--main-text-color);
 }
 
 .create-store {
@@ -176,9 +312,6 @@
   }
 }
 
-.hide {
-  display: none;
-}
 .failure-message,
 .invalid-message,
 .strong-pw-message,
@@ -194,8 +327,8 @@
 .match-message,
 .valid-pw-message {
   margin-top: 3px;
-  color: var(--main-color);
-  border-color: var(--main-color);
+  color: var(--point-color);
+  border-color: var(--point-color);
   font-weight: 300;
 }
 
@@ -284,5 +417,31 @@
   & > ul {
     font-size: 10px;
     line-height: 10px;
+  }
+}
+
+.bigger {
+  z-index: 999;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: var(--main-text-color);
+  & > img {
+    width: 400px;
+    height: 400px;
+  }
+  & > img:first-child {
+    animation: rotate_image 5s cubic-bezier(0.6, 0.005, 0.145, 0.995) infinite;
+    animation-direction: alternate;
+
+    transform-origin: 50% 50%;
+  }
+}
+
+@keyframes rotate_image {
+  100% {
+    transform: rotate(360deg);
   }
 }

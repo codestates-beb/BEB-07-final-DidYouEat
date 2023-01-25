@@ -7,7 +7,10 @@ export default function Store() {
   return (
     <div className="admin-store">
       <AdminHeader></AdminHeader>
-      <h2 className="admin-store__title">나의 매장 목록보기</h2>
+      <div className="admin-store__heading">
+        <h2>My Store</h2>
+      </div>
+      <h2 className="admin-store__title">나의 매장 목록</h2>
       <div>
         <div className="admin-store__collection-layout">
           <Link href="/admin/store/1">
