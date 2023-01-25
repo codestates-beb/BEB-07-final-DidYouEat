@@ -3,7 +3,7 @@ export default function AdminFooter() {
     <div className="admin-footer">
       <div className="admin-footer__note">
         <div>사업자등록번호: 456-23-01098</div>
-        <div>최고경영자: jungyeon park, minsub kim | 최고기술경영자: dongmin kwon, jinwoo park </div>
+        <div>최고경영자: Jung Yeon Park, Min Seob Kim | 최고기술경영자: Dong Min Kwon, Jin Woo Park </div>
         <div>메일주소: didyoueat@didyou.eat | 주소 : 서울시 강남구 드림플러스 </div>
         <div>대표전화: 080-1234-3000 | 팩스: 02-6230-4000</div>
         <div className="admin-footer__service-description">
