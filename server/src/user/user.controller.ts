@@ -1,15 +1,15 @@
 import { Controller, Get, Patch } from '@nestjs/common';
 import { UserService } from './user.service';
 
-@Controller('/api/user')
+@Controller('/api/users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
-  @Get(':walletaddress')
+  @Get(':wallet_address')
   userMain(): object {
     return {};
   }
 
-  @Get(':walletAddress/tokens')
+  @Get(':wallet_address/tokens')
   getUserTokens(): object {
     return {};
   }
