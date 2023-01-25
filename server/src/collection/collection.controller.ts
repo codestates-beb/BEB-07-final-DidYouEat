@@ -1,7 +1,7 @@
 import { Controller, Get, Patch, Post } from '@nestjs/common';
 import { CollectionService } from './collection.service';
 
-@Controller('/api/collection')
+@Controller('/api/collections')
 export class CollectionController {
   constructor(private readonly collectionService: CollectionService) {}
   @Get()
@@ -9,7 +9,7 @@ export class CollectionController {
     return 'collection';
   }
 
-  @Get(':collectionId')
+  @Get(':collection_id')
   getCollection(): object {
     return {};
   }
