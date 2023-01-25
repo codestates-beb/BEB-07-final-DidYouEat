@@ -1,5 +1,4 @@
 import Link from "next/link";
-import axios from "axios";
 
 export default function NFT() {
   return (

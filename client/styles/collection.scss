@@ -47,6 +47,11 @@
     bottom: 50px;
     z-index: 3;
   }
+  &__main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 .detail {
   background-color: var(--main-bg-color);
@@ -73,6 +78,12 @@
     margin: 50px;
     position: fixed;
     bottom: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &__save:hover {
+    cursor: pointer;
   }
   &__title {
     margin-bottom: 30px;

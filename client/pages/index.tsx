@@ -10,7 +10,7 @@ export default function Home() {
         <Header />
         <div className="landing__main">
           <div className="landing__scroll1">
-            <h1 className="landing__h1__right">A New Way to Capture My Favorite Restaurants</h1>
+            <h1 className="landing__h1__right">A New Way to Capture Your Favorite Restaurants</h1>
 
             <Image
               className="landing__illustration1"
