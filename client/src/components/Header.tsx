@@ -1,6 +1,5 @@
 import Link from "next/link";
 import KlipButton from "./KlipButton";
-//import { prepare, request, getResult, getCardList } from "klip-sdk";
 
 export default function Header() {
   return (
