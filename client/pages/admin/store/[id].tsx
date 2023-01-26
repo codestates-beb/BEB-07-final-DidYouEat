@@ -83,7 +83,7 @@ const StoreDetail = () => {
           <Link href="/admin/store/1/stat">
             <div className="classic-button yellow-color">매장통계 보러가기</div>
           </Link>
-          <Link href="/admin/store/">
+          <Link href="/admin/store/1/edit">
             <div className="classic-button white-color">매장정보 수정하기</div>
           </Link>
         </div>

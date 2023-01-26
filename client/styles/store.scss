@@ -215,7 +215,7 @@
 
 .hide {
   margin: 0;
-  max-height: 0px;
+  max-height: 0px !important;
   transition: all 0.5s ease;
 
   overflow: hidden;
@@ -273,8 +273,7 @@
       text-align: center;
       font-size: 12px;
       line-height: 20px;
-      & > span {
-        color: var(--point-color);
+      & span {
         font-size: 10px;
         cursor: pointer;
       }
@@ -343,8 +342,9 @@
 .create-store {
   &__fieldset {
     border: none;
-    width: 990px;
     margin: 15px auto;
+    max-height: 400px;
+    transition: max-height 1s ease;
 
     width: 460px;
     &:has(.create-store-date) {
@@ -357,8 +357,9 @@
   &__fieldset-container {
     margin: auto;
     margin-top: 40px;
+    padding-bottom: 40px;
   }
-  .placeholder {
+  .label-placeholder {
     position: absolute;
     top: 50%;
     left: 10px;
@@ -387,7 +388,10 @@
 
     caret-color: var(--point-color);
   }
-  & input:focus-within + .placeholder {
+  & input:not(:focus) + .is-written {
+    display: none;
+  }
+  & input:focus-within + .label-placeholder {
     color: var(--point-color);
     font-size: 12px;
     top: -10px;
@@ -442,8 +446,46 @@
   }
 }
 
+.postmodal {
+  background: rgba(0, 0, 0, 0.8);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  & > div {
+    width: 60%;
+  }
+}
+
 @keyframes rotate_image {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.right-arrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  font-size: 25px;
+  line-height: 25px;
+  border-radius: 999px;
+  position: absolute;
+
+  top: 50%;
+  transform: translateY(-50%);
+  right: 65px;
+  border: 1px solid var(--footer-color);
+  cursor: pointer;
+}
+
+#address-input {
+  cursor: pointer;
 }

@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-export default function CreateStore() {
+export default function Edit() {
   const now = new Date();
   const [date, setDate] = useState(new Date());
   const [popup, setPopup] = useState(false);
@@ -96,11 +96,11 @@ export default function CreateStore() {
         <h2>Store NFT</h2>
       </div>
       <div className="create-store__body">
-        <h1>Store NFT 생성</h1>
+        <h1>Store NFT 수정</h1>
         <p>
           하나의 매장에 해당하는 Store NFT로 모든 Did You Eat의 서비스를 이용할 수 있습니다.
           <br />
-          Store NFT를 가지고 계십니까?
+          다른 Store NFT 수정하시겠습니까?
           <Link href="/admin/store">
             <span> 매장 보러가기 ↘</span>
           </Link>
