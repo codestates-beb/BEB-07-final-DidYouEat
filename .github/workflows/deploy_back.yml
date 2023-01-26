@@ -10,7 +10,7 @@ on:
 
 env:
   DOCKER_IMAGE: ghcr.io/dongminkwon/beb-07-final-didyoueat
-  VERSION: ${{github.sha}}
+  CONTAINER_NAME: nest_api
 
 jobs:
   build: # job id
@@ -50,9 +50,27 @@ jobs:
           file: ${{env.working-directory}}/Dockerfile #Dockerfile 경로
           platforms: linux/amd64
           push: true
-          tags: ${{env.DOCKER_IMAGE}}:${{env.VERSION}}
+          tags: ${{env.DOCKER_IMAGE}}:latest
           cache-from: type=gha # github action용 docker 캐시 적용
           cache-to: type=gha,mode=max
+
+  deploy:
+    needs: build
+    name: Deploy
+    runs-on: [ self-hosted, label-development ]
+    steps:
+      - name: Login to ghcr
+        uses: docker/login-action@v2.1.0
+        with:
+          registry: ghcr.io
+          username: ${{github.actor}}
+          password: ${{secrets.CR_PAT}}
+      
+      - name: Docker run
+        run: |
+          docker stop ${{env.CONTAINER_NAME}} && docker rm ${{env.CONTAINER_NAME}} && docker rmi ${{env.DOCKER_IMAGE}}
+          docker run -d -p 80:3000 --name ${{env.CONTAINER_NAME}} --restart always ${{env.DOCKER_IMAGE}}:latest
+
 
       # - name:
       #   uses: actions/cache@v3.2.3
