@@ -12,6 +12,8 @@ jobs:
   build: # job id
     env:
       CI: false # warning 무시
+      working-directory: ./server
+
     name: docker build # job 이름
     runs-on: ubuntu-latest # 실행환경
     defaults:
