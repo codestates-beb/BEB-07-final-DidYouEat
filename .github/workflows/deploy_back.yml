@@ -35,11 +35,13 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
-          context: ${{env.working-directory}}
-          file: ${{env.working-directory}}/Dockerfile
+          context: ${{env.working-directory}} # server경로로 context 설정
+          file: ${{env.working-directory}}/Dockerfile #Dockerfile 경로
           platforms: linux/amd64
           push: true
           tags: bronzefist/didapi:latest
+          cache-from: type=gha # github action용 docker 캐시 적용
+          cache-to: type=gha,mode=max
 
       # - name:
       #   uses: actions/cache@v3.2.3
