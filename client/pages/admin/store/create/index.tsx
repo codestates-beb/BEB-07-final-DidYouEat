@@ -1,10 +1,57 @@
 import AdminFooter from "@/src/components/AdminFooter";
 import AdminHeader from "@/src/components/AdminHeader";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export default function CreateStore() {
   const now = new Date();
   const [date, setDate] = useState(new Date());
+  const [image, setImage] = useState({
+    image_file: "",
+    preview_URL: "https://images.reactbricks.com/src_set/9e37bdce-6ee2-44da-93e9-2ac1f97e6ca8-500/MillerLite.webp",
+  });
+
+  const handleImgInputChange = (e) => {
+    const newImageFile = e.target.files[0];
+    const formData = new FormData();
+
+    formData.append("newImageFile", newImageFile);
+
+    for (const keyvalue of formData) {
+      console.log(keyvalue);
+    }
+
+    if (newImageFile) {
+      // 새로운 이미지를 올리면 createObjectURL()을 통해 생성한 기존 URL을 폐기
+      URL.revokeObjectURL(image.preview_URL);
+      const preview_URL = URL.createObjectURL(newImageFile);
+      setImage({
+        image_file: newImageFile,
+        preview_URL,
+      });
+      console.log(newImageFile);
+    }
+  };
+
+  // const postImageToServer = async () => {
+  //   if (image.image_file) {
+  //     const formData = new FormData();
+  //     formData.append("file", image.image_file);
+  //     console.log(formData);
+  //     await axios.post(SERVER_URL + "/profileimg", formData);
+  //     alert("서버에 등록이 완료되었습니다!");
+  //     setImage({
+  //       image_file: "",
+  //       preview_URL: "img/default_image.png",
+  //     });
+  //   } else {
+  //     alert("사진을 등록하세요!");
+  //   }
+  // };
+
+  useEffect(() => {
+    return URL.revokeObjectURL(image.preview_URL);
+  }, []);
 
   return (
     <div className="create-store">
@@ -68,8 +115,11 @@ export default function CreateStore() {
                 accept="image/*"
                 name="post_img"
                 className="createpost__img-input"
+                onChange={handleImgInputChange}
+                onClick={(e) => (e.target.value = null)}
                 id="img_file"></input>
             </div>
+            <Image src={image.preview_URL} alt="miler" width={250} height={250}></Image>
           </div>
           <div className="img-requirement">
             <h6>Image 요구사항</h6>

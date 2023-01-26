@@ -47,13 +47,12 @@ const StoreDetail = () => {
           <p>가게장소: 서울시 서초구 서초대로 72길 178-12</p>
         </div>
         <div className="store-detail__description__detail">
-          <h2>
+          <h2
+            onClick={() => {
+              setToggleDetail(!toggleDetail);
+            }}>
             매장정보 더보기
-            <div
-              onClick={() => {
-                setToggleDetail(!toggleDetail);
-              }}
-              className={toggleDetail ? "plus-button rotate-x" : "plus-button"}></div>
+            <div className={toggleDetail ? "plus-button rotate-x" : "plus-button"}></div>
           </h2>
           <p className={toggleDetail ? "show " : "hide"}>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta harum rerum cum suscipit doloribus
@@ -81,7 +80,7 @@ const StoreDetail = () => {
           </p>
         </div>
         <div className="store-detail__description__link">
-          <Link href="/admin/store/:id/stat">
+          <Link href="/admin/store/1/stat">
             <div className="classic-button yellow-color">매장통계 보러가기</div>
           </Link>
           <Link href="/admin/store/">

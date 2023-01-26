@@ -5,7 +5,9 @@
 @import "./collection.scss";
 @import "./info.scss";
 @import "./store.scss";
-:root {
+@import "./stars.scss";
+@import "./statistics.scss";
+:root  {
   --max-width: 1100px;
   --border-radius: 12px;
 
