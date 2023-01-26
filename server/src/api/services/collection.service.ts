@@ -2,10 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { Response } from 'express';
 import { getEvents } from 'prisma/scripts/collection/getEvents';
 import { createEvent } from 'prisma/scripts/collection/newEvent';
-import { collection } from 'src/dto/collection.dto';
-import { event } from 'src/dto/event.dto';
-import { getCollectionData } from '../../prisma/scripts/collection/getCollection';
-import { createCollection } from '../../prisma/scripts/collection/newCollection';
+import { collection } from 'src/api/dto/collection.dto';
+import { event } from 'src/api/dto/event.dto';
+import { getCollectionData } from '../../../prisma/scripts/collection/getCollection';
+import { createCollection } from '../../../prisma/scripts/collection/newCollection';
 
 @Injectable()
 export class CollectionService {

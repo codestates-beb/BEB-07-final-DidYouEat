@@ -1,4 +1,4 @@
-import { event } from 'src/dto/event.dto';
+import { event } from 'src/api/dto/event.dto';
 import { prisma } from '../../prisma';
 
 const createEvent = async (data: event) => {
