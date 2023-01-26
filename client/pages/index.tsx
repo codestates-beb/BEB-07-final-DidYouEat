@@ -2,6 +2,7 @@ import Image from "next/image";
 import Header from "@/src/components/Header";
 import Link from "next/link";
 import NFT from "@/src/components/nft";
+import KlipButton from "@/src/components/KlipButton";
 export default function Home() {
   return (
     <>
@@ -9,7 +10,7 @@ export default function Home() {
         <Header />
         <div className="landing__main">
           <div className="landing__scroll1">
-            <h1 className="landing__h1__right">A New Way to Capture My Favorite Restaurants</h1>
+            <h1 className="landing__h1__right">A New Way to Capture Your Favorite Restaurants</h1>
 
             <Image
               className="landing__illustration1"
@@ -73,7 +74,7 @@ export default function Home() {
             </div>
           </div>
           <div className="landing__scroll5">
-            <button className="landing__button">Get Started</button>
+            <KlipButton />
             <Link href="/admin" className="landing__shopOwner">
               사장님이신가요?
             </Link>

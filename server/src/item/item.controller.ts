@@ -1,7 +1,7 @@
 import { Controller, Get, Post } from '@nestjs/common';
 import { ItemService } from './item.service';
 
-@Controller('api/item')
+@Controller('api/items')
 export class ItemController {
   constructor(private readonly itemService: ItemService) {}
 
@@ -10,7 +10,7 @@ export class ItemController {
     return {};
   }
 
-  @Get(':tokenId')
+  @Get(':token_id')
   getItem(): object {
     return {};
   }

@@ -10,20 +10,20 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Item {
-  token_id           Int         @id
-  created_at         DateTime
-  comment            String
-  User               User?       @relation(fields: [userWallet_address], references: [wallet_address])
-  userWallet_address String?
-  Collection         Collection? @relation(fields: [Colelction_id], references: [colelction_id])
-  Colelction_id      String?
+model Token {
+  token_id            Int         @id
+  created_at          DateTime    @default(now())
+  comment             String?
+  user                User?       @relation(fields: [user_wallet_address], references: [wallet_address])
+  user_wallet_address String
+  collection          Collection? @relation(fields: [collection_id], references: [collection_id])
+  collection_id       String
 }
 
 model User {
-  wallet_address String @id
-  username       String
-  items          Item[]
+  wallet_address String  @id
+  nickname       String
+  tokens         Token[]
 }
 
 model Owner {
@@ -33,24 +33,22 @@ model Owner {
 }
 
 model Collection {
-  colelction_id String  @id
+  collection_id String   @id
   img_url       String
-  created_at    String
+  created_at    DateTime @default(now())
   coordinate_x  Int
   coordinate_y  Int
   events        Event[]
-  items         Item[]
-  minted        Int
-  shop_owner_id String
+  tokens        Token[]
+  minted        Int      @default(0)
   shop_name     String
-  Owner         Owner?  @relation(fields: [Owner_id], references: [owner_id])
-  Owner_id      String?
+  owner         Owner?   @relation(fields: [owner_id], references: [owner_id])
+  owner_id      String
 }
 
 model Event {
-  id            Int         @id
-  collection_id String
+  id            Int         @id @default(autoincrement())
   content       String
-  Collection    Collection? @relation(fields: [Colelction_id], references: [colelction_id])
-  Colelction_id String?
+  collection    Collection? @relation(fields: [collection_id], references: [collection_id])
+  collection_id String
 }
