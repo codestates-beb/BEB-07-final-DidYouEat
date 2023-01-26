@@ -1,11 +1,11 @@
 import { Body, Controller, Get, Post, Res } from '@nestjs/common';
-import { signServices } from './auth.service';
+import { SignServices } from '../services/sign.service';
 import { Response } from 'express';
-import { ownerSignDto } from 'src/dto/ownerSign.dto';
+import { ownerSignDto } from 'src/api/dto/ownerSign.dto';
 
 @Controller('/api/auth')
 export class AuthController {
-  constructor(private readonly authServices: signServices) {}
+  constructor(private readonly authServices: SignServices) {}
 
   @Get()
   authMain(): object {

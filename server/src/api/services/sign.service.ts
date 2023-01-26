@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { ownerSignUp } from '../../prisma/scripts/auth/ownerSignUp';
-import { getOwner } from '../../prisma/scripts/auth/getOwner';
+import { ownerSignUp } from '../../../prisma/scripts/auth/ownerSignUp';
+import { getOwner } from '../../../prisma/scripts/auth/getOwner';
 import { Response } from 'express';
-import { ownerSignDto } from 'src/dto/ownerSign.dto';
+import { ownerSignDto } from 'src/api/dto/ownerSign.dto';
 
 @Injectable()
-export class signServices {
+export class SignServices {
   async signUp(body: ownerSignDto, res: Response): Promise<Response> {
     if (Object.keys(body).length !== 2)
       return res.status(400).send({ status: 'failed', message: 'Bad Request' });
