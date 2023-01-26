@@ -9,7 +9,7 @@ on:
   workflow_dispatch: # 직접실행 옵션
 
 env:
-  DOCKER_IMAGE: ghcr.io/dongminkwon/beb-07-final-didyoueat
+  DOCKER_IMAGE: ghcr.io/codestates-beb/beb-07-final-didyoueat
   CONTAINER_NAME: nest_api
 
 jobs:
