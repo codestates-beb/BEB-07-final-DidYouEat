@@ -8,6 +8,10 @@ on:
       - server/**
   workflow_dispatch: # 직접실행 옵션
 
+env:
+  DOCKER_IMAGE: ghcr.io/dongminkwon/beb-07-final-didyoueat
+  VERSION: ${{github.sha}}
+
 jobs:
   build: # job id
     env:
@@ -46,7 +50,7 @@ jobs:
           file: ${{env.working-directory}}/Dockerfile #Dockerfile 경로
           platforms: linux/amd64
           push: true
-          tags: bronzefist/didapi:latest
+          tags: ${{env.DOCKER_IMAGE}}:${{env.VERSION}}
           cache-from: type=gha # github action용 docker 캐시 적용
           cache-to: type=gha,mode=max
 
