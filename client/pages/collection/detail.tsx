@@ -13,7 +13,9 @@ export default function Collection() {
         <p>0번째 방문이에요</p>
       </div>
 
-      <button className="detail__save">이미지저장</button>
+      <a className="detail__save" href="image link" download>
+        <button className="detail__save">이미지저장</button>
+      </a>
     </div>
   );
 }
