@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useRecoilState } from "recoil";
 import { UserId } from "../recoil/states";
 
-export default function AdminHeader() {
+export default function AdminHeader({ setLoginToggle }) {
   const [userId, setUserId] = useRecoilState(UserId);
 
   return (
@@ -16,6 +16,7 @@ export default function AdminHeader() {
             <div
               onClick={() => {
                 setUserId("jinwoo");
+                setLoginToggle(true);
               }}
               className="admin-header__item">
               Log in

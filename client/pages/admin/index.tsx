@@ -1,12 +1,17 @@
 import AdminFooter from "@/src/components/AdminFooter";
 import AdminHeader from "@/src/components/AdminHeader";
+import AdminLogin from "@/src/components/AdminLogin";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Admin() {
+  const [loginToggle, setLoginToggle] = useState(false);
+
   return (
     <>
       <div className="admin">
-        <AdminHeader></AdminHeader>
+        {loginToggle && <AdminLogin setLoginToggle={setLoginToggle}></AdminLogin>}
+        <AdminHeader setLoginToggle={setLoginToggle}></AdminHeader>
         <div id="stars"></div>
         <div id="stars2"></div>
         <div id="stars3"></div>
