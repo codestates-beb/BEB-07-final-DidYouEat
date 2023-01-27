@@ -1,8 +1,7 @@
 FROM node:16
 
 # 환경변수 설정
-ENV PORT=3000 \
-    DATABASE_URL="postgresql://didyoueat:123qwe@13.125.245.139:5432/didyoudb"
+ENV PORT=3000
 
 # working directory 설정
 WORKDIR /usr/src/app

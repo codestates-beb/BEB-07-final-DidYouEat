@@ -1,4 +1,4 @@
-import { collection } from 'src/dto/collection.dto';
+import { collection } from 'src/api/dto/collection.dto';
 import { prisma } from '../../prisma';
 
 const createCollection = async (data: collection) => {

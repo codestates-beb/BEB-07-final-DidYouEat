@@ -6,7 +6,7 @@ on:
       - dev
     paths: # 경로 설정
       - client/**
-    workflow_dispatch: # 직접실행 옵션
+  workflow_dispatch: # 직접실행 옵션
 
 jobs:
   build: # job id

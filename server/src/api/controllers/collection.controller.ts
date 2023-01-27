@@ -1,8 +1,8 @@
 import { Body, Controller, Get, Param, Patch, Post, Res } from '@nestjs/common';
 import { Response } from 'express';
-import { collection } from 'src/dto/collection.dto';
-import { event } from 'src/dto/event.dto';
-import { CollectionService } from './collection.service';
+import { collection } from 'src/api/dto/collection.dto';
+import { event } from 'src/api/dto/event.dto';
+import { CollectionService } from '../services/collection.service';
 
 @Controller('/api/collections')
 export class CollectionController {
