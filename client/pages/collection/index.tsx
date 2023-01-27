@@ -3,6 +3,7 @@ import NFT from "@/src/components/nft";
 export default function Collection() {
   function handleScan() {
     console.log("open camera");
+    //deeplink to camera
   }
   return (
     <div className="collection">
