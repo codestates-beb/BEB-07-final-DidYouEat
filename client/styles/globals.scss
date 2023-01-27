@@ -7,7 +7,8 @@
 @import "./store.scss";
 @import "./stars.scss";
 @import "./statistics.scss";
-:root  {
+@import "./failed.scss";
+:root {
   --max-width: 1100px;
   --border-radius: 12px;
 
