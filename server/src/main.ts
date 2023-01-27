@@ -1,5 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { findEvent } from '../chainUtils/eventListener';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -13,3 +14,4 @@ async function bootstrap() {
     `);
 }
 bootstrap();
+findEvent();
