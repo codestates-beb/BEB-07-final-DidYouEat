@@ -8,8 +8,8 @@ export default function AdminHeader() {
           <div className="admin-header__logo">Did you Eat?</div>
         </Link>
         <div className="admin-header__li">
-          <div className="admin-header__item">login</div>
-          <div className="admin-header__item">mypage</div>
+          <div className="admin-header__item">Log in</div>
+          <div className="admin-header__item">Sign up</div>
         </div>
       </div>
     </nav>

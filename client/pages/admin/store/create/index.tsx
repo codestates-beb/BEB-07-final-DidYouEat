@@ -4,10 +4,13 @@ import PostalCode from "@/src/components/PostalCode";
 import next from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import axios from "axios";
 
 export default function CreateStore() {
   const now = new Date();
+  const storeNameRef = useRef();
+  const storeDetailAddressRef = useRef();
   const [date, setDate] = useState(new Date());
   const [popup, setPopup] = useState(false);
   const [image, setImage] = useState({
@@ -85,6 +88,33 @@ export default function CreateStore() {
   //   }
   // };
 
+  const sendFileToIPFS = async (e) => {
+    if (image.image_file) {
+      try {
+        const formData = new FormData();
+        formData.append("file", image.image_file);
+
+        const resFile = await axios({
+          method: "post",
+          url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
+          data: formData,
+          headers: {
+            pinata_api_key: `${process.env.PINATA_API_KEY}`,
+            pinata_secret_api_key: `${process.env.PINATA_API_SECRET}`,
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
+        const ImgHash = `ipfs://${resFile.data.IpfsHash}`;
+        console.log(ImgHash);
+        //Take a look at your Pinata Pinned section, you will see a new file added to you list.
+      } catch (error) {
+        console.log("Error sending File to IPFS: ");
+        console.log(error);
+      }
+    }
+  };
+
   useEffect(() => {
     return URL.revokeObjectURL(image.preview_URL);
   }, []);
@@ -116,8 +146,13 @@ export default function CreateStore() {
         <fieldset className="create-store__fieldset">
           {/* <h5>매장이름</h5> */}
           <div className="input-area">
-            <input onChange={handleStoreNameInput} type="text"></input>
-            <label htmlFor="input" className={store.name === "" ? "label-placeholder" : "label-placeholder is-written"}>
+            <input ref={storeNameRef} onChange={handleStoreNameInput} type="text"></input>
+            <label
+              onClick={() => {
+                storeNameRef.current.focus();
+              }}
+              htmlFor="input"
+              className={store.name === "" ? "label-placeholder" : "label-placeholder is-written"}>
               매장이름을 입력해주세요.
             </label>
           </div>
@@ -131,14 +166,16 @@ export default function CreateStore() {
           <div className="input-area">
             <input
               id="address-input"
-              onFocus={togglePopup}
+              onClick={togglePopup}
               onChange={handleStoreAddressInput}
               value={store.address}
               type="text"></input>
             <label htmlFor="input" className={store.address === "" ? "label-placeholder" : "label-placeholder hide"}>
               주소 찾기
             </label>
-            <span className="right-arrow">➡️</span>
+            <span onClick={togglePopup} className="right-arrow">
+              ➡️
+            </span>
           </div>
           {popup && <PostalCode popup={popup} setPopup={setPopup} store={store} setStore={setStore}></PostalCode>}
           <div className="failure-message hide">아이디는 네 글자 이상이어야 합니다.</div>
@@ -149,8 +186,11 @@ export default function CreateStore() {
         <fieldset className={store.address === "" ? "create-store__fieldset hide" : "create-store__fieldset"}>
           {/* <h5>매장 상세주소</h5> */}
           <div className="input-area">
-            <input type="text" onChange={handleStoreDetailInput}></input>
+            <input ref={storeDetailAddressRef} type="text" onChange={handleStoreDetailInput}></input>
             <label
+              onClick={() => {
+                storeDetailAddressRef.current.focus();
+              }}
               htmlFor="input"
               className={store.detail_address === "" ? "label-placeholder" : "label-placeholder is-written"}>
               매장 상세주소를 입력해주세요.
@@ -190,6 +230,11 @@ export default function CreateStore() {
               <li>png, gif 파일만 지원됩니다.</li>
               <li>Recommended: measures 500x500px, round shape, size less than 200KB (Max. 4MB)</li>
             </ul>
+          </div>
+        </fieldset>
+        <fieldset className="create-store__fieldset">
+          <div onClick={sendFileToIPFS} className="classic-button yellow-color  margin-auto">
+            생성하기
           </div>
         </fieldset>
       </div>

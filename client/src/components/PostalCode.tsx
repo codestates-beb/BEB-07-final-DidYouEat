@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import DaumPostcode from "react-daum-postcode";
 
 export default function PostalCode({ popup, setPopup, store, setStore }) {
-  const postmodal = useRef();
   const handleComplete = (data) => {
     let fullAddress = data.address;
     let extraAddress = "";
@@ -33,7 +32,7 @@ export default function PostalCode({ popup, setPopup, store, setStore }) {
 
   return (
     <div onClick={togglePopup} className="postmodal">
-      <div ref={postmodal}>
+      <div>
         <DaumPostcode autoClose onComplete={handleComplete} />
       </div>
     </div>

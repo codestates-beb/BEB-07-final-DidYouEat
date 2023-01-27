@@ -19,48 +19,6 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, ArcEleme
 
 import { Line, Bar, Doughnut } from "react-chartjs-2";
 
-// const options = {
-//   plugin: {
-//     legend: {
-//       display: false,
-//     },
-//     title: {
-//       display: true,
-//       text: "POAP minted number",
-//       color: "white",
-//       font: {
-//         size: 18,
-//       },
-//     },
-//   },
-//   element: {
-//     line: {
-//       tension: 0,
-//       borderWidth: 1,
-//       borderColor: "lime",
-//       fill: "start",
-//       backgroundColor: "lime",
-//     },
-//     point: {
-//       radius: 10,
-//       hitRadius: 10,
-//     },
-//     scales: {
-//       x: {
-//         display: true,
-//         ticks: {
-//           color: "white",
-//         },
-//       },
-//       y: {
-//         display: true,
-//         ticks: {
-//           color: "white",
-//         },
-//       },
-//     },
-//   },
-// };
 export const data = {
   labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
   datasets: [

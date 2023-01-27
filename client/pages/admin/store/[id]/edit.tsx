@@ -192,6 +192,9 @@ export default function Edit() {
             </ul>
           </div>
         </fieldset>
+        <fieldset className="create-store__fieldset">
+          <div className="classic-button yellow-color  margin-auto">수정하기</div>
+        </fieldset>
       </div>
 
       <AdminFooter></AdminFooter>

@@ -228,6 +228,7 @@
   align-items: center;
   border-radius: 5px;
   opacity: 0.9;
+  cursor: pointer;
   &:hover {
     opacity: 1;
   }
@@ -417,6 +418,8 @@
 }
 
 .img-requirement {
+  margin-top: -30px;
+  margin-bottom: 30px;
   & > h6 {
     margin: 10px 0 10px;
   }
@@ -488,4 +491,8 @@
 
 #address-input {
   cursor: pointer;
+}
+
+.margin-auto {
+  margin: auto;
 }
