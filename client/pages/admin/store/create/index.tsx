@@ -9,8 +9,8 @@ import axios from "axios";
 
 export default function CreateStore() {
   const now = new Date();
-  const storeNameRef = useRef();
-  const storeDetailAddressRef = useRef();
+  const storeNameRef: any = useRef();
+  const storeDetailAddressRef: any = useRef();
   const [date, setDate] = useState(new Date());
   const [popup, setPopup] = useState(false);
   const [image, setImage] = useState({
@@ -23,14 +23,14 @@ export default function CreateStore() {
     detail_address: "",
   });
 
-  const handleStoreAddressInput = (e) => {
+  const handleStoreAddressInput = (e: any) => {
     setStore({
       ...store,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleStoreNameInput = (e) => {
+  const handleStoreNameInput = (e: any) => {
     setStore((prev) => {
       const next = { ...prev };
       next.name = e.target.value;
@@ -38,7 +38,7 @@ export default function CreateStore() {
     });
   };
 
-  const handleStoreDetailInput = (e) => {
+  const handleStoreDetailInput = (e: any) => {
     setStore((prev) => {
       const next = { ...prev };
       next.detail_address = e.target.value;
@@ -50,7 +50,7 @@ export default function CreateStore() {
     setPopup(!popup);
   };
 
-  const handleImgInputChange = (e) => {
+  const handleImgInputChange = (e: any) => {
     const newImageFile = e.target.files[0];
     const formData = new FormData();
 
@@ -88,7 +88,7 @@ export default function CreateStore() {
   //   }
   // };
 
-  const sendFileToIPFS = async (e) => {
+  const sendFileToIPFS = async (e: any) => {
     if (image.image_file) {
       try {
         const formData = new FormData();
@@ -121,7 +121,7 @@ export default function CreateStore() {
 
   return (
     <div className="create-store">
-      <AdminHeader></AdminHeader>
+      <AdminHeader setLoginToggle={undefined}></AdminHeader>
       <div className="create-store__heading">
         <h2>Store NFT</h2>
       </div>
@@ -219,7 +219,7 @@ export default function CreateStore() {
                 name="post_img"
                 className="createpost__img-input"
                 onChange={handleImgInputChange}
-                onClick={(e) => (e.target.value = null)}
+                onClick={(e: any) => (e.target.value = null)}
                 id="img_file"></input>
             </div>
             <Image src={image.preview_URL} alt="miler" width={250} height={250}></Image>

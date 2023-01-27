@@ -46,7 +46,7 @@ export const data = {
   ],
 };
 
-var defaultData = {
+const defaultData = {
   labels: [
     //x 축
     "1",
@@ -108,7 +108,7 @@ export default function Stat() {
   const id = Number(router.query.id);
   return (
     <div className="store-stat">
-      <AdminHeader></AdminHeader>
+      <AdminHeader setLoginToggle={undefined}></AdminHeader>
       <div className="store-detail__heading">
         <h2>Store Stats</h2>
       </div>

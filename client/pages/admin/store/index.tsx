@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function Store() {
   return (
     <div className="admin-store">
-      <AdminHeader></AdminHeader>
+      <AdminHeader setLoginToggle={undefined}></AdminHeader>
       <div className="admin-store__heading">
         <h2>My Store</h2>
       </div>
