@@ -1,6 +1,9 @@
 .admin {
-  background-color: var(--main-text-color);
   color: var(--main-bg-color);
+  height: 100%;
+  background: radial-gradient(ellipse at bottom, var(--main-text-color) 0%, #090a0f 100%);
+
+  overflow: hidden;
   &__h1 {
     font-size: 40px;
     margin-bottom: 30px;
