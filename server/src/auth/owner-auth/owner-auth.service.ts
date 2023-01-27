@@ -3,9 +3,11 @@ import { ownerSignUp } from '../../../prisma/scripts/auth/ownerSignUp';
 import { getOwner } from '../../../prisma/scripts/auth/getOwner';
 import { Response } from 'express';
 import { ownerSignDto } from 'src/api/dto/ownerSign.dto';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
-export class SignServices {
+export class OwnerAuthService {
+  constructor(private jwtService: JwtService) {}
   async signUp(body: ownerSignDto, res: Response): Promise<Response> {
     if (Object.keys(body).length !== 2)
       return res.status(400).send({ status: 'failed', message: 'Bad Request' });
@@ -21,18 +23,23 @@ export class SignServices {
   }
 
   async signIn(body: ownerSignDto, res: Response): Promise<Response> {
-    if (Object.keys(body).length !== 2)
+    if (Object.keys(body).length !== 2 || !body.id || !body.password)
       return res.status(400).send({ status: 'failed', message: 'Bad Request' });
     const ownerData = await getOwner(body.id);
     if (ownerData === null)
       return res
-        .status(200)
+        .status(401)
         .send({ status: 'failed', message: 'No matching owner' });
-    if (ownerData.owner_pw === body.password)
-      return res.status(200).send({ status: 'success', message: 'success' });
-    else
+    if (ownerData.owner_pw === body.password) {
+      // 유저토큰 생성
+      const payload = { userId: body.id };
+      const accessToken = this.jwtService.sign(payload);
       return res
         .status(200)
+        .send({ status: 'success', message: { accessToken } });
+    } else
+      return res
+        .status(401)
         .send({ status: 'failed', message: 'signIn failed' });
   }
 }
