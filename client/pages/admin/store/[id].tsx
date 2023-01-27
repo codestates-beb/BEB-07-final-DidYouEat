@@ -13,7 +13,7 @@ const StoreDetail = () => {
 
   return (
     <div className="store-detail">
-      <AdminHeader></AdminHeader>
+      <AdminHeader setLoginToggle={undefined}></AdminHeader>
       <div className="store-detail__heading">
         <h2>Store Detail</h2>
       </div>

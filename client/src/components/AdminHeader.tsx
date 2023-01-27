@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useRecoilState } from "recoil";
 import { UserId } from "../recoil/states";
 
-export default function AdminHeader({ setLoginToggle }) {
+export default function AdminHeader({ setLoginToggle }: { setLoginToggle: any }) {
   const [userId, setUserId] = useRecoilState(UserId);
 
   return (

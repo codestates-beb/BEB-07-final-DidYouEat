@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { useRef } from "react";
 
-export default function AdminLogin({ setLoginToggle }) {
-  const loginEl = useRef();
+export default function AdminLogin({ setLoginToggle }: { setLoginToggle: any }) {
+  const loginEl: any = useRef();
 
   return (
     <div

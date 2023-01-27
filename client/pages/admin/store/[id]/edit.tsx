@@ -20,14 +20,14 @@ export default function Edit() {
     detail_address: "",
   });
 
-  const handleStoreAddressInput = (e) => {
+  const handleStoreAddressInput = (e: any) => {
     setStore({
       ...store,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleStoreNameInput = (e) => {
+  const handleStoreNameInput = (e: any) => {
     setStore((prev) => {
       const next = { ...prev };
       next.name = e.target.value;
@@ -35,7 +35,7 @@ export default function Edit() {
     });
   };
 
-  const handleStoreDetailInput = (e) => {
+  const handleStoreDetailInput = (e: any) => {
     setStore((prev) => {
       const next = { ...prev };
       next.detail_address = e.target.value;
@@ -47,7 +47,7 @@ export default function Edit() {
     setPopup(!popup);
   };
 
-  const handleImgInputChange = (e) => {
+  const handleImgInputChange = (e: any) => {
     const newImageFile = e.target.files[0];
     const formData = new FormData();
 
@@ -91,7 +91,7 @@ export default function Edit() {
 
   return (
     <div className="create-store">
-      <AdminHeader></AdminHeader>
+      <AdminHeader setLoginToggle={undefined}></AdminHeader>
       <div className="create-store__heading">
         <h2>Store NFT</h2>
       </div>
@@ -179,7 +179,7 @@ export default function Edit() {
                 name="post_img"
                 className="createpost__img-input"
                 onChange={handleImgInputChange}
-                onClick={(e) => (e.target.value = null)}
+                onClick={(e: any) => (e.target.value = null)}
                 id="img_file"></input>
             </div>
             <Image src={image.preview_URL} alt="miler" width={250} height={250}></Image>

@@ -1,8 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
 import DaumPostcode from "react-daum-postcode";
 
-export default function PostalCode({ popup, setPopup, store, setStore }) {
-  const handleComplete = (data) => {
+export default function PostalCode({
+  popup,
+  setPopup,
+  store,
+  setStore,
+}: {
+  popup: any;
+  setPopup: any;
+  store: any;
+  setStore: any;
+}) {
+  const handleComplete = (data: any) => {
     let fullAddress = data.address;
     let extraAddress = "";
 
