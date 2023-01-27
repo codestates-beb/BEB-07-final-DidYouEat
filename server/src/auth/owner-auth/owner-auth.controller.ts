@@ -1,15 +1,24 @@
-import { Body, Controller, Get, Post, Res } from '@nestjs/common';
-import { SignServices } from '../services/sign.service';
+import {
+  Controller,
+  Post,
+  Body,
+  Res,
+  Get,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
+import { OwnerAuthService } from './owner-auth.service';
 import { Response } from 'express';
 import { ownerSignDto } from 'src/api/dto/ownerSign.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('/api/auth')
-export class AuthController {
-  constructor(private readonly authServices: SignServices) {}
-
-  @Get()
-  authMain(): object {
-    return { status: 'success' };
+export class OwnerAuthController {
+  constructor(private readonly authServices: OwnerAuthService) {}
+  @Get('/test')
+  @UseGuards(AuthGuard())
+  main(@Req() req) {
+    return 'good';
   }
 
   @Post('owner/signup')
