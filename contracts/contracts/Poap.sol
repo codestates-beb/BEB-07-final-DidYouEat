@@ -33,7 +33,7 @@ contract Poap is ERC721URIStorage, Ownable, Sbt{
   }
 
   function createCollection(string memory collectionName, address owner, string memory metaURI) public onlyOwner{
-    require(_existsCol(collectionName), "Poap createCollection : nonexistent collection");
+    require(!_existsCol(collectionName), "Poap: collection already created");
 
     _collectionOwners[collectionName] = owner;
     _collectionMinted[collectionName] = 0;
@@ -59,6 +59,14 @@ contract Poap is ERC721URIStorage, Ownable, Sbt{
     return newItemId;
   }
 
+  function unlock(uint256 tokenId) public onlyOwner existToken(tokenId){
+    _unlock(tokenId);
+  }
+
+  function lock(uint256 tokenId) public onlyOwner existToken(tokenId){
+    _lock(tokenId);
+  }
+
   //view
 
   function tokenCollection(uint256 tokenId) public view existToken(tokenId) returns(string memory){
@@ -66,7 +74,6 @@ contract Poap is ERC721URIStorage, Ownable, Sbt{
   }
 
   function collectionMinted(string memory collectionName) public view existCollection(collectionName) returns(uint256){
-    require(_existsCol(collectionName), "Poap collectionName: nonexistent collection");
     return _collectionMinted[collectionName];   
   }
 
@@ -76,6 +83,10 @@ contract Poap is ERC721URIStorage, Ownable, Sbt{
 
   function tokenCreatedAt(uint256 tokenId) public view existToken(tokenId) returns(uint256){
     return _tokenCreatedAt[tokenId];
+  }
+
+  function locked(uint256 tokenId) override public view returns(bool){
+    return super.locked(tokenId);
   }
 
   //sbt
@@ -100,12 +111,12 @@ contract Poap is ERC721URIStorage, Ownable, Sbt{
 
   //modifier
   modifier existToken(uint256 tokenId){
-    require(_exists(tokenId), "nonexistent token");
+    require(_exists(tokenId), "Poap: nonexistent token");
     _;
   }
 
   modifier existCollection(string memory collectionName){
-    require(_existsCol(collectionName), "nonexistent collection");
+    require(_existsCol(collectionName), "Poap: nonexistent collection");
     _;
   }
 
