@@ -4,6 +4,4 @@ pragma solidity ^0.8.7;
 
 import "../node_modules/@klaytn/contracts/access/AccessControl.sol";
 
-contract Auth is AccessControl{
-  
-}
+contract Auth is AccessControl {}

@@ -9,7 +9,7 @@ import "../node_modules/@klaytn/contracts/token/ERC721/extensions/ERC721URIStora
 import "./Sbt.sol";
 import "./Pausable.sol";
 
-contract Poap is ERC721URIStorage, Ownable, Sbt, Pausable{
+contract Poap is ERC721URIStorage, Ownable, Sbt, Pausable {
   using Counters for Counters.Counter;
   Counters.Counter private _tokenIds;
 
@@ -28,23 +28,27 @@ contract Poap is ERC721URIStorage, Ownable, Sbt, Pausable{
 
   //transactions
 
-  function transferOwnership(address newOwner) override public onlyOwner{
+  function transferOwnership(address newOwner) public override onlyOwner {
     require(newOwner != address(0), "Ownable: new owner is the zero address");
     _transferOwnership(newOwner);
   }
 
-  function createCollection(string memory collectionName, address owner, string memory metaURI)
-  public onlyOwner whenNotPaused{
+  function createCollection(
+    string memory collectionName,
+    address owner,
+    string memory metaURI
+  ) public onlyOwner whenNotPaused {
     require(!_existsCol(collectionName), "Poap: collection already created");
 
     _collectionOwners[collectionName] = owner;
     _collectionMinted[collectionName] = 0;
     _collectionMeta[collectionName] = metaURI;
-
   }
 
-  function tokenMint(address recipient, string memory collectionName)
-  public onlyOwner whenNotPaused returns(uint256){
+  function tokenMint(
+    address recipient,
+    string memory collectionName
+  ) public onlyOwner whenNotPaused returns (uint256) {
     _tokenIds.increment();
 
     uint256 newItemId = _tokenIds.current();
@@ -62,70 +66,91 @@ contract Poap is ERC721URIStorage, Ownable, Sbt, Pausable{
     return newItemId;
   }
 
-  function unlock(uint256 tokenId)
-  public onlyOwner existToken(tokenId) whenNotPaused{
+  function unlock(
+    uint256 tokenId
+  ) public onlyOwner existToken(tokenId) whenNotPaused {
     _unlock(tokenId);
   }
 
-  function lock(uint256 tokenId)
-  public onlyOwner existToken(tokenId) whenNotPaused{
+  function lock(
+    uint256 tokenId
+  ) public onlyOwner existToken(tokenId) whenNotPaused {
     _lock(tokenId);
   }
 
   //view
 
-  function tokenCollection(uint256 tokenId)
-  public view existToken(tokenId) returns(string memory){
+  function tokenCollection(
+    uint256 tokenId
+  ) public view existToken(tokenId) returns (string memory) {
     return _tokenCollection[tokenId];
   }
 
-  function collectionMinted(string memory collectionName)
-  public view existCollection(collectionName) returns(uint256){
-    return _collectionMinted[collectionName];   
+  function collectionMinted(
+    string memory collectionName
+  ) public view existCollection(collectionName) returns (uint256) {
+    return _collectionMinted[collectionName];
   }
 
-  function collectionOwner(string memory collectionName) 
-  public view existCollection(collectionName) returns(address){
+  function collectionOwner(
+    string memory collectionName
+  ) public view existCollection(collectionName) returns (address) {
     return _collectionOwners[collectionName];
   }
 
-  function tokenCreatedAt(uint256 tokenId) public view existToken(tokenId) returns(uint256){
+  function tokenCreatedAt(
+    uint256 tokenId
+  ) public view existToken(tokenId) returns (uint256) {
     return _tokenCreatedAt[tokenId];
   }
 
-  function locked(uint256 tokenId) override public view returns(bool){
+  function locked(uint256 tokenId) public view override returns (bool) {
     return super.locked(tokenId);
   }
 
   //sbt
 
-  function safeTransferFrom(address from, address to, uint256 tokenId) public override isUnLocked(tokenId) whenNotPaused{
+  function safeTransferFrom(
+    address from,
+    address to,
+    uint256 tokenId
+  ) public override isUnLocked(tokenId) whenNotPaused {
     super.safeTransferFrom(from, to, tokenId);
   }
 
-  function safeTransferFrom(address from, address to, uint256 tokenId, bytes memory data) public override isUnLocked(tokenId) whenNotPaused{
+  function safeTransferFrom(
+    address from,
+    address to,
+    uint256 tokenId,
+    bytes memory data
+  ) public override isUnLocked(tokenId) whenNotPaused {
     super.safeTransferFrom(from, to, tokenId, data);
   }
 
-  function transferFrom(address from, address to, uint256 tokenId) public override isUnLocked(tokenId) whenNotPaused{
+  function transferFrom(
+    address from,
+    address to,
+    uint256 tokenId
+  ) public override isUnLocked(tokenId) whenNotPaused {
     super.transferFrom(from, to, tokenId);
   }
 
   //internal
 
-  function _existsCol(string memory collectionName) internal view virtual returns (bool) {
+  function _existsCol(
+    string memory collectionName
+  ) internal view virtual returns (bool) {
     return _collectionOwners[collectionName] != address(0);
   }
 
   //modifier
-  modifier existToken(uint256 tokenId){
+  modifier existToken(uint256 tokenId) {
     require(_exists(tokenId), "Poap: nonexistent token");
     _;
   }
 
-  modifier existCollection(string memory collectionName){
+  modifier existCollection(string memory collectionName) {
     require(_existsCol(collectionName), "Poap: nonexistent collection");
     _;
   }
-
 }

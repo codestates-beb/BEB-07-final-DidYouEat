@@ -3,27 +3,25 @@ pragma solidity ^0.8.0;
 
 import "./IERC5192Minimal.sol";
 
-abstract contract Sbt is IERC5192{
+abstract contract Sbt is IERC5192 {
+  mapping(uint256 => bool) _tokenLocked;
 
-  mapping (uint256 => bool) _tokenLocked;
-
-  modifier isUnLocked(uint256 tokenId){
+  modifier isUnLocked(uint256 tokenId) {
     require(!locked(tokenId));
     _;
   }
-  
-  function locked(uint256 tokenId) override public view returns (bool){
+
+  function locked(uint256 tokenId) public view override returns (bool) {
     return _tokenLocked[tokenId];
   }
 
-  function _lock(uint256 tokenId) internal virtual{
+  function _lock(uint256 tokenId) internal virtual {
     _tokenLocked[tokenId] = true;
     emit Locked(tokenId);
   }
 
-  function _unlock(uint256 tokenId) internal virtual{
+  function _unlock(uint256 tokenId) internal virtual {
     _tokenLocked[tokenId] = false;
     emit Unlocked(tokenId);
   }
-
 }
