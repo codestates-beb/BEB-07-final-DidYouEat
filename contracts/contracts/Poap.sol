@@ -10,12 +10,18 @@ import "./Sbt.sol";
 import "./Pausable.sol";
 
 contract Poap is ERC721URIStorage, Ownable, Sbt, Pausable {
+
+  //utils
   using Counters for Counters.Counter;
   Counters.Counter private _tokenIds;
 
   constructor() ERC721("Poap", "DYE") {}
 
-  // EventId for each token
+  //events
+  event CreateCollection(string collectionName, string metaURI);
+  event MintToken(uint256 tokenId, string tokenURI, uint256 createdAt);
+
+  //mapping
   mapping(uint256 => string) private _tokenCollection;
 
   mapping(uint256 => uint256) private _tokenCreatedAt;
@@ -43,9 +49,11 @@ contract Poap is ERC721URIStorage, Ownable, Sbt, Pausable {
     _collectionOwners[collectionName] = owner;
     _collectionMinted[collectionName] = 0;
     _collectionMeta[collectionName] = metaURI;
+
+    emit CreateCollection(collectionName, metaURI);
   }
 
-  function tokenMint(
+  function mintToken(
     address recipient,
     string memory collectionName
   ) public onlyOwner whenNotPaused returns (uint256) {
@@ -62,6 +70,8 @@ contract Poap is ERC721URIStorage, Ownable, Sbt, Pausable {
     _lock(newItemId);
 
     _tokenCreatedAt[newItemId] = block.timestamp;
+
+    emit MintToken(newItemId, tokenURI, _tokenCreatedAt[newItemId]);
 
     return newItemId;
   }
