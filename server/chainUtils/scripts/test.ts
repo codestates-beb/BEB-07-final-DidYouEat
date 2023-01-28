@@ -1,4 +1,4 @@
-import { myContract } from '../setting';
+import { myContract } from './setting';
 
 async function testFunction() {
   // console.log(myContract);

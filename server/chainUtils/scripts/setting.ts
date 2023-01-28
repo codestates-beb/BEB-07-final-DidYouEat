@@ -1,9 +1,9 @@
 import Caver, { AbiItem } from 'caver-js';
-import { abi } from './abi/MyToken';
+import { abi } from '../abi/MyToken';
 
 import path = require('path');
 import dotenv = require('dotenv');
-dotenv.config({ path: `${path.dirname(__filename)}/../.env` });
+dotenv.config({ path: `${path.dirname(__filename)}/../../.env` });
 
 const caver = new Caver('https://api.baobab.klaytn.net:8651');
 
