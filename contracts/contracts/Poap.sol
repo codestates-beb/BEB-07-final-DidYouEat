@@ -14,30 +14,63 @@ contract Poap is ERC721URIStorage, Ownable{
 
   constructor() ERC721("Poap", "DYE") {}
 
-  // Base token URI
-  string private _baseURI;
-
   // EventId for each token
   mapping(uint256 => uint256) private _tokenCollection;
 
-  //transactions
+  mapping(uint256 => uint256) private _tokenCreatedAt;
 
-  function setBaseURI(string memory baseURI) public onlyOwner{
-    _baseURI = baseURI;
-  }
+  mapping(uint256 => address) private _collectionOwners;
+
+  mapping(uint256 => uint256) private _collectionMinted;
+
+  mapping(uint256 => string) private _collectionMeta;
+
+  //transactions
 
   function transferOwnership(address newOwner) override public onlyOwner{
     require(newOwner != address(0), "Ownable: new owner is the zero address");
     _transferOwnership(newOwner);
   }
 
-  // function mintCollection()
+  function createCollection(address owner, string memory metaURI) public onlyOwner{
 
+    _collectionIds.increment();
+    uint256 newCollectionId = _collectionIds.current();
 
+    _collectionOwners[newCollectionId] = owner;
+    _collectionMinted[newCollectionId] = 0;
+    _collectionMeta[newCollectionId] = metaURI;
+  }
+
+  function tokenMint(address recipient, uint256 collectionId) public onlyOwner returns(uint256){
+    _tokenIds.increment();
+
+    uint256 newItemId = _tokenIds.current();
+
+    _tokenCollection[newItemId] = collectionId;
+    _collectionMinted[collectionId] += 1;
+    string memory tokenURI = _collectionMeta[collectionId];
+
+    _mint(recipient, newItemId);
+    _setTokenURI(newItemId, tokenURI);
+
+    _tokenCreatedAt[newItemId] = block.timestamp;
+
+    return newItemId;
+  }
 
   //view
+
   function tokenCollection(uint256 tokenId) public view returns(uint256){
     return _tokenCollection[tokenId];
+  }
+
+  function collectionMinted(uint256 collectionId) public view returns(uint256){
+    return _collectionMinted[collectionId];   
+  }
+
+  function tokenCreatedAt(uint256 tokenId) public view returns(uint256){
+    return _tokenCreatedAt[tokenId];
   }
 
 }
