@@ -6,8 +6,24 @@ import "./IERC5192Minimal.sol";
 abstract contract Sbt is IERC5192{
 
   mapping (uint256 => bool) _tokenLocked;
-  
-  // function locked(uint256 tokenId) override external view returns (bool){
 
-  // };
+  modifier isUnLocked(uint256 tokenId){
+    require(!locked(tokenId));
+    _;
+  }
+  
+  function locked(uint256 tokenId) override public view returns (bool){
+    return _tokenLocked[tokenId];
+  }
+
+  function _lock(uint256 tokenId) internal virtual{
+    _tokenLocked[tokenId] = true;
+    emit Locked(tokenId);
+  }
+
+  function _unlock(uint256 tokenId) internal virtual{
+    _tokenLocked[tokenId] = false;
+    emit Unlocked(tokenId);
+  }
+
 }
