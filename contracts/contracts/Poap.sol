@@ -1,14 +1,15 @@
 //Contract based on [<https://docs.openzeppelin.com/contracts/3.x/erc721>](<https://docs.openzeppelin.com/contracts/3.x/erc721>)
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.7;
+pragma solidity ^0.8.0;
 
 import "../node_modules/@klaytn/contracts/token/ERC721/ERC721.sol";
 import "../node_modules/@klaytn/contracts/utils/Counters.sol";
 import "../node_modules/@klaytn/contracts/access/Ownable.sol";
 import "../node_modules/@klaytn/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "./Sbt.sol";
+import "./Pausable.sol";
 
-contract Poap is ERC721URIStorage, Ownable, Sbt{
+contract Poap is ERC721URIStorage, Ownable, Sbt, Pausable{
   using Counters for Counters.Counter;
   Counters.Counter private _tokenIds;
 
@@ -32,7 +33,8 @@ contract Poap is ERC721URIStorage, Ownable, Sbt{
     _transferOwnership(newOwner);
   }
 
-  function createCollection(string memory collectionName, address owner, string memory metaURI) public onlyOwner{
+  function createCollection(string memory collectionName, address owner, string memory metaURI)
+  public onlyOwner whenNotPaused{
     require(!_existsCol(collectionName), "Poap: collection already created");
 
     _collectionOwners[collectionName] = owner;
@@ -41,7 +43,8 @@ contract Poap is ERC721URIStorage, Ownable, Sbt{
 
   }
 
-  function tokenMint(address recipient, string memory collectionName) public onlyOwner returns(uint256){
+  function tokenMint(address recipient, string memory collectionName)
+  public onlyOwner whenNotPaused returns(uint256){
     _tokenIds.increment();
 
     uint256 newItemId = _tokenIds.current();
@@ -59,25 +62,30 @@ contract Poap is ERC721URIStorage, Ownable, Sbt{
     return newItemId;
   }
 
-  function unlock(uint256 tokenId) public onlyOwner existToken(tokenId){
+  function unlock(uint256 tokenId)
+  public onlyOwner existToken(tokenId) whenNotPaused{
     _unlock(tokenId);
   }
 
-  function lock(uint256 tokenId) public onlyOwner existToken(tokenId){
+  function lock(uint256 tokenId)
+  public onlyOwner existToken(tokenId) whenNotPaused{
     _lock(tokenId);
   }
 
   //view
 
-  function tokenCollection(uint256 tokenId) public view existToken(tokenId) returns(string memory){
+  function tokenCollection(uint256 tokenId)
+  public view existToken(tokenId) returns(string memory){
     return _tokenCollection[tokenId];
   }
 
-  function collectionMinted(string memory collectionName) public view existCollection(collectionName) returns(uint256){
+  function collectionMinted(string memory collectionName)
+  public view existCollection(collectionName) returns(uint256){
     return _collectionMinted[collectionName];   
   }
 
-  function collectionOwner(string memory collectionName) public view existCollection(collectionName) returns(address){
+  function collectionOwner(string memory collectionName) 
+  public view existCollection(collectionName) returns(address){
     return _collectionOwners[collectionName];
   }
 
@@ -91,15 +99,15 @@ contract Poap is ERC721URIStorage, Ownable, Sbt{
 
   //sbt
 
-  function safeTransferFrom(address from, address to, uint256 tokenId) public override isUnLocked(tokenId){
+  function safeTransferFrom(address from, address to, uint256 tokenId) public override isUnLocked(tokenId) whenNotPaused{
     super.safeTransferFrom(from, to, tokenId);
   }
 
-  function safeTransferFrom(address from, address to, uint256 tokenId, bytes memory data) public override isUnLocked(tokenId){
+  function safeTransferFrom(address from, address to, uint256 tokenId, bytes memory data) public override isUnLocked(tokenId) whenNotPaused{
     super.safeTransferFrom(from, to, tokenId, data);
   }
 
-  function transferFrom(address from, address to, uint256 tokenId) public override isUnLocked(tokenId){
+  function transferFrom(address from, address to, uint256 tokenId) public override isUnLocked(tokenId) whenNotPaused{
     super.transferFrom(from, to, tokenId);
   }
 
