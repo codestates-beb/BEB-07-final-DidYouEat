@@ -1,7 +1,21 @@
 import Header from "@/src/components/Header";
 import NFT from "@/src/components/nft";
+import { useEffect } from "react";
 export default function Collection() {
   function handleScan() {
+    // useEffect(() => {
+    //   navigator.camera.getPicture(onSuccess, onFail, {
+    //     quality: 50,
+    //     destinationType: Camera.destinationType.FILE_URI,
+    //   });
+    // }, []);
+
+    // const onSuccess = (imageData) => {
+    //   console.log(imageData);
+    // };
+    // const onFail = (message) => {
+    //   console.log(message);
+    // };
     console.log("open camera");
     //deeplink to camera
   }
