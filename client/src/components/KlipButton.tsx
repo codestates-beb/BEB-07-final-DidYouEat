@@ -47,9 +47,7 @@ export default function KlipButton() {
         return window.location.href = `kakaotalk://klipwallet/open?url=https://klipwallet.com/?target=/a2a?request_key=${request_key}`
       }
       else {
-        // QRCode.toCanvas(document.getElementById('canvas'),'sample', (err)=>{if(err)console.log(err); console.log('success')})
         return QRCode.toDataURL(`https://klipwallet.com/?target=/a2a?request_key=${request_key}`).then(res=>{
-          console.log(res)
           const imgEl = document.getElementById('authQR')
           imgEl!.setAttribute('src',res)
         })
