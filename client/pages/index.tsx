@@ -3,7 +3,6 @@ import Header from "@/src/components/Header";
 import Link from "next/link";
 import NFT from "@/src/components/nft";
 import KlipButton from "@/src/components/KlipButton";
-import Loading from "@/src/components/Loading";
 export default function Home() {
   return (
     <>
