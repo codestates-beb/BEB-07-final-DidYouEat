@@ -18,6 +18,7 @@ import {
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, ArcElement, Filler, Title, Tooltip, Legend);
 
 import { Line, Bar, Doughnut } from "react-chartjs-2";
+import AdminLayout from "@/src/components/AdminLayout";
 
 export const data = {
   labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
@@ -107,45 +108,44 @@ export default function Stat() {
   const router = useRouter();
   const id = Number(router.query.id);
   return (
-    <div className="store-stat">
-      <AdminHeader setLoginToggle={undefined}></AdminHeader>
-      <div className="store-detail__heading">
-        <h2>Store Stats</h2>
-      </div>
-      <div className="store-detail__container">
-        <div className="store-detail__title">
-          <h1>Miller Draft 서초 2점</h1>
-          <p>
-            Miller Draft 서초 2점의 Store NFT 정보입니다.
-            <br />
-            {/* Store NFT를 가지고 계십니까?{" "} */}
-            <Link href="/admin/store">
-              <span> 다른 매장 보러가기 ↘</span>
-            </Link>
-          </p>
+    <AdminLayout setLoginToggle={undefined}>
+      <div className="store-stat">
+        <div className="store-detail__heading">
+          <h2>Store Stats</h2>
         </div>
-      </div>
-      <div className="chart-layout">
-        <div className="line-chart-container">
-          <Line data={defaultData} width={100} height={50}></Line>
-        </div>
-        <div className="doughnut-chart-layout">
-          <div className="chart-container">
-            {/* <Bar options={options} data={data}></Bar> */}
-            <Doughnut data={data} />
-          </div>
-          <div className="chart-container">
-            {/* <Bar options={options} data={data}></Bar> */}
-            <Doughnut data={data} />
-          </div>{" "}
-          <div className="chart-container">
-            {/* <Bar options={options} data={data}></Bar> */}
-            <Doughnut data={data} />
+        <div className="store-detail__container">
+          <div className="store-detail__title">
+            <h1>Miller Draft 서초 2점</h1>
+            <p>
+              Miller Draft 서초 2점의 Store NFT 정보입니다.
+              <br />
+              {/* Store NFT를 가지고 계십니까?{" "} */}
+              <Link href="/admin/store">
+                <span> 다른 매장 보러가기 ↘</span>
+              </Link>
+            </p>
           </div>
         </div>
+        <div className="chart-layout">
+          <div className="line-chart-container">
+            <Line data={defaultData} width={100} height={50}></Line>
+          </div>
+          <div className="doughnut-chart-layout">
+            <div className="chart-container">
+              {/* <Bar options={options} data={data}></Bar> */}
+              <Doughnut data={data} />
+            </div>
+            <div className="chart-container">
+              {/* <Bar options={options} data={data}></Bar> */}
+              <Doughnut data={data} />
+            </div>{" "}
+            <div className="chart-container">
+              {/* <Bar options={options} data={data}></Bar> */}
+              <Doughnut data={data} />
+            </div>
+          </div>
+        </div>
       </div>
-
-      <AdminFooter></AdminFooter>
-    </div>
+    </AdminLayout>
   );
 }

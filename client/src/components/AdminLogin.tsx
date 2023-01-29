@@ -33,7 +33,7 @@ export default function AdminLogin({ setLoginToggle }: { setLoginToggle: any }) 
                 //   }}
                 htmlFor="input"
                 className="label-placeholder">
-                사용하실 아이디를 입력해주세요.
+                이메일을 입력해주세요.
               </label>
             </div>
           </div>
@@ -47,13 +47,13 @@ export default function AdminLogin({ setLoginToggle }: { setLoginToggle: any }) 
                 //   }}
                 htmlFor="input"
                 className="label-placeholder">
-                사용하실 비밀번호를 입력해주세요.
+                비밀번호를 입력해주세요.
               </label>
             </div>
           </div>
           <div className="admin-login__signup">
             <p>
-              Did You Eat 관리자 계정이 없으십니까? <span>지금 만드세요 ↗</span>
+              Did You Eat 사장님 계정이 없으십니까? <span>지금 만드세요 ↗</span>
             </p>
           </div>
         </div>
