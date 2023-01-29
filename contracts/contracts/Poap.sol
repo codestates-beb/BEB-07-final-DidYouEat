@@ -29,7 +29,7 @@ contract Poap is ERC721URIStorage, Ownable, Sbt, Pausable {
   mapping(uint256 => uint256) private _tokenCreatedAt;
 
   // collectionName => collection owner address
-  mapping(string => address) private _collectionOwners;
+  mapping(string => string) private _collectionOwners;
 
   // collectionName => token total supply
   mapping(string => uint256) private _collectionMinted;
@@ -51,12 +51,12 @@ contract Poap is ERC721URIStorage, Ownable, Sbt, Pausable {
   /**
    * @dev create new collection
    * @param collectionName unique collection name(same with id)
-   * @param owner address collection owner
+   * @param owner string collection owner
    * @param metaURI string metaData URI, it is copied to tokenURI
    */
   function createCollection(
     string memory collectionName,
-    address owner,
+    string memory owner,
     string memory metaURI
   ) public onlyOwner whenNotPaused {
     require(!_existsCol(collectionName), "Poap: collection already created");
@@ -154,7 +154,7 @@ contract Poap is ERC721URIStorage, Ownable, Sbt, Pausable {
    */
   function collectionOwner(
     string memory collectionName
-  ) public view existCollection(collectionName) returns (address) {
+  ) public view existCollection(collectionName) returns (string memory) {
     return _collectionOwners[collectionName];
   }
 
@@ -208,13 +208,24 @@ contract Poap is ERC721URIStorage, Ownable, Sbt, Pausable {
 
   //internal
 
+  function _stringsEquals(string memory s1, string memory s2) private pure returns (bool) {
+    bytes memory b1 = bytes(s1);
+    bytes memory b2 = bytes(s2);
+    uint256 l1 = b1.length;
+    if (l1 != b2.length) return false;
+    for (uint256 i=0; i<l1; i++) {
+        if (b1[i] != b2[i]) return false;
+    }
+    return true;
+}
+
   /**
    * @dev confirm exist collection internal(like _exist)
    */
   function _existsCol(
     string memory collectionName
   ) internal view virtual returns (bool) {
-    return _collectionOwners[collectionName] != address(0);
+    return !_stringsEquals(_collectionOwners[collectionName] , "");
   }
 
   //modifier

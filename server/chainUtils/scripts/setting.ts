@@ -1,6 +1,6 @@
 import Caver, { ABI, AbiItem } from 'caver-js';
-import { tokenAbi } from 'chainUtils/abi/MyTokenAbi';
-import { poapAbi } from 'chainUtils/abi/PoapAbi';
+import { tokenAbi } from '../abi/MyTokenAbi';
+import { poapAbi } from '../abi/PoapAbi';
 import path from 'path';
 import dotenv from 'dotenv';
 
