@@ -1,17 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { Response } from 'express';
 import { getEvents } from 'prisma/scripts/collection/getEvents';
-import { createEvent } from 'prisma/scripts/collection/newEvent';
+import { collectionUtils } from 'prisma/scripts/collection';
 import { collection } from 'src/api/dto/collection.dto';
 import { event } from 'src/api/dto/event.dto';
-import { getCollectionData } from 'prisma/scripts/collection/getCollection';
-import { createCollection } from 'prisma/scripts/collection/newCollection';
 // import { uploadIpfs } from 'chainUtils/ipfs';
 
 @Injectable()
 export class CollectionService {
   async getCollection(collection_id: string, res: Response) {
-    const collectionData = await getCollectionData(collection_id);
+    const collectionData = await collectionUtils.getCollectionData(
+      collection_id,
+    );
     if (collectionData === null) {
       return res.status(200).send({
         status: 'failed',
@@ -45,7 +45,7 @@ export class CollectionService {
     }
 
     // create new collection
-    const newCollection = await createCollection({
+    const newCollection = await collectionUtils.createCollection({
       collection_id,
       img_url,
       coordinate_x,
@@ -68,14 +68,18 @@ export class CollectionService {
     if (Object.keys(body).length != 2 || !collection_id || !content)
       return res.status(400).send({ status: 'failed', message: 'Bad Request' });
 
-    const collectionData = await getCollectionData(collection_id);
+    const collectionData = await collectionUtils.getCollectionData(
+      collection_id,
+    );
     if (collectionData === null)
       return res
         .status(200)
         .send({ status: 'failed', message: 'no matching collection' });
 
-    await createEvent(body);
-    const updatedCollectionData = await getCollectionData(collection_id);
+    await collectionUtils.createEvent(body);
+    const updatedCollectionData = await collectionUtils.getCollectionData(
+      collection_id,
+    );
     const events = await getEvents(collection_id);
     return res.status(201).send({
       status: 'success',
