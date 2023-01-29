@@ -56,7 +56,7 @@ contract Poap is ERC721URIStorage, Ownable, Sbt, Pausable {
   function mintToken(
     address recipient,
     string memory collectionName
-  ) public onlyOwner whenNotPaused returns (uint256) {
+  ) public onlyOwner whenNotPaused existCollection(collectionName) returns (uint256) {
     _tokenIds.increment();
 
     uint256 newItemId = _tokenIds.current();

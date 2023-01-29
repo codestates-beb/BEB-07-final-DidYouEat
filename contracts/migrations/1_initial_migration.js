@@ -1,4 +1,4 @@
-const MyNfts = artifacts.require("./MyNFTs.sol");
+const Poap = artifacts.require("./Poap.sol");
 module.exports = function (deployer) {
-  deployer.deploy(MyNfts);
+  deployer.deploy(Poap);
 };

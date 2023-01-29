@@ -11,7 +11,7 @@ abstract contract Sbt is IERC5192 {
     _;
   }
 
-  function locked(uint256 tokenId) public view override returns (bool) {
+  function locked(uint256 tokenId) public view override virtual returns (bool) {
     return _tokenLocked[tokenId];
   }
 
