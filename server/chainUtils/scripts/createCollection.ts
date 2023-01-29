@@ -1,11 +1,5 @@
 import { poapContract } from './setting';
 
-import path from 'path';
-import dotenv from 'dotenv';
-
-const ROOT_DIR = path.join(__dirname, '../..');
-dotenv.config({ path: `${ROOT_DIR}/.env` });
-
 async function createCollection(
   collectionName: string,
   owner: string,

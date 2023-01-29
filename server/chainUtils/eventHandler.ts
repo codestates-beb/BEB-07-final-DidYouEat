@@ -1,5 +1,8 @@
 import { collectionUtils } from '../prisma/scripts/collection';
 import fetch from 'node-fetch';
+import EventEmitter from 'events';
+
+const poapEmitter: EventEmitter = new EventEmitter();
 
 const url2json = async (url: string) => {
   try {
@@ -34,6 +37,9 @@ const poapEventHandler = {
       shop_name,
       event,
     });
+
+    if (!newCollection) poapEmitter.emit('createCollection', false);
+    poapEmitter.emit('createCollection', true);
   },
 };
 
@@ -41,4 +47,4 @@ const eventHandler = {
   poapEventHandler,
 };
 
-export { eventHandler };
+export { eventHandler, poapEmitter };
