@@ -26,17 +26,6 @@ export default function Collection() {
         <h1 className="collection__h1">My collection</h1>
         <div className="collection__row">
           <NFT />
-          <NFT />
-          <NFT />
-          <NFT />
-          <NFT />
-          <NFT />
-          <NFT />
-          <NFT />
-          <NFT />
-          <NFT />
-          <NFT />
-          <NFT />
         </div>
       </div>
       <button className="collection__scanQR" onClick={handleScan}>

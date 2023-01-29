@@ -21,7 +21,7 @@ export default function Admin() {
           </h1>
           <div className="admin-button__container">
             <Link href="/admin/store">
-              <div className="admin__button">Start using "Did You Eat" system</div>
+              <div className="admin__button">Start using "DID You Eat" system</div>
             </Link>
           </div>
         </div>

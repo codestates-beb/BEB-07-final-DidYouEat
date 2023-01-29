@@ -63,14 +63,33 @@ export default function Home() {
           <div className="landing__scroll4">
             <h1 className="landing__h1-center">Collect NFTs like these</h1>
             <div className="landing__nft">
-              <NFT />
-              <NFT />
-              <NFT />
-              <NFT />
-              <NFT />
-              <NFT />
-              <NFT />
-              <NFT />
+              <div className="landing__nft_block">
+                <Image className="landing__NFTimage" src="/images/sample1.png" alt="NFT" width="70" height="70" />
+              </div>
+              <div className="landing__nft_block">
+                <Image className="landing__NFTimage" src="/images/sample2.png" alt="NFT" width="70" height="70" />
+              </div>
+              <div className="landing__nft_block">
+                <Image className="landing__NFTimage" src="/images/sample3.png" alt="NFT" width="70" height="70" />
+              </div>
+              <div className="landing__nft_block">
+                <Image className="landing__NFTimage" src="/images/sample4.png" alt="NFT" width="70" height="70" />
+              </div>
+              <div className="landing__nft_block">
+                <Image className="landing__NFTimage" src="/images/sample5.png" alt="NFT" width="70" height="70" />
+              </div>
+              <div className="landing__nft_block">
+                <Image className="landing__NFTimage" src="/images/sample6.png" alt="NFT" width="70" height="70" />
+              </div>
+              <div className="landing__nft_block">
+                <Image className="landing__NFTimage" src="/images/sample7.png" alt="NFT" width="70" height="70" />
+              </div>
+              <div className="landing__nft_block">
+                <Image className="landing__NFTimage" src="/images/sample8.png" alt="NFT" width="70" height="70" />
+              </div>
+              <div className="landing__nft_block">
+                <Image className="landing__NFTimage" src="/images/sample9.png" alt="NFT" width="70" height="70" />
+              </div>
             </div>
           </div>
           <div className="landing__scroll5">

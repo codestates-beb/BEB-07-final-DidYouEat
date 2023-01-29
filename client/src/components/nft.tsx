@@ -1,9 +1,11 @@
 import Link from "next/link";
-
-export default function NFT() {
+import Image from "next/image";
+export default function NFT(props: any) {
   return (
     <Link href="/collection/detail">
-      <div className="collection__col1"></div>
+      <div className="collection__col1">
+        <Image src={props.imgUrl} alt="POAP" />
+      </div>
     </Link>
   );
 }

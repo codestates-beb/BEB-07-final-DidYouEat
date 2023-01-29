@@ -1,3 +1,8 @@
+import NFT from "@/src/components/nft";
 export default function Boom() {
-  return <div>두둥등장</div>;
+  return (
+    <div>
+      <NFT />
+    </div>
+  );
 }

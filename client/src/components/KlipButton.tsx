@@ -41,6 +41,7 @@ export default function KlipButton() {
     } else if (!os && /Linux/.test(platform)) {
       os = "Linux";
     }
+<<<<<<< HEAD
     const isMobile = os === "iOS" || os === "Android" ? true : false;
     toggleModal();
     const getKlipPrepareUrl = (request_key: string) => {
@@ -53,6 +54,19 @@ export default function KlipButton() {
           const imgEl = document.getElementById("authQR");
           imgEl!.setAttribute("src", res);
         });
+=======
+    const isMobile = os === 'iOS' || os === 'Android' ? true : false
+    toggleModal()
+    const getKlipPrepareUrl = ( request_key:string)=>{
+      if(isMobile){
+        return window.location.href = `kakaotalk://klipwallet/open?url=https://klipwallet.com/?target=/a2a?request_key=${request_key}`
+      }
+      else {
+        return QRCode.toDataURL(`https://klipwallet.com/?target=/a2a?request_key=${request_key}`).then(res=>{
+          const imgEl = document.getElementById('authQR')
+          imgEl!.setAttribute('src',res)
+        })
+>>>>>>> db6c31d9506d02fde0e7cb5603a577b3a51573f3
       }
     };
 
