@@ -35,6 +35,8 @@
     "useragent": "^2.3.0"
   },
   "devDependencies": {
+    "@types/qrcode": "^1.5.0",
+    "@types/react-modal": "^3.13.1",
     "@typescript-eslint/eslint-plugin": "^5.48.2",
     "@typescript-eslint/parser": "^5.48.2",
     "eslint-config-prettier": "^8.6.0",
