@@ -1,4 +1,4 @@
-import Caver, { ABI, AbiItem } from 'caver-js';
+import Caver, { AbiItem } from 'caver-js';
 import { tokenAbi } from '../abi/MyTokenAbi';
 import { poapAbi } from '../abi/PoapAbi';
 import path from 'path';

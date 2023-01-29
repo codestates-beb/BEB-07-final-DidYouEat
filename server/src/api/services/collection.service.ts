@@ -5,6 +5,7 @@ import { collectionUtils } from 'prisma/scripts/collection';
 import { collection } from 'src/api/dto/collection.dto';
 import { event } from 'src/api/dto/event.dto';
 import { uploadIpfs } from 'chainUtils/ipfs';
+import { chainUtils } from 'chainUtils/scripts';
 
 import path from 'path';
 import dotenv from 'dotenv';
@@ -65,23 +66,19 @@ export class CollectionService {
     const CID = await uploadIpfs(newCollection);
     const uri = `${IPFS_BASE_URL}/${CID}`;
 
-    console.log(uri);
+    const result = await chainUtils.createCollection(
+      collection_id,
+      owner_id,
+      uri,
+    );
 
-    // // create new collection
-    // const newCollection = await collectionUtils.createCollection({
-    //   collection_id,
-    //   img_url,
-    //   coordinate_x,
-    //   coordinate_y,
-    //   owner_id,
-    //   shop_name,
-    //   event,
-    // });
-    // if (newCollection === null) {
-    //   return res
-    //     .status(200)
-    //     .send({ status: 'failed', message: `${collection_id} already exist` });
-    // }
+    console.log(result);
+
+    if (result === null) {
+      return res
+        .status(200)
+        .send({ status: 'failed', message: `${collection_id} already exist` });
+    }
     return res.status(201).send({ status: 'success', message: newCollection });
   }
 

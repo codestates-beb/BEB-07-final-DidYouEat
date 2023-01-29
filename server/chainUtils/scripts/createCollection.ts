@@ -11,12 +11,16 @@ async function createCollection(
   owner: string,
   metaURI: string,
 ) {
-  // console.log(myContract);
+  // console.log(poapContract);
+  try {
+    const result = await poapContract.methods
+      .createCollection(collectionName, owner, metaURI)
+      .send({ from: process.env.SERVER_ADDR, gas: 1000000 });
 
-  poapContract.methods
-    .createCollection(collectionName, owner, metaURI)
-    .send({ from: process.env.SERVER_ADDR, gas: 1000000 })
-    .then((res: any) => console.log(res));
+    return result;
+  } catch (e) {
+    return null;
+  }
 }
 
 export { createCollection };
