@@ -10,11 +10,14 @@ export default function KlipButton() {
     setShowModal(!showModal)
   }
   const isAuthenticated = ()=>{
-    console.log(reqKey)
     axios.get(`https://a2a-api.klipwallet.com/v2/a2a/result?request_key=${reqKey}`).then((res)=>{
       if(res.data.result){
         alert(`Connect Wallet Success!\nYour wallet address : ${res.data.result.klaytn_address}`)
         setShowModal(!showModal)
+      }
+      else if(res.status === 400) {alert(`Request Time Out`); setShowModal(!showModal)}
+      else {
+        alert(`Klip에서 인증을 진행해 주세요!`)
       }
     })
   }
@@ -72,6 +75,7 @@ export default function KlipButton() {
           <canvas id='canvas'></canvas>
           <img id='authQR' src=''/>
           <button onClick={isAuthenticated}>인증완료</button>
+          <button onClick={toggleModal}>닫기</button>
         </Modal>
     </div>
   );
