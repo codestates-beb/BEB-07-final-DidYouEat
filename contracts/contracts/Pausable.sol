@@ -4,7 +4,6 @@ pragma solidity ^0.8.0;
 import "../node_modules/@klaytn/contracts/access/Ownable.sol";
 
 abstract contract Pausable is Ownable {
-
   //event
   event Paused(address account);
   event Unpaused(address account);
