@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { ownerSignUp } from '../../../prisma/scripts/auth/ownerSignUp';
-import { getOwner } from '../../../prisma/scripts/auth/getOwner';
+import { authUtils } from 'prisma/scripts/auth';
 import { Response } from 'express';
 import { ownerSignDto } from 'src/api/dto/ownerSign.dto';
 import { JwtService } from '@nestjs/jwt';
@@ -11,7 +10,7 @@ export class OwnerAuthService {
   async signUp(body: ownerSignDto, res: Response): Promise<Response> {
     if (Object.keys(body).length !== 2)
       return res.status(400).send({ status: 'failed', message: 'Bad Request' });
-    const ownerCreateRes = await ownerSignUp(body.id, body.password);
+    const ownerCreateRes = await authUtils.ownerSignUp(body.id, body.password);
 
     if (ownerCreateRes === null)
       return res.status(200).send({ status: 'failed', message: 'exist id' });
@@ -25,7 +24,7 @@ export class OwnerAuthService {
   async signIn(body: ownerSignDto, res: Response): Promise<Response> {
     if (Object.keys(body).length !== 2 || !body.id || !body.password)
       return res.status(400).send({ status: 'failed', message: 'Bad Request' });
-    const ownerData = await getOwner(body.id);
+    const ownerData = await authUtils.getOwner(body.id);
     if (ownerData === null)
       return res
         .status(401)
