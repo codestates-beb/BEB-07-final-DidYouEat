@@ -4,7 +4,13 @@ import { getEvents } from 'prisma/scripts/collection/getEvents';
 import { collectionUtils } from 'prisma/scripts/collection';
 import { collection } from 'src/api/dto/collection.dto';
 import { event } from 'src/api/dto/event.dto';
-// import { uploadIpfs } from 'chainUtils/ipfs';
+import { uploadIpfs } from 'chainUtils/ipfs';
+
+import path from 'path';
+import dotenv from 'dotenv';
+
+const ROOT_DIR = path.join(__dirname, '../../..');
+dotenv.config({ path: `${ROOT_DIR}/.env` });
 
 @Injectable()
 export class CollectionService {
@@ -22,6 +28,8 @@ export class CollectionService {
   }
 
   async createCollection(body: collection, res: Response) {
+    const { IPFS_BASE_URL } = process.env;
+
     // 400 Bad Request
     const {
       collection_id,
@@ -44,8 +52,7 @@ export class CollectionService {
       return res.status(400).send({ status: 'failed', message: 'Bad Request' });
     }
 
-    // create new collection
-    const newCollection = await collectionUtils.createCollection({
+    const newCollection = {
       collection_id,
       img_url,
       coordinate_x,
@@ -53,12 +60,28 @@ export class CollectionService {
       owner_id,
       shop_name,
       event,
-    });
-    if (newCollection === null) {
-      return res
-        .status(200)
-        .send({ status: 'failed', message: `${collection_id} already exist` });
-    }
+    };
+
+    const CID = await uploadIpfs(newCollection);
+    const uri = `${IPFS_BASE_URL}/${CID}`;
+
+    console.log(uri);
+
+    // // create new collection
+    // const newCollection = await collectionUtils.createCollection({
+    //   collection_id,
+    //   img_url,
+    //   coordinate_x,
+    //   coordinate_y,
+    //   owner_id,
+    //   shop_name,
+    //   event,
+    // });
+    // if (newCollection === null) {
+    //   return res
+    //     .status(200)
+    //     .send({ status: 'failed', message: `${collection_id} already exist` });
+    // }
     return res.status(201).send({ status: 'success', message: newCollection });
   }
 

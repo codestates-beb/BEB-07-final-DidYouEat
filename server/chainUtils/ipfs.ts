@@ -32,8 +32,8 @@ async function uploadIpfs(meta) {
     },
   });
 
-  const cid = await (await client.add(JSON.stringify(meta))).path;
-  return cid;
+  const cid = await client.add(JSON.stringify(meta));
+  return cid.path;
 }
 
 export { uploadIpfs };
