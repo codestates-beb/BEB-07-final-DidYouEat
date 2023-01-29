@@ -48,7 +48,7 @@ export default function KlipButton() {
         return QRCode.toDataURL(`https://klipwallet.com/?target=/a2a?request_key=${request_key}`).then(res=>{
           console.log(res)
           const imgEl = document.getElementById('authQR')
-          imgEl.src = res
+          imgEl!.setAttribute('src',res)
         })
       }
     }
@@ -66,11 +66,11 @@ export default function KlipButton() {
       <button className="header__connect" onClick={handleConnect}>
         Klip Connect
       </button>
-        <Modal isOpen={showModal} onRequstClose={toggleModal}>
+        <Modal isOpen={showModal} >
           <h1>title</h1>
           <p>content</p>
           <canvas id='canvas'></canvas>
-          <img id='authQR'/>
+          <img id='authQR' src=''/>
           <button onClick={isAuthenticated}>인증완료</button>
         </Modal>
     </div>
