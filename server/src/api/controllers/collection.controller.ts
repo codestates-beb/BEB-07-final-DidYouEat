@@ -1,10 +1,21 @@
-import { Body, Controller, Get, Param, Patch, Post, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { Response } from 'express';
 import { collection } from 'src/api/dto/collection.dto';
 import { event } from 'src/api/dto/event.dto';
 import { CollectionService } from '../services/collection.service';
 
 @Controller('/api/collections')
+@UseGuards(AuthGuard())
 export class CollectionController {
   constructor(private readonly collectionService: CollectionService) {}
   @Get()

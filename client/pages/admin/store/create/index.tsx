@@ -1,14 +1,127 @@
 import AdminFooter from "@/src/components/AdminFooter";
 import AdminHeader from "@/src/components/AdminHeader";
-import { useEffect, useState } from "react";
+import PostalCode from "@/src/components/PostalCode";
+import next from "next";
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
+import axios from "axios";
 
 export default function CreateStore() {
   const now = new Date();
+  const storeNameRef: any = useRef();
+  const storeDetailAddressRef: any = useRef();
   const [date, setDate] = useState(new Date());
+  const [popup, setPopup] = useState(false);
+  const [image, setImage] = useState({
+    image_file: "",
+    preview_URL: "https://images.reactbricks.com/src_set/9e37bdce-6ee2-44da-93e9-2ac1f97e6ca8-500/MillerLite.webp",
+  });
+  const [store, setStore] = useState({
+    name: "",
+    address: "",
+    detail_address: "",
+  });
+
+  const handleStoreAddressInput = (e: any) => {
+    setStore({
+      ...store,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleStoreNameInput = (e: any) => {
+    setStore((prev) => {
+      const next = { ...prev };
+      next.name = e.target.value;
+      return next;
+    });
+  };
+
+  const handleStoreDetailInput = (e: any) => {
+    setStore((prev) => {
+      const next = { ...prev };
+      next.detail_address = e.target.value;
+      return next;
+    });
+  };
+
+  const togglePopup = () => {
+    setPopup(!popup);
+  };
+
+  const handleImgInputChange = (e: any) => {
+    const newImageFile = e.target.files[0];
+    const formData = new FormData();
+
+    formData.append("newImageFile", newImageFile);
+
+    for (const keyvalue of formData) {
+      console.log(keyvalue);
+    }
+
+    if (newImageFile) {
+      // 새로운 이미지를 올리면 createObjectURL()을 통해 생성한 기존 URL을 폐기
+      URL.revokeObjectURL(image.preview_URL);
+      const preview_URL = URL.createObjectURL(newImageFile);
+      setImage({
+        image_file: newImageFile,
+        preview_URL,
+      });
+      console.log(newImageFile);
+    }
+  };
+
+  // const postImageToServer = async () => {
+  //   if (image.image_file) {
+  //     const formData = new FormData();
+  //     formData.append("file", image.image_file);
+  //     console.log(formData);
+  //     await axios.post(SERVER_URL + "/profileimg", formData);
+  //     alert("서버에 등록이 완료되었습니다!");
+  //     setImage({
+  //       image_file: "",
+  //       preview_URL: "img/default_image.png",
+  //     });
+  //   } else {
+  //     alert("사진을 등록하세요!");
+  //   }
+  // };
+
+  const sendFileToIPFS = async (e: any) => {
+    if (image.image_file) {
+      try {
+        const formData = new FormData();
+        formData.append("file", image.image_file);
+
+        const resFile = await axios({
+          method: "post",
+          url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
+          data: formData,
+          headers: {
+            pinata_api_key: `${process.env.PINATA_API_KEY}`,
+            pinata_secret_api_key: `${process.env.PINATA_API_SECRET}`,
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
+        const ImgHash = `ipfs://${resFile.data.IpfsHash}`;
+        console.log(ImgHash);
+        //Take a look at your Pinata Pinned section, you will see a new file added to you list.
+      } catch (error) {
+        console.log("Error sending File to IPFS: ");
+        console.log(error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    return URL.revokeObjectURL(image.preview_URL);
+  }, []);
 
   return (
     <div className="create-store">
-      <AdminHeader></AdminHeader>
+      <AdminHeader setLoginToggle={undefined}></AdminHeader>
       <div className="create-store__heading">
         <h2>Store NFT</h2>
       </div>
@@ -17,7 +130,10 @@ export default function CreateStore() {
         <p>
           하나의 매장에 해당하는 Store NFT로 모든 Did You Eat의 서비스를 이용할 수 있습니다.
           <br />
-          Store NFT를 가지고 계십니까? <span> 매장 보러가기 ↘</span>
+          Store NFT를 가지고 계십니까?
+          <Link href="/admin/store">
+            <span> 매장 보러가기 ↘</span>
+          </Link>
         </p>
       </div>
 
@@ -30,8 +146,13 @@ export default function CreateStore() {
         <fieldset className="create-store__fieldset">
           {/* <h5>매장이름</h5> */}
           <div className="input-area">
-            <input id="username" type="text"></input>
-            <label htmlFor="input" className="placeholder">
+            <input ref={storeNameRef} onChange={handleStoreNameInput} type="text"></input>
+            <label
+              onClick={() => {
+                storeNameRef.current.focus();
+              }}
+              htmlFor="input"
+              className={store.name === "" ? "label-placeholder" : "label-placeholder is-written"}>
               매장이름을 입력해주세요.
             </label>
           </div>
@@ -39,18 +160,47 @@ export default function CreateStore() {
           <div className="success-message hide">사용할 수 있는 아이디입니다.</div>
           <div className="invalid-message hide">영문과 숫자만 사용 가능합니다.</div>
         </fieldset>
+
         <fieldset className="create-store__fieldset">
           {/* <h5>매장주소</h5> */}
           <div className="input-area">
-            <input id="username" type="text"></input>
-            <label htmlFor="input" className="placeholder">
+            <input
+              id="address-input"
+              onClick={togglePopup}
+              onChange={handleStoreAddressInput}
+              value={store.address}
+              type="text"></input>
+            <label htmlFor="input" className={store.address === "" ? "label-placeholder" : "label-placeholder hide"}>
               주소 찾기
+            </label>
+            <span onClick={togglePopup} className="right-arrow">
+              ➡️
+            </span>
+          </div>
+          {popup && <PostalCode popup={popup} setPopup={setPopup} store={store} setStore={setStore}></PostalCode>}
+          <div className="failure-message hide">아이디는 네 글자 이상이어야 합니다.</div>
+          <div className="success-message hide">사용할 수 있는 아이디입니다.</div>
+          <div className="invalid-message hide">영문과 숫자만 사용 가능합니다.</div>
+        </fieldset>
+
+        <fieldset className={store.address === "" ? "create-store__fieldset hide" : "create-store__fieldset"}>
+          {/* <h5>매장 상세주소</h5> */}
+          <div className="input-area">
+            <input ref={storeDetailAddressRef} type="text" onChange={handleStoreDetailInput}></input>
+            <label
+              onClick={() => {
+                storeDetailAddressRef.current.focus();
+              }}
+              htmlFor="input"
+              className={store.detail_address === "" ? "label-placeholder" : "label-placeholder is-written"}>
+              매장 상세주소를 입력해주세요.
             </label>
           </div>
           <div className="failure-message hide">아이디는 네 글자 이상이어야 합니다.</div>
           <div className="success-message hide">사용할 수 있는 아이디입니다.</div>
           <div className="invalid-message hide">영문과 숫자만 사용 가능합니다.</div>
         </fieldset>
+
         <fieldset className="create-store__fieldset">
           <h5>NFT 이미지 입력</h5>
           <div className="create-store__img_input">
@@ -68,8 +218,11 @@ export default function CreateStore() {
                 accept="image/*"
                 name="post_img"
                 className="createpost__img-input"
+                onChange={handleImgInputChange}
+                onClick={(e: any) => (e.target.value = null)}
                 id="img_file"></input>
             </div>
+            <Image src={image.preview_URL} alt="miler" width={250} height={250}></Image>
           </div>
           <div className="img-requirement">
             <h6>Image 요구사항</h6>
@@ -77,6 +230,11 @@ export default function CreateStore() {
               <li>png, gif 파일만 지원됩니다.</li>
               <li>Recommended: measures 500x500px, round shape, size less than 200KB (Max. 4MB)</li>
             </ul>
+          </div>
+        </fieldset>
+        <fieldset className="create-store__fieldset">
+          <div onClick={sendFileToIPFS} className="classic-button yellow-color  margin-auto">
+            생성하기
           </div>
         </fieldset>
       </div>
