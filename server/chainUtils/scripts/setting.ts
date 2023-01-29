@@ -1,5 +1,6 @@
-import Caver, { AbiItem } from 'caver-js';
-import { abi } from '../abi/MyToken';
+import Caver, { ABI, AbiItem } from 'caver-js';
+import { tokenAbi } from 'chainUtils/abi/MyTokenAbi';
+import { poapAbi } from 'chainUtils/abi/PoapAbi';
 import path from 'path';
 import dotenv from 'dotenv';
 
@@ -11,6 +12,7 @@ const {
   SERVER_ADDR = '',
   SERVER_PRIVATE_KEY = '',
   MYTOKEN_CA = '',
+  POAP_CA = '',
 } = process.env;
 
 const caver = new Caver('https://api.baobab.klaytn.net:8651');
@@ -34,6 +36,7 @@ async function setKeyring() {
 
 setKeyring();
 
-const myContract = caver.contract.create(abi as AbiItem[], MYTOKEN_CA);
+const testContract = caver.contract.create(tokenAbi as AbiItem[], MYTOKEN_CA);
+const poapContract = caver.contract.create(poapAbi as AbiItem[], POAP_CA);
 
-export { caver, myContract };
+export { caver, testContract, poapContract };

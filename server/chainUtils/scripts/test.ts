@@ -1,10 +1,10 @@
-import { myContract } from './setting';
+import { testContract } from './setting';
 
 async function testFunction() {
   // console.log(myContract);
 
-  myContract.methods.name().call().then(console.log);
-  myContract.methods
+  testContract.methods.name().call().then(console.log);
+  testContract.methods
     .mintNFT(
       'https://urclass-images.s3.ap-northeast-2.amazonaws.com/beb/section4/unit4/test.json',
     )
