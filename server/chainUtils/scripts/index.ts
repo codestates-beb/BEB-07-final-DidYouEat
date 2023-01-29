@@ -1,4 +1,4 @@
-import { testFunction } from './scripts/test';
+import { testFunction } from './test';
 
 const chainUtils = {
   testFunction,

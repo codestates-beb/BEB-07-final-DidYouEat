@@ -1,3 +1,3 @@
-import { chainUtils } from '../index';
+import { chainUtils } from '../scripts/index';
 
 chainUtils.testFunction();

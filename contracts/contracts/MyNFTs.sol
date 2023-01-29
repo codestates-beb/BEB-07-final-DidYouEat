@@ -8,24 +8,22 @@ import "../node_modules/@klaytn/contracts/access/Ownable.sol";
 import "../node_modules/@klaytn/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 
 contract MyNFTs is ERC721URIStorage, Ownable {
-    using Counters for Counters.Counter;
-    Counters.Counter private _tokenIds;
+  using Counters for Counters.Counter;
+  Counters.Counter private _tokenIds;
 
-    constructor() ERC721("MyNFTs", "MNFT") {}
-    event minting(string tokenURI);
+  constructor() ERC721("MyNFTs", "MNFT") {}
 
-    function mintNFT(string memory tokenURI)
-        public onlyOwner
-        returns (uint256)
-    {
-        _tokenIds.increment();
+  event minting(string tokenURI);
 
-        uint256 newItemId = _tokenIds.current();
-        _mint(msg.sender, newItemId);
-        _setTokenURI(newItemId, tokenURI);
+  function mintNFT(string memory tokenURI) public onlyOwner returns (uint256) {
+    _tokenIds.increment();
 
-        emit minting(tokenURI);
+    uint256 newItemId = _tokenIds.current();
+    _mint(msg.sender, newItemId);
+    _setTokenURI(newItemId, tokenURI);
 
-        return newItemId;
-    }
+    emit minting(tokenURI);
+
+    return newItemId;
+  }
 }
