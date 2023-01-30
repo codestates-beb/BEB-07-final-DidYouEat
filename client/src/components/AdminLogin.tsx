@@ -16,13 +16,8 @@ export default function AdminLogin({ setLoginToggle }: { setLoginToggle: any }) 
   const [password, setPassword] = useState("");
   const [isWating, setIsWating] = useState(false);
 
-  const loginEl: any = useRef();
-  const passwordRef = useRef();
-  const emailRef = useRef();
-
   const router = useRouter();
 
-  const handleEmailChange = (e) => {
   const handleEmailChange = (e: any) => {
     setEmail(e.target.value);
   };
@@ -32,19 +27,22 @@ export default function AdminLogin({ setLoginToggle }: { setLoginToggle: any }) 
   const handleLoginSubmit = () => {
     setIsWating(true);
     axios
-      .post(process.env.SERVER_URL + "/auth/owner/signin", {
+      .post(process.env.SERVER_URL + "/api/auth/owner/signin", {
         id: email,
         password: password,
       })
       .then((res) => {
         const accessToken = res.data.message.accessToken;
-        setIsWating(false);
+
         setAdminAccessToken(accessToken);
         setAdminId(email);
-        router.push("/admin");
+        setIsWating(false);
+
+        router.push("/admin/store");
       })
       .catch((err) => {
         console.log(err);
+        alert("로그인에 실패했습니다.");
       });
   };
 

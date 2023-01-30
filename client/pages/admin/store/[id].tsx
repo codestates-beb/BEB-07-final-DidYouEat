@@ -1,16 +1,23 @@
 import AdminFooter from "@/src/components/AdminFooter";
 import AdminHeader from "@/src/components/AdminHeader";
 import AdminLayout from "@/src/components/AdminLayout";
+import { AdminAccessTokenState } from "@/src/recoil/states";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
 
 const StoreDetail = () => {
   const router = useRouter();
   const id = Number(router.query.id);
   const [toggleImageQr, setToggleImageQr] = useState(false);
   const [toggleDetail, setToggleDetail] = useState(false);
+  const accessToken = useRecoilValue(AdminAccessTokenState);
+
+  useEffect(() => {
+    if (accessToken === "") router.push("/admin");
+  }, []);
 
   return (
     <AdminLayout setLoginToggle={undefined}>

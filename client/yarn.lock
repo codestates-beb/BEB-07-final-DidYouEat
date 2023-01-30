@@ -65,9 +65,9 @@
   "resolved" "https://registry.npmjs.org/@next/font/-/font-13.1.2.tgz"
   "version" "13.1.2"
 
-"@next/swc-darwin-x64@13.1.2":
-  "integrity" "sha512-JbDZjaTvL8gyPC5TAH6OnD4jmXPkyUxRYPvu08ZmhT/XAFBb/Cso0BdXyDax/BPCG70mimP9d3hXNKNq+A0VtQ=="
-  "resolved" "https://registry.npmjs.org/@next/swc-darwin-x64/-/swc-darwin-x64-13.1.2.tgz"
+"@next/swc-darwin-arm64@13.1.2":
+  "integrity" "sha512-RikoQqy109r2222UJlyGs4dZw2BibkfPqpeFdW5JEGv+L2PStlHID8DwyVYbmHfQ0VIBGvbf/NAUtFakAWlhwg=="
+  "resolved" "https://registry.npmjs.org/@next/swc-darwin-arm64/-/swc-darwin-arm64-13.1.2.tgz"
   "version" "13.1.2"
 
 "@nodelib/fs.scandir@2.1.5":
@@ -174,6 +174,11 @@
   "integrity" "sha512-21cFJr9z3g5dW8B0CVI9g2O9beqaThGQ6ZFBqHfwhzLDKUxaqTIy3vnfah/UPkfOiF2pLq+tGz+W8RyCskuslw=="
   "resolved" "https://registry.npmjs.org/@types/semver/-/semver-7.3.13.tgz"
   "version" "7.3.13"
+
+"@types/uuid@^9.0.0":
+  "integrity" "sha512-kr90f+ERiQtKWMz5rP32ltJ/BtULDI5RVO0uavn1HQUOwjx0R1h0rnDYNL0CepF1zL5bSY6FISAfd9tOdDhU5Q=="
+  "resolved" "https://registry.npmjs.org/@types/uuid/-/uuid-9.0.0.tgz"
+  "version" "9.0.0"
 
 "@typescript-eslint/eslint-plugin@^5.48.2":
   "integrity" "sha512-sR0Gja9Ky1teIq4qJOl0nC+Tk64/uYdX+mi+5iB//MH8gwyx8e3SOyhEzeLZEFEEfCaLf8KJq+Bd/6je1t+CAg=="

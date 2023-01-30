@@ -5,10 +5,15 @@ import React, { useRef, useState, useEffect } from "react";
 import axios from "axios";
 import Loading from "@/src/components/Loading";
 import { Router, useRouter } from "next/router";
+import { useRecoilState } from "recoil";
+import { AdminAccessTokenState } from "@/src/recoil/states";
 
 export default function AdminSignup() {
-  const SERVER_URL = process.env.SERVER_URL + "/auth/owner/signup";
+  const SERVER_URL = process.env.SERVER_URL + "/api/auth/owner/signup";
   const router = useRouter();
+
+  const [accessToken, setAccessToken] = useRecoilState(AdminAccessTokenState);
+
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [userPasswordCheck, setUserPasswordCheck] = useState("");
@@ -17,7 +22,7 @@ export default function AdminSignup() {
   const [isSamePassword, setIsSamePassword] = useState(false);
   const [isWating, setIsWating] = useState(false);
 
-  const handleEamilChange = (e: any) => {
+  const handleEmailChange = (e: any) => {
     const regExp = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
     setUserEmail(e.target.value);
     setIsEmailValid(regExp.test(e.target.value));
@@ -60,6 +65,10 @@ export default function AdminSignup() {
     }
   };
 
+  useEffect(() => {
+    if (accessToken === "") router.push("/admin");
+  }, []);
+
   return (
     <AdminLayout setLoginToggle={undefined}>
       <div className="admin-signup">
@@ -70,7 +79,7 @@ export default function AdminSignup() {
           <div className="admin-signup__title">
             <h1>Create Your DYE ID</h1>
             <p>
-              하나의 사장님 게정으로 모든 DidYouEat 서비스를 이용하실 수 있습니다.
+              하나의 사장님 계정으로 모든 DidYouEat 서비스를 이용하실 수 있습니다.
               <br />
               DidYouEat Admin ID를 가지고 계십니까?{" "}
               <Link href="/admin">
@@ -83,7 +92,7 @@ export default function AdminSignup() {
               <div className="input-area">
                 <input
                   className={!isEmailValid && userEmail !== "" ? "warning" : `${isEmailValid ? "valid" : ""}`}
-                  onChange={handleEamilChange}
+                  onChange={handleEmailChange}
                   value={userEmail}
                   type="text"></input>
                 <label

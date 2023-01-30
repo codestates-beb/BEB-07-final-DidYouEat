@@ -1,14 +1,14 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
+import Router from "next/router";
 import { useRecoilState } from "recoil";
-import { AdminIdState } from "../recoil/states";
+import { AdminAccessTokenState, AdminIdState } from "../recoil/states";
 
 export default function AdminHeader({ setLoginToggle }: { setLoginToggle: any }) {
-  const router = useRouter();
   const [adminId, setAdminId] = useRecoilState(AdminIdState);
+  const [adminAccessToken, setAdminAccessToken] = useRecoilState(AdminAccessTokenState);
 
   const moveToAdmin = () => {
-    router.push("/admin");
+    Router.push("/admin");
   };
   return (
     <nav className="admin-header">
@@ -20,25 +20,27 @@ export default function AdminHeader({ setLoginToggle }: { setLoginToggle: any })
           {adminId === "" && (
             <div
               onClick={() => {
-                setAdminId("jinwoo");
                 setLoginToggle(true);
               }}
               className="admin-header__item">
               Log in
             </div>
           )}
-          <div
-            onClick={() => {
-              router.push("/admin/signup");
-            }}
-            className="admin-header__item">
-            Sign up
-          </div>
+          {adminId === "" && (
+            <div
+              onClick={() => {
+                Router.push("/admin/signup");
+              }}
+              className="admin-header__item">
+              Sign up
+            </div>
+          )}
           {adminId !== "" && (
             <div
               onClick={() => {
+                setAdminAccessToken("");
                 setAdminId("");
-                moveToAdmin();
+                Router.push("/admin");
               }}
               className="admin-header__item">
               {adminId} Log out

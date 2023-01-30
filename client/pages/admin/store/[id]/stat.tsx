@@ -19,6 +19,8 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, ArcEleme
 
 import { Line, Bar, Doughnut } from "react-chartjs-2";
 import AdminLayout from "@/src/components/AdminLayout";
+import { useRecoilValue } from "recoil";
+import { AdminAccessTokenState } from "@/src/recoil/states";
 
 export const data = {
   labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
@@ -107,6 +109,13 @@ const defaultData = {
 export default function Stat() {
   const router = useRouter();
   const id = Number(router.query.id);
+
+  const accessToken = useRecoilValue(AdminAccessTokenState);
+
+  useEffect(() => {
+    if (accessToken === "") router.push("/admin");
+  }, []);
+
   return (
     <AdminLayout setLoginToggle={undefined}>
       <div className="store-stat">

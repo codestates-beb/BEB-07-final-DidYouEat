@@ -2,11 +2,21 @@ import AdminFooter from "@/src/components/AdminFooter";
 import AdminHeader from "@/src/components/AdminHeader";
 import AdminLayout from "@/src/components/AdminLayout";
 import AdminLogin from "@/src/components/AdminLogin";
+import { AdminAccessTokenState, AdminIdState } from "@/src/recoil/states";
 import Link from "next/link";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
 
 export default function Admin() {
+  const router = useRouter();
   const [loginToggle, setLoginToggle] = useState(false);
+  const [adminId, setAdminId] = useRecoilState(AdminIdState);
+
+  const handleStartDYE = () => {
+    if (adminId === "") setLoginToggle(true);
+    else router.push("/admin/store");
+  };
 
   return (
     <AdminLayout setLoginToggle={setLoginToggle}>
@@ -21,11 +31,7 @@ export default function Admin() {
             Introducing the new <br /> POAP and DID information offering system.
           </h1>
           <div className="admin-button__container">
-            <div
-              onClick={() => {
-                setLoginToggle(true);
-              }}
-              className="admin__button">
+            <div onClick={handleStartDYE} className="admin__button">
               Start using "Did You Eat" system
             </div>
           </div>

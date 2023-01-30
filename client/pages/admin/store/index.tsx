@@ -2,9 +2,20 @@ import AdminCollection from "@/src/components/AdminCollection";
 import AdminFooter from "@/src/components/AdminFooter";
 import AdminHeader from "@/src/components/AdminHeader";
 import AdminLayout from "@/src/components/AdminLayout";
+import { AdminAccessTokenState } from "@/src/recoil/states";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { useRecoilValue } from "recoil";
 
 export default function Store() {
+  const accessToken = useRecoilValue(AdminAccessTokenState);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (accessToken === "") router.push("/admin");
+  }, []);
+
   return (
     <AdminLayout setLoginToggle={undefined}>
       <div className="admin-store">

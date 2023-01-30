@@ -7,11 +7,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { AdminAccessTokenState } from "@/src/recoil/states";
+import { useRouter } from "next/router";
 
 export default function CreateStore() {
-  const now = new Date();
++
+  const router = useRouter();
   const storeNameRef: any = useRef();
   const storeDetailAddressRef: any = useRef();
+
   const [date, setDate] = useState(new Date());
   const [popup, setPopup] = useState(false);
   const [image, setImage] = useState({
@@ -23,6 +28,7 @@ export default function CreateStore() {
     address: "",
     detail_address: "",
   });
+  const accessToken = useRecoilValue(AdminAccessTokenState);
 
   const handleStoreAddressInput = (e: any) => {
     setStore({
@@ -100,6 +106,7 @@ export default function CreateStore() {
   };
 
   useEffect(() => {
+    if (accessToken === "") router.push("/admin");
     return URL.revokeObjectURL(image.preview_URL);
   }, []);
 
