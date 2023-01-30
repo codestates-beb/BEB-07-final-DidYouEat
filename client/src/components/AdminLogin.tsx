@@ -4,16 +4,16 @@ import { useRef, useState } from "react";
 
 export default function AdminLogin({ setLoginToggle }: { setLoginToggle: any }) {
   const loginEl: any = useRef();
-  const passwordRef = useRef();
-  const emailRef = useRef();
+  const passwordRef: any = useRef();
+  const emailRef: any = useRef();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isWating, setIsWating] = useState(false);
 
-  const handleEmailChange = (e) => {
+  const handleEmailChange = (e: any) => {
     setEmail(e.target.value);
   };
-  const handlePasswordChange = (e) => {
+  const handlePasswordChange = (e: any) => {
     setPassword(e.target.value);
   };
   const handleLoginSubmit = () => {
@@ -35,7 +35,7 @@ export default function AdminLogin({ setLoginToggle }: { setLoginToggle: any }) 
   return (
     <div
       ref={loginEl}
-      onClick={(e) => {
+      onClick={(e: any) => {
         if (e.target === loginEl.current) setLoginToggle(false);
       }}
       className="admin-login">
