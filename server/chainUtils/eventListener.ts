@@ -17,7 +17,7 @@ const findEvent = async () => {
       fromBlock: 'latest',
     };
 
-    console.log(myContract.events.Transfer(options));
+    // console.log(myContract.events.Transfer(options));
 
     myContract.events
       .Transfer(options)

@@ -1,8 +1,36 @@
+import axios from "axios";
 import Link from "next/link";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 export default function AdminLogin({ setLoginToggle }: { setLoginToggle: any }) {
   const loginEl: any = useRef();
+  const passwordRef = useRef();
+  const emailRef = useRef();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isWating, setIsWating] = useState(false);
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+  const handleLoginSubmit = () => {
+    setIsWating(true);
+    axios
+      .post(process.env.SERVER_URL + "/auth/owner/signin", {
+        id: email,
+        password: password,
+      })
+      .then((res) => {
+        const accessToken = res.data.message.accessToken;
+        setIsWating(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div
@@ -25,28 +53,28 @@ export default function AdminLogin({ setLoginToggle }: { setLoginToggle: any }) 
         <div className="admin-login__body">
           <div className="admin-login__id">
             <div className="input-area">
-              <input type="text"></input>
-              {/* ref={storeNameRef} onChange={handleStoreNameInput} */}
+              <input ref={emailRef} onChange={handleEmailChange} type="text"></input>
+
               <label
-                //   onClick={() => {
-                //     storeNameRef.current.focus();
-                //   }}
+                onClick={() => {
+                  emailRef.current.focus();
+                }}
                 htmlFor="input"
-                className="label-placeholder">
+                className={email === "" ? "label-placeholder" : "label-placeholder is-written"}>
                 이메일을 입력해주세요.
               </label>
             </div>
           </div>
           <div className="admin-login__pw">
             <div className="input-area">
-              <input type="text"></input>
-              {/* ref={storeNameRef} onChange={handleStoreNameInput} */}
+              <input ref={passwordRef} onChange={handlePasswordChange} type="password"></input>
+
               <label
-                //   onClick={() => {
-                //     storeNameRef.current.focus();
-                //   }}
+                onClick={() => {
+                  passwordRef.current.focus();
+                }}
                 htmlFor="input"
-                className="label-placeholder">
+                className={password === "" ? "label-placeholder" : "label-placeholder is-written"}>
                 비밀번호를 입력해주세요.
               </label>
             </div>
@@ -55,6 +83,9 @@ export default function AdminLogin({ setLoginToggle }: { setLoginToggle: any }) 
             <p>
               Did You Eat 사장님 계정이 없으십니까? <span>지금 만드세요 ↗</span>
             </p>
+          </div>
+          <div onClick={handleLoginSubmit} className="white-color classic-button">
+            로그인
           </div>
         </div>
       </div>

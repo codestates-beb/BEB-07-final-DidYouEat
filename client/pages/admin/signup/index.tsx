@@ -2,14 +2,20 @@ import AdminLayout from "@/src/components/AdminLayout";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useRef, useState, useEffect } from "react";
+import axios from "axios";
+import Loading from "@/src/components/Loading";
+import { Router, useRouter } from "next/router";
 
 export default function AdminSignup() {
+  const SERVER_URL = process.env.SERVER_URL + "/auth/owner/signup";
+  const router = useRouter();
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [userPasswordCheck, setUserPasswordCheck] = useState("");
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(false);
   const [isSamePassword, setIsSamePassword] = useState(false);
+  const [isWating, setIsWating] = useState(false);
 
   const handleEamilChange = (e) => {
     const regExp = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
@@ -28,6 +34,30 @@ export default function AdminSignup() {
     setUserPasswordCheck(e.target.value);
     if (e.target.value === userPassword) setIsSamePassword(true);
     if (e.target.value === "") setIsSamePassword(false);
+  };
+
+  const handleSubmit = () => {
+    if (isEmailValid && isPasswordValid && isSamePassword) {
+      setIsWating(true);
+      axios
+        .post(SERVER_URL, {
+          id: userEmail,
+          password: userPassword,
+        })
+        .then((res) => {
+          setIsWating(false);
+          if (res.status === 201) {
+            alert("아이디 만들기 성공! 로그인하세유~");
+            router.push("/admin");
+          } else if (res.status === 200) {
+            alert("이미 존재하는 이메일입니다. 비밀번호는 못찾아유");
+          }
+        })
+        .catch((err) => {
+          setIsWating(false);
+          console.log(err);
+        });
+    }
   };
 
   return (
@@ -152,7 +182,10 @@ export default function AdminSignup() {
               </div>
             </div>
             <div className="button-container">
-              <div className="yellow-color classic-button">계정 생성</div>
+              <div onClick={handleSubmit} className="yellow-color classic-button">
+                계정 생성
+              </div>
+              {isWating && <Loading></Loading>}
             </div>
           </div>
         </div>
