@@ -43,7 +43,7 @@ export class CollectionService {
       !coordinate_y ||
       !owner_id ||
       !shop_name ||
-      !(Object.keys(body).length == 6 || Object.keys(body).length == 7)
+      !(Object.keys(body).length == 5)
     ) {
       return res.status(400).send({ status: 'failed', message: 'Bad Request' });
     }
