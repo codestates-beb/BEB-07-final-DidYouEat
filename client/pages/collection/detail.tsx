@@ -1,6 +1,6 @@
 import Header from "@/src/components/Header";
 import Link from "next/link";
-export default function Collection() {
+export default function CollectionDetail() {
   return (
     <div className="detail">
       <Header />

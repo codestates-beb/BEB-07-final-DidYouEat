@@ -1,5 +1,6 @@
 import AdminFooter from "@/src/components/AdminFooter";
 import AdminHeader from "@/src/components/AdminHeader";
+import AdminLayout from "@/src/components/AdminLayout";
 import AdminLogin from "@/src/components/AdminLogin";
 import Link from "next/link";
 import { useState } from "react";
@@ -8,10 +9,10 @@ export default function Admin() {
   const [loginToggle, setLoginToggle] = useState(false);
 
   return (
-    <>
+    <AdminLayout setLoginToggle={setLoginToggle}>
       <div className="admin">
         {loginToggle && <AdminLogin setLoginToggle={setLoginToggle}></AdminLogin>}
-        <AdminHeader setLoginToggle={setLoginToggle}></AdminHeader>
+
         <div id="stars"></div>
         <div id="stars2"></div>
         <div id="stars3"></div>
@@ -30,8 +31,7 @@ export default function Admin() {
             도움이 더 필요하신가요? &nbsp;&nbsp;디쥬잇팀에게 직접 문의하고 필요한 기능을 제공받으세요.
           </div>
         </div>
-        <AdminFooter></AdminFooter>
       </div>
-    </>
+    </AdminLayout>
   );
 }
