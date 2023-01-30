@@ -23,6 +23,7 @@ const createCollection = async (data: collection) => {
         shop_name,
       },
     });
+
     if (event) {
       const newEvent = await prisma.event.create({
         data: {
@@ -34,6 +35,7 @@ const createCollection = async (data: collection) => {
     }
     return newCollection;
   } catch (e) {
+    console.log(e);
     return null;
   }
 };
