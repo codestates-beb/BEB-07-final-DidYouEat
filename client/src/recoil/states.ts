@@ -9,3 +9,8 @@ export const UserId = atom({
   default: "",
   effects_UNSTABLE: [persistAtom],
 });
+
+export const ClientAddress = atom({
+  key: "clientAddreaa",
+  default: "",
+});

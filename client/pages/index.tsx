@@ -63,14 +63,15 @@ export default function Home() {
           <div className="landing__scroll4">
             <h1 className="landing__h1-center">Collect NFTs like these</h1>
             <div className="landing__nft">
-              <NFT />
-              <NFT />
-              <NFT />
-              <NFT />
-              <NFT />
-              <NFT />
-              <NFT />
-              <NFT />
+              <Image className="landing__poap" src="/images/NFT1.png" width={70} height={70} alt="NFT" />
+              <Image className="landing__poap" src="/images/NFT2.png" width={70} height={70} alt="NFT" />
+              <Image className="landing__poap" src="/images/NFT3.png" width={70} height={70} alt="NFT" />
+              <Image className="landing__poap" src="/images/NFT4.png" width={70} height={70} alt="NFT" />
+              <Image className="landing__poap" src="/images/NFT5.png" width={70} height={70} alt="NFT" />
+              <Image className="landing__poap" src="/images/NFT6.png" width={70} height={70} alt="NFT" />
+              <Image className="landing__poap" src="/images/NFT7.png" width={70} height={70} alt="NFT" />
+              <Image className="landing__poap" src="/images/NFT8.png" width={70} height={70} alt="NFT" />
+              <Image className="landing__poap" src="/images/NFT9.png" width={70} height={70} alt="NFT" />
             </div>
           </div>
           <div className="landing__scroll5">

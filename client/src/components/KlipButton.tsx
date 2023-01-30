@@ -1,14 +1,21 @@
 import axios from "axios";
 import { useState } from "react";
+import { useRecoilState } from "recoil";
+import { ClientAddress } from "../recoil/states";
+import { useRouter } from "next/router";
 import Modal from "react-modal";
 import QRCode from "qrcode";
 
 export default function KlipButton() {
+  const router = useRouter();
   const [showModal, setShowModal] = useState(false);
   const [reqKey, setReqKey] = useState("");
+  const [clientAddress, setClientAddress] = useRecoilState(ClientAddress);
+
   const toggleModal = () => {
     setShowModal(!showModal);
   };
+
   const isAuthenticated = () => {
     axios.get(`https://a2a-api.klipwallet.com/v2/a2a/result?request_key=${reqKey}`).then((res) => {
       if (res.data.result) {
@@ -20,7 +27,9 @@ export default function KlipButton() {
       } else {
         alert(`Klip에서 인증을 진행해 주세요!`);
       }
+      if (res.data.result.klaytn_address) setClientAddress(res.data.result.klaytn_address);
     });
+    if (clientAddress) router.push("/collection");
   };
 
   async function handleConnect() {
@@ -69,13 +78,25 @@ export default function KlipButton() {
       <button className="header__connect" onClick={handleConnect}>
         Klip Connect
       </button>
+
       <Modal isOpen={showModal}>
-        <h1>title</h1>
-        <p>content</p>
-        <canvas id="canvas"></canvas>
-        <img id="authQR" src="" />
-        <button onClick={isAuthenticated}>인증완료</button>
-        <button onClick={toggleModal}>닫기</button>
+        <div className="klip">
+          <h2 className="klip__h2">
+            QR코드를 스캔해
+            <br />
+            지갑을 연결하세요
+          </h2>
+          <canvas id="canvas"></canvas>
+          <img className="klip__QR" id="authQR" src="" />
+          <div className="klip__buttons">
+            <button className="klip__button" onClick={isAuthenticated}>
+              인증완료
+            </button>
+            <button className="klip__button" onClick={toggleModal}>
+              닫기
+            </button>
+          </div>
+        </div>
       </Modal>
     </div>
   );

@@ -153,3 +153,37 @@
     }
   }
 }
+
+.klip {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__h2 {
+    margin-top: 100px;
+    text-align: center;
+  }
+  &__button {
+    width: 100px;
+    height: 30px;
+    border: none;
+    background-color: black;
+    color: var(--point-color);
+  }
+  &__buttons {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+  }
+  &__button:hover {
+    background-color: var(--point-color);
+    color: black;
+    cursor: pointer;
+  }
+
+  &__QR {
+    margin-top: -100px;
+  }
+}
