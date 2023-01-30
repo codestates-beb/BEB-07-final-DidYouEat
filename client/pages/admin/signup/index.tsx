@@ -17,12 +17,12 @@ export default function AdminSignup() {
   const [isSamePassword, setIsSamePassword] = useState(false);
   const [isWating, setIsWating] = useState(false);
 
-  const handleEamilChange = (e) => {
+  const handleEamilChange = (e: any) => {
     const regExp = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
     setUserEmail(e.target.value);
     setIsEmailValid(regExp.test(e.target.value));
   };
-  const handlePasswordChange = (e) => {
+  const handlePasswordChange = (e: any) => {
     const regExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d@$!%*?&]{8,}$/;
     setUserPassword(e.target.value);
     setIsPasswordValid(regExp.test(e.target.value));
@@ -30,7 +30,7 @@ export default function AdminSignup() {
     console.log(e.target.value);
     console.log(regExp.test(e.target.value));
   };
-  const handlePasswordCheckChange = (e) => {
+  const handlePasswordCheckChange = (e: any) => {
     setUserPasswordCheck(e.target.value);
     if (e.target.value === userPassword) setIsSamePassword(true);
     if (e.target.value === "") setIsSamePassword(false);

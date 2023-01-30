@@ -22,3 +22,5 @@ packages/debugger/.tmp
 
 # @truffle/contract
 packages/contract/browser-dist
+
+.env
