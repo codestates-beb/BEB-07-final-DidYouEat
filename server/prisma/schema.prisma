@@ -17,7 +17,7 @@ model Token {
   user                User?       @relation(fields: [user_wallet_address], references: [wallet_address])
   user_wallet_address String
   collection          Collection? @relation(fields: [collection_id], references: [collection_id])
-  collection_id       String
+  collection_id       Int
 }
 
 model User {
@@ -33,7 +33,7 @@ model Owner {
 }
 
 model Collection {
-  collection_id String   @id
+  collection_id Int      @id @default(autoincrement())
   img_url       String
   created_at    DateTime @default(now())
   coordinate_x  Int
@@ -50,5 +50,5 @@ model Event {
   id            Int         @id @default(autoincrement())
   content       String
   collection    Collection? @relation(fields: [collection_id], references: [collection_id])
-  collection_id String
+  collection_id Int
 }
