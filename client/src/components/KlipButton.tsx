@@ -1,65 +1,67 @@
-import axios from 'axios'
-import { useState } from 'react'
-import Modal from 'react-modal'
-import QRCode from 'qrcode'
+import axios from "axios";
+import { useState } from "react";
+import Modal from "react-modal";
+import QRCode from "qrcode";
 
 export default function KlipButton() {
-  const [showModal, setShowModal] = useState(false)
-  const [reqKey, setReqKey] = useState('')
-  const toggleModal = ()=>{
-    setShowModal(!showModal)
-  }
-  const isAuthenticated = ()=>{
-    axios.get(`https://a2a-api.klipwallet.com/v2/a2a/result?request_key=${reqKey}`).then((res)=>{
-      if(res.data.result){
-        alert(`Connect Wallet Success!\nYour wallet address : ${res.data.result.klaytn_address}`)
-        setShowModal(!showModal)
+  const [showModal, setShowModal] = useState(false);
+  const [reqKey, setReqKey] = useState("");
+  const toggleModal = () => {
+    setShowModal(!showModal);
+  };
+  const isAuthenticated = () => {
+    axios.get(`https://a2a-api.klipwallet.com/v2/a2a/result?request_key=${reqKey}`).then((res) => {
+      if (res.data.result) {
+        alert(`Connect Wallet Success!\nYour wallet address : ${res.data.result.klaytn_address}`);
+        setShowModal(!showModal);
+      } else if (res.status === 400) {
+        alert(`Request Time Out`);
+        setShowModal(!showModal);
+      } else {
+        alert(`Klip에서 인증을 진행해 주세요!`);
       }
-      else if(res.status === 400) {alert(`Request Time Out`); setShowModal(!showModal)}
-      else {
-        alert(`Klip에서 인증을 진행해 주세요!`)
-      }
-    })
-  }
-  
+    });
+  };
+
   async function handleConnect() {
-    const userAgent = window.navigator.userAgent
-    const platform = window.navigator.platform
-    const macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K']
-    const windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE']
-    const iosPlatforms = ['iPhone', 'iPad', 'iPod']
-    let os = null
+    const userAgent = window.navigator.userAgent;
+    const platform = window.navigator.platform;
+    const macosPlatforms = ["Macintosh", "MacIntel", "MacPPC", "Mac68K"];
+    const windowsPlatforms = ["Win32", "Win64", "Windows", "WinCE"];
+    const iosPlatforms = ["iPhone", "iPad", "iPod"];
+    let os = null;
     if (macosPlatforms.indexOf(platform) !== -1) {
-      os = 'MacOS';
+      os = "MacOS";
     } else if (iosPlatforms.indexOf(platform) !== -1) {
-      os = 'iOS';
+      os = "iOS";
     } else if (windowsPlatforms.indexOf(platform) !== -1) {
-      os = 'Windows';
+      os = "Windows";
     } else if (/Android/.test(userAgent)) {
-      os = 'Android';
+      os = "Android";
     } else if (!os && /Linux/.test(platform)) {
-      os = 'Linux';
+      os = "Linux";
     }
-    const isMobile = os === 'iOS' || os === 'Android' ? true : false
-    toggleModal()
-    const getKlipPrepareUrl = ( request_key:string)=>{
-      if(isMobile){
-        return window.location.href = `kakaotalk://klipwallet/open?url=https://klipwallet.com/?target=/a2a?request_key=${request_key}`
+    const isMobile = os === "iOS" || os === "Android" ? true : false;
+    toggleModal();
+    const getKlipPrepareUrl = (request_key: string) => {
+      if (isMobile) {
+        return (window.location.href = `kakaotalk://klipwallet/open?url=https://klipwallet.com/?target=/a2a?request_key=${request_key}`);
+      } else {
+        return QRCode.toDataURL(`https://klipwallet.com/?target=/a2a?request_key=${request_key}`).then((res) => {
+          const imgEl = document.getElementById("authQR");
+          imgEl!.setAttribute("src", res);
+        });
       }
-      else {
-        return QRCode.toDataURL(`https://klipwallet.com/?target=/a2a?request_key=${request_key}`).then(res=>{
-          const imgEl = document.getElementById('authQR')
-          imgEl!.setAttribute('src',res)
-        })
-      }
-    }
+    };
 
     const bappName = "DiD You Eat?";
-    const getAddress = await axios.post('https://a2a-api.klipwallet.com/v2/a2a/prepare',{bapp:{name:bappName},type : 'auth'})
-    const {request_key} = getAddress.data
-    getKlipPrepareUrl(request_key)
-    setReqKey(request_key)
-    
+    const getAddress = await axios.post("https://a2a-api.klipwallet.com/v2/a2a/prepare", {
+      bapp: { name: bappName },
+      type: "auth",
+    });
+    const { request_key } = getAddress.data;
+    getKlipPrepareUrl(request_key);
+    setReqKey(request_key);
   }
 
   return (
@@ -67,14 +69,14 @@ export default function KlipButton() {
       <button className="header__connect" onClick={handleConnect}>
         Klip Connect
       </button>
-        <Modal isOpen={showModal} >
-          <h1>title</h1>
-          <p>content</p>
-          <canvas id='canvas'></canvas>
-          <img id='authQR' src=''/>
-          <button onClick={isAuthenticated}>인증완료</button>
-          <button onClick={toggleModal}>닫기</button>
-        </Modal>
+      <Modal isOpen={showModal}>
+        <h1>title</h1>
+        <p>content</p>
+        <canvas id="canvas"></canvas>
+        <img id="authQR" src="" />
+        <button onClick={isAuthenticated}>인증완료</button>
+        <button onClick={toggleModal}>닫기</button>
+      </Modal>
     </div>
   );
 }
