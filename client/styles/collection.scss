@@ -105,3 +105,85 @@
     filter: drop-shadow(7px 7px 0px #000);
   }
 }
+.loading {
+  height: 5px;
+  width: 5px;
+  color: black;
+  box-shadow: -10px -10px 0 5px, -10px -10px 0 5px, -10px -10px 0 5px, -10px -10px 0 5px;
+  animation: loader-38 6s infinite;
+  @keyframes loader-38 {
+    0% {
+      box-shadow: -10px -10px 0 5px, -10px -10px 0 5px, -10px -10px 0 5px, -10px -10px 0 5px;
+    }
+    8.33% {
+      box-shadow: -10px -10px 0 5px, 10px -10px 0 5px, 10px -10px 0 5px, 10px -10px 0 5px;
+    }
+    16.66% {
+      box-shadow: -10px -10px 0 5px, 10px -10px 0 5px, 10px 10px 0 5px, 10px 10px 0 5px;
+    }
+    24.99% {
+      box-shadow: -10px -10px 0 5px, 10px -10px 0 5px, 10px 10px 0 5px, -10px 10px 0 5px;
+    }
+    33.32% {
+      box-shadow: -10px -10px 0 5px, 10px -10px 0 5px, 10px 10px 0 5px, -10px -10px 0 5px;
+    }
+    41.65% {
+      box-shadow: 10px -10px 0 5px, 10px -10px 0 5px, 10px 10px 0 5px, 10px -10px 0 5px;
+    }
+    49.98% {
+      box-shadow: 10px 10px 0 5px, 10px 10px 0 5px, 10px 10px 0 5px, 10px 10px 0 5px;
+    }
+    58.31% {
+      box-shadow: -10px 10px 0 5px, -10px 10px 0 5px, 10px 10px 0 5px, -10px 10px 0 5px;
+    }
+    66.64% {
+      box-shadow: -10px -10px 0 5px, -10px -10px 0 5px, 10px 10px 0 5px, -10px 10px 0 5px;
+    }
+    74.97% {
+      box-shadow: -10px -10px 0 5px, 10px -10px 0 5px, 10px 10px 0 5px, -10px 10px 0 5px;
+    }
+    83.3% {
+      box-shadow: -10px -10px 0 5px, 10px 10px 0 5px, 10px 10px 0 5px, -10px 10px 0 5px;
+    }
+    91.63% {
+      box-shadow: -10px -10px 0 5px, -10px 10px 0 5px, -10px 10px 0 5px, -10px 10px 0 5px;
+    }
+    100% {
+      box-shadow: -10px -10px 0 5px, -10px -10px 0 5px, -10px -10px 0 5px, -10px -10px 0 5px;
+    }
+  }
+}
+
+.klip {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__h2 {
+    margin-top: 100px;
+    text-align: center;
+  }
+  &__button {
+    width: 100px;
+    height: 30px;
+    border: none;
+    background-color: black;
+    color: var(--point-color);
+  }
+  &__buttons {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+  }
+  &__button:hover {
+    background-color: var(--point-color);
+    color: black;
+    cursor: pointer;
+  }
+
+  &__QR {
+    margin-top: -100px;
+  }
+}

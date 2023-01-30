@@ -1,26 +1,35 @@
 import Caver, { AbiItem } from 'caver-js';
-import { abi } from './abi/MyToken';
+import { tokenAbi } from './abi/MyTokenAbi';
+import { poapAbi } from './abi/PoapAbi';
+import { eventHandler } from './eventHandler';
 
 const caver = new Caver('wss://public-node-api.klaytnapi.com/v1/baobab/ws');
 
-const myContract = caver.contract.create(
-  abi as AbiItem[],
+const testContract = caver.contract.create(
+  tokenAbi as AbiItem[],
   process.env.MYTOKEN_CA,
 );
 
-const findEvent = async () => {
+const poapContract = caver.contract.create(
+  poapAbi as AbiItem[],
+  process.env.POAP_CA,
+);
+
+const { poapEventHandler } = eventHandler;
+
+const myTokenEventListener = async () => {
   try {
-    const options = {
+    const defaultOptions = {
       filter: {
         value: [],
       },
       fromBlock: 'latest',
     };
 
-    console.log(myContract.events.Transfer(options));
+    // console.log(myContract.events.Transfer(options));
 
-    myContract.events
-      .Transfer(options)
+    testContract.events
+      .Transfer(defaultOptions)
       .on('data', async (event: any) => {
         try {
           console.log('data');
@@ -30,13 +39,37 @@ const findEvent = async () => {
           return err;
         }
       })
-      .on('changed', (changed: any) => console.log(changed))
-      .on('error', (err: any) => console.log(err))
-      .on('connected', (str: any) => console.log(str));
+      .on('error', (err: any) => console.log(err));
   } catch (err) {
     console.log(err);
     return err;
   }
 };
 
-export { findEvent };
+const poapEventListener = () => {
+  const defaultOptions = {
+    filter: {
+      value: [],
+    },
+    fromBlock: 'latest',
+  };
+
+  poapContract.events
+    .CreateCollection(defaultOptions)
+    .on('data', (event: any) => {
+      poapEventHandler.createCollection(event);
+    })
+    .on('error', console.error);
+};
+
+const eventListener = {
+  myTokenEventListener,
+  poapEventListener,
+
+  allRun: () => {
+    myTokenEventListener();
+    poapEventListener();
+  },
+};
+
+export { eventListener };

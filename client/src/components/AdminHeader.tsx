@@ -1,10 +1,14 @@
 import Link from "next/link";
+import Router from "next/router";
 import { useRecoilState } from "recoil";
 import { UserId } from "../recoil/states";
 
 export default function AdminHeader({ setLoginToggle }: { setLoginToggle: any }) {
   const [userId, setUserId] = useRecoilState(UserId);
 
+  const moveToAdmin = () => {
+    Router.push("/admin");
+  };
   return (
     <nav className="admin-header">
       <div className="admin-header__container">
@@ -22,11 +26,18 @@ export default function AdminHeader({ setLoginToggle }: { setLoginToggle: any })
               Log in
             </div>
           )}
-          <div className="admin-header__item">Sign up</div>
+          <div
+            onClick={() => {
+              Router.push("/admin/signup");
+            }}
+            className="admin-header__item">
+            Sign up
+          </div>
           {userId !== "" && (
             <div
               onClick={() => {
                 setUserId("");
+                moveToAdmin();
               }}
               className="admin-header__item">
               {userId} Log out

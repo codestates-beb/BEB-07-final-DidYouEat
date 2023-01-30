@@ -1,6 +1,6 @@
 import { prisma } from '../../prisma';
 
-const getUser = async (wallet_address: string) => {
+const getUserData = async (wallet_address: string) => {
   try {
     const userData = await prisma.user.findUnique({
       where: { wallet_address },
@@ -15,15 +15,4 @@ const getUser = async (wallet_address: string) => {
   }
 };
 
-const getTokensByWallet = async (wallet_address: string) => {
-  try {
-    const tokens = await prisma.token.findMany({
-      where: { user_wallet_address: wallet_address },
-    });
-    return tokens;
-  } catch (e) {
-    return null;
-  }
-};
-
-export { getUser, getTokensByWallet };
+export { getUserData };

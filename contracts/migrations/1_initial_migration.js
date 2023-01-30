@@ -1,4 +1,4 @@
-const MyNfts = artifacts.require("./MyNFTs.sol");
+const MyNFTs = artifacts.require("./MyNFTs.sol");
 module.exports = function (deployer) {
-  deployer.deploy(MyNfts);
+  deployer.deploy(MyNFTs);
 };
