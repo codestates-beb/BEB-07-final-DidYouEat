@@ -1,14 +1,23 @@
 import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useRef, useState } from "react";
+import { useRecoilState } from "recoil";
+import { AdminAccessTokenState, AdminIdState } from "../recoil/states";
 
 export default function AdminLogin({ setLoginToggle }: { setLoginToggle: any }) {
-  const loginEl: any = useRef();
-  const passwordRef = useRef();
-  const emailRef = useRef();
+  const [adminAccessToken, setAdminAccessToken] = useRecoilState(AdminAccessTokenState);
+  const [adminId, setAdminId] = useRecoilState(AdminIdState);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isWating, setIsWating] = useState(false);
+
+  const loginEl: any = useRef();
+  const passwordRef = useRef();
+  const emailRef = useRef();
+
+  const router = useRouter();
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -26,6 +35,9 @@ export default function AdminLogin({ setLoginToggle }: { setLoginToggle: any }) 
       .then((res) => {
         const accessToken = res.data.message.accessToken;
         setIsWating(false);
+        setAdminAccessToken(accessToken);
+        setAdminId(email);
+        router.push("/admin");
       })
       .catch((err) => {
         console.log(err);
@@ -81,7 +93,13 @@ export default function AdminLogin({ setLoginToggle }: { setLoginToggle: any }) 
           </div>
           <div className="admin-login__signup">
             <p>
-              Did You Eat 사장님 계정이 없으십니까? <span>지금 만드세요 ↗</span>
+              Did You Eat 사장님 계정이 없으십니까?{" "}
+              <span
+                onClick={() => {
+                  router.push("/admin/signup");
+                }}>
+                지금 만드세요 ↗
+              </span>
             </p>
           </div>
           <div onClick={handleLoginSubmit} className="white-color classic-button">

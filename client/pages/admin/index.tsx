@@ -21,9 +21,13 @@ export default function Admin() {
             Introducing the new <br /> POAP and DID information offering system.
           </h1>
           <div className="admin-button__container">
-            <Link href="/admin/store">
-              <div className="admin__button">Start using "Did You Eat" system</div>
-            </Link>
+            <div
+              onClick={() => {
+                setLoginToggle(true);
+              }}
+              className="admin__button">
+              Start using "Did You Eat" system
+            </div>
           </div>
         </div>
         <div className="admin__contact">

@@ -4,8 +4,14 @@ import { v1 } from "uuid";
 
 const { persistAtom } = recoilPersist();
 
-export const UserId = atom({
-  key: `userId/${v1()}`,
+export const AdminIdState = atom({
+  key: `adminId`,
+  default: "",
+  effects_UNSTABLE: [persistAtom],
+});
+
+export const AdminAccessTokenState = atom({
+  key: `adminAccessToken`,
   default: "",
   effects_UNSTABLE: [persistAtom],
 });

@@ -1,13 +1,14 @@
 import Link from "next/link";
-import Router from "next/router";
+import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
-import { UserId } from "../recoil/states";
+import { AdminIdState } from "../recoil/states";
 
 export default function AdminHeader({ setLoginToggle }: { setLoginToggle: any }) {
-  const [userId, setUserId] = useRecoilState(UserId);
+  const router = useRouter();
+  const [adminId, setAdminId] = useRecoilState(AdminIdState);
 
   const moveToAdmin = () => {
-    Router.push("/admin");
+    router.push("/admin");
   };
   return (
     <nav className="admin-header">
@@ -16,10 +17,10 @@ export default function AdminHeader({ setLoginToggle }: { setLoginToggle: any })
           <div className="admin-header__logo">Did you Eat?</div>
         </Link>
         <div className="admin-header__li">
-          {userId === "" && (
+          {adminId === "" && (
             <div
               onClick={() => {
-                setUserId("jinwoo");
+                setAdminId("jinwoo");
                 setLoginToggle(true);
               }}
               className="admin-header__item">
@@ -28,19 +29,19 @@ export default function AdminHeader({ setLoginToggle }: { setLoginToggle: any })
           )}
           <div
             onClick={() => {
-              Router.push("/admin/signup");
+              router.push("/admin/signup");
             }}
             className="admin-header__item">
             Sign up
           </div>
-          {userId !== "" && (
+          {adminId !== "" && (
             <div
               onClick={() => {
-                setUserId("");
+                setAdminId("");
                 moveToAdmin();
               }}
               className="admin-header__item">
-              {userId} Log out
+              {adminId} Log out
             </div>
           )}
         </div>
