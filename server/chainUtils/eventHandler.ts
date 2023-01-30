@@ -21,21 +21,21 @@ const poapEventHandler = {
     const {
       collection_id,
       img_url,
+      created_at,
       coordinate_x,
       coordinate_y,
       owner_id,
       shop_name,
-      event,
     } = result;
 
     const newCollection = await collectionUtils.createCollection({
       collection_id,
       img_url,
+      created_at,
       coordinate_x,
       coordinate_y,
       owner_id,
       shop_name,
-      event,
     });
 
     if (!newCollection) poapEmitter.emit('createCollection', false);
