@@ -2,16 +2,16 @@ import AdminFooter from "@/src/components/AdminFooter";
 import AdminHeader from "@/src/components/AdminHeader";
 import AdminLayout from "@/src/components/AdminLayout";
 import AdminLogin from "@/src/components/AdminLogin";
-import { AdminAccessTokenState, AdminIdState } from "@/src/recoil/states";
+import { AdminIdState } from "@/src/recoil/states";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRecoilState } from "recoil";
 
 export default function Admin() {
   const router = useRouter();
-  const [loginToggle, setLoginToggle] = useState(false);
   const [adminId, setAdminId] = useRecoilState(AdminIdState);
+  const [loginToggle, setLoginToggle] = useState(false);
 
   const handleStartDYE = () => {
     if (adminId === "") setLoginToggle(true);
@@ -19,10 +19,9 @@ export default function Admin() {
   };
 
   return (
-    <AdminLayout setLoginToggle={setLoginToggle}>
+    <AdminLayout>
+      {loginToggle && <AdminLogin setLoginToggle={setLoginToggle} />}
       <div className="admin">
-        {loginToggle && <AdminLogin setLoginToggle={setLoginToggle}></AdminLogin>}
-
         <div id="stars"></div>
         <div id="stars2"></div>
         <div id="stars3"></div>

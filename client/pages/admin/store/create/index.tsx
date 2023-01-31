@@ -2,17 +2,15 @@ import AdminFooter from "@/src/components/AdminFooter";
 import AdminHeader from "@/src/components/AdminHeader";
 import AdminLayout from "@/src/components/AdminLayout";
 import PostalCode from "@/src/components/PostalCode";
-import next from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import { AdminAccessTokenState } from "@/src/recoil/states";
 import { useRouter } from "next/router";
 
 export default function CreateStore() {
-+
   const router = useRouter();
   const storeNameRef: any = useRef();
   const storeDetailAddressRef: any = useRef();
@@ -27,6 +25,10 @@ export default function CreateStore() {
     name: "",
     address: "",
     detail_address: "",
+  });
+  const [storeCoordinate, setStoreCoordinate] = useState({
+    x: 0,
+    y: 0,
   });
   const accessToken = useRecoilValue(AdminAccessTokenState);
 
@@ -110,8 +112,63 @@ export default function CreateStore() {
     return URL.revokeObjectURL(image.preview_URL);
   }, []);
 
+  useEffect(() => {
+    console.log("store:", store.address);
+
+    const config = { headers: { Authorization: `KakaoAK ${process.env.NEXT_PUBLIC_KAKAO_RESTAPI}` } }; // 헤더 설정
+    const url = "https://dapi.kakao.com/v2/local/search/address.json?query=" + store.address; // REST API url에 data.address값 전송
+
+    axios
+      .get(url, config)
+      .then(function (result) {
+        console.log(result);
+        if (result.data !== undefined || result.data !== null) {
+          if (result.data.documents[0].x && result.data.documents[0].y) {
+            // Kakao Local API로 검색한 주소 정보 및 위도, 경도값 저장
+
+            setStoreCoordinate((prev) => {
+              const next = { ...prev };
+              next.x = Math.floor(result.data.documents[0].x * 1_000_000);
+              next.y = Math.floor(result.data.documents[0].y * 1_000_000);
+
+              return next;
+            });
+          }
+        }
+        console.log("store:", store.address);
+        console.log("coordinate:", storeCoordinate);
+      })
+      .catch((err) => console.log(err));
+  }, [store.address]);
+  // useEffect(() => {
+  //   if (store.address === "") return;
+
+  //   const config = { headers: { Authorization: `KakaoAK ${process.env.NEXT_PUBLIC_KAKAO_RESTAPI}` } }; // 헤더 설정
+  //   const url = "https://dapi.kakao.com/v2/local/search/address.json?query=" + store.address; // REST API url에 data.address값 전송
+  //   axios
+  //     .get(url, config)
+  //     .then(function (result) {
+  //       console.log(result);
+  //       if (result.data !== undefined || result.data !== null) {
+  //         if (result.data.documents[0].x && result.data.documents[0].y) {
+  //           // Kakao Local API로 검색한 주소 정보 및 위도, 경도값 저장
+
+  //           setStoreCoordinate((prev) => {
+  //             const next = { ...prev };
+  //             next.x = result.data.documents[0].x;
+  //             next.y = result.data.documents[0].y;
+
+  //             return next;
+  //           });
+  //         }
+  //       }
+  //     })
+  //     .catch((err) => console.log(err));
+  //   console.log(storeCoordinate);
+  // }, [store.address]);
+
   return (
-    <AdminLayout setLoginToggle={undefined}>
+    <AdminLayout>
       <div className="create-store">
         <div className="create-store__heading">
           <h2>Store NFT</h2>

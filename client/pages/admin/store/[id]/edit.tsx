@@ -80,7 +80,7 @@ export default function Edit() {
   }, []);
 
   return (
-    <AdminLayout setLoginToggle={undefined}>
+    <AdminLayout>
       <div className="create-store">
         <div className="create-store__heading">
           <h2>Store NFT</h2>

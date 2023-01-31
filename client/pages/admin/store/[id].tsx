@@ -20,7 +20,7 @@ const StoreDetail = () => {
   }, []);
 
   return (
-    <AdminLayout setLoginToggle={undefined}>
+    <AdminLayout>
       <div className="store-detail">
         <div className="store-detail__heading">
           <h2>Store Detail</h2>

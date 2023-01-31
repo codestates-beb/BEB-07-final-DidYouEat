@@ -12,8 +12,6 @@ export default function AdminSignup() {
   const SERVER_URL = process.env.SERVER_URL + "/api/auth/owner/signup";
   const router = useRouter();
 
-  const [accessToken, setAccessToken] = useRecoilState(AdminAccessTokenState);
-
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [userPasswordCheck, setUserPasswordCheck] = useState("");
@@ -65,12 +63,8 @@ export default function AdminSignup() {
     }
   };
 
-  useEffect(() => {
-    if (accessToken === "") router.push("/admin");
-  }, []);
-
   return (
-    <AdminLayout setLoginToggle={undefined}>
+    <AdminLayout>
       <div className="admin-signup">
         <div className="admin-signup__heading">
           <h2>Admin ID</h2>

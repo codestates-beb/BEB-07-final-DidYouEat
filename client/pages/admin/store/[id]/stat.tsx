@@ -21,6 +21,7 @@ import { Line, Bar, Doughnut } from "react-chartjs-2";
 import AdminLayout from "@/src/components/AdminLayout";
 import { useRecoilValue } from "recoil";
 import { AdminAccessTokenState } from "@/src/recoil/states";
+import { useEffect } from "react";
 
 export const data = {
   labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
@@ -117,7 +118,7 @@ export default function Stat() {
   }, []);
 
   return (
-    <AdminLayout setLoginToggle={undefined}>
+    <AdminLayout>
       <div className="store-stat">
         <div className="store-detail__heading">
           <h2>Store Stats</h2>

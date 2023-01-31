@@ -1,13 +1,13 @@
 import axios from "axios";
-import Link from "next/link";
-import { useRouter } from "next/router";
+
+import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { AdminAccessTokenState, AdminIdState } from "../recoil/states";
 
 export default function AdminLogin({ setLoginToggle }: { setLoginToggle: any }) {
-  const [adminAccessToken, setAdminAccessToken] = useRecoilState(AdminAccessTokenState);
-  const [adminId, setAdminId] = useRecoilState(AdminIdState);
+  const setAdminAccessToken = useSetRecoilState(AdminAccessTokenState);
+  const setAdminId = useSetRecoilState(AdminIdState);
 
   const loginEl: any = useRef();
   const passwordRef: any = useRef();
@@ -26,6 +26,8 @@ export default function AdminLogin({ setLoginToggle }: { setLoginToggle: any }) 
   };
   const handleLoginSubmit = () => {
     setIsWating(true);
+    setAdminId("jinwoo");
+    setAdminAccessToken("abc");
     axios
       .post(process.env.SERVER_URL + "/api/auth/owner/signin", {
         id: email,
@@ -99,6 +101,7 @@ export default function AdminLogin({ setLoginToggle }: { setLoginToggle: any }) 
               <span
                 onClick={() => {
                   router.push("/admin/signup");
+                  setLoginToggle(false);
                 }}>
                 지금 만드세요 ↗
               </span>

@@ -1,6 +1,5 @@
 import AdminCollection from "@/src/components/AdminCollection";
-import AdminFooter from "@/src/components/AdminFooter";
-import AdminHeader from "@/src/components/AdminHeader";
+
 import AdminLayout from "@/src/components/AdminLayout";
 import { AdminAccessTokenState } from "@/src/recoil/states";
 import Link from "next/link";
@@ -17,7 +16,7 @@ export default function Store() {
   }, []);
 
   return (
-    <AdminLayout setLoginToggle={undefined}>
+    <AdminLayout>
       <div className="admin-store">
         <div className="admin-store__heading">
           <h2>My Store</h2>
