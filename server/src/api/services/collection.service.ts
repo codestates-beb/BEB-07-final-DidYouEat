@@ -36,14 +36,22 @@ export class CollectionService {
     const { IPFS_BASE_URL } = process.env;
 
     // 400 Bad Request
-    const { img_url, coordinate_x, coordinate_y, owner_id, shop_name } = body;
+    const {
+      img_url,
+      location,
+      coordinate_x,
+      coordinate_y,
+      owner_id,
+      shop_name,
+    } = body;
     if (
       !img_url ||
+      !location ||
       !coordinate_x ||
       !coordinate_y ||
       !owner_id ||
       !shop_name ||
-      !(Object.keys(body).length == 5)
+      !(Object.keys(body).length == 6)
     ) {
       return res.status(400).send({ status: 'failed', message: 'Bad Request' });
     }
@@ -57,6 +65,7 @@ export class CollectionService {
     const newCollection = {
       collection_id,
       img_url,
+      location,
       created_at,
       coordinate_x,
       coordinate_y,
@@ -84,6 +93,84 @@ export class CollectionService {
       return res
         .status(200)
         .send({ status: 'failed', message: `${collection_id} already exist` });
+    }
+
+    //sync db
+    const status = await sync.run();
+    // console.log(status);
+
+    //if db error
+    if (!status) {
+      return res
+        .status(500)
+        .send({ status: 'fail', message: 'internal server error' });
+    }
+
+    //get collectiondata
+    const collectionData = await collectionUtils.getCollectionData(
+      collection_id,
+    );
+
+    return res.status(201).send({ status: 'success', message: collectionData });
+  }
+
+  async updateCollection(
+    collection_id: string,
+    body: collection,
+    res: Response,
+  ) {
+    // 400 Bad Request
+    const { IPFS_BASE_URL } = process.env;
+
+    const {
+      img_url,
+      location,
+      coordinate_x,
+      coordinate_y,
+      owner_id,
+      shop_name,
+    } = body;
+    if (
+      !img_url ||
+      !location ||
+      !coordinate_x ||
+      !coordinate_y ||
+      !owner_id ||
+      !shop_name ||
+      !(Object.keys(body).length == 6)
+    ) {
+      return res.status(400).send({ status: 'failed', message: 'Bad Request' });
+    }
+
+    //created_at
+    const created_at: string = createCurDate();
+
+    const newCollection = {
+      collection_id,
+      img_url,
+      location,
+      created_at,
+      coordinate_x,
+      coordinate_y,
+      owner_id,
+      shop_name,
+    };
+
+    //ipfs upload
+    const CID = await uploadIpfs(newCollection);
+    const uri = `${IPFS_BASE_URL}/${CID}`;
+
+    //sync db listener
+    const sync: DbSync = new DbSync('updateCollection', poapEmitter);
+    sync.setEmitter();
+
+    const result = await chainUtils.updateCollection(collection_id, uri);
+
+    //if collection_id is already exist
+    if (result === null) {
+      return res
+        .status(200)
+        .send({ status: 'failed', message: `${collection_id} not found` });
     }
 
     //sync db

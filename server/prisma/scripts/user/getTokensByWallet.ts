@@ -7,6 +7,7 @@ const getTokensByWallet = async (wallet_address: string) => {
     });
     return tokens;
   } catch (e) {
+    console.log(e);
     return null;
   }
 };

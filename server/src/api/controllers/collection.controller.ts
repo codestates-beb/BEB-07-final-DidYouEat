@@ -36,6 +36,15 @@ export class CollectionController {
     return this.collectionService.createCollection(body, res);
   }
 
+  @Post('update/:collection_id')
+  updateCollection(
+    @Param('collection_id') collection_id: string,
+    @Body() body: collection,
+    @Res() res: Response,
+  ): object {
+    return this.collectionService.updateCollection(collection_id, body, res);
+  }
+
   @Post('newevent')
   newEvent(@Body() body: event, @Res() res: Response): object {
     return this.collectionService.newEvent(body, res);

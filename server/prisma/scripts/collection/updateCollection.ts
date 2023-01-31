@@ -1,7 +1,7 @@
 import { collection } from 'src/api/dto/collection.dto';
 import { prisma } from '../../prisma';
 
-const createCollection = async (data: collection) => {
+const updateCollection = async (data: collection) => {
   const {
     collection_id,
     img_url,
@@ -9,29 +9,31 @@ const createCollection = async (data: collection) => {
     created_at,
     coordinate_x,
     coordinate_y,
-    owner_id,
     shop_name,
   } = data;
 
+  // console.log(data);
+
   try {
-    const newCollection = await prisma.collection.create({
-      data: {
+    const updateCollection = await prisma.collection.update({
+      where: {
         collection_id,
+      },
+      data: {
         img_url,
-        location,
         created_at,
+        location,
         coordinate_x,
         coordinate_y,
-        owner_id,
         shop_name,
       },
     });
 
-    return newCollection;
+    return updateCollection;
   } catch (e) {
     console.log(e);
     return null;
   }
 };
 
-export { createCollection };
+export { updateCollection };

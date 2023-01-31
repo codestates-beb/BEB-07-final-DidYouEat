@@ -1,14 +1,10 @@
 import { poapContract } from './setting';
 
-async function createCollection(
-  collectionName: string,
-  owner: string,
-  metaURI: string,
-) {
-  console.log(poapContract);
+async function updateCollection(collectionName: string, metaURI: string) {
+  console.log('this is update');
   try {
     const result = await poapContract.methods
-      .createCollection(collectionName, owner, metaURI)
+      .updateCollection(collectionName, metaURI)
       .send({ from: process.env.SERVER_ADDR, gas: 1000000 });
 
     return result;
@@ -18,4 +14,4 @@ async function createCollection(
   }
 }
 
-export { createCollection };
+export { updateCollection };
