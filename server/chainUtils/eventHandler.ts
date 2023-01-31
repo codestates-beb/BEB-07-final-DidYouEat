@@ -21,6 +21,7 @@ const poapEventHandler = {
     const {
       collection_id,
       img_url,
+      location,
       created_at,
       coordinate_x,
       coordinate_y,
@@ -31,6 +32,7 @@ const poapEventHandler = {
     const newCollection = await collectionUtils.createCollection({
       collection_id,
       img_url,
+      location,
       created_at,
       coordinate_x,
       coordinate_y,
@@ -48,6 +50,7 @@ const poapEventHandler = {
     const {
       collection_id,
       img_url,
+      location,
       created_at,
       coordinate_x,
       coordinate_y,
@@ -58,6 +61,7 @@ const poapEventHandler = {
     const updatedCollection = await collectionUtils.updateCollection({
       collection_id,
       img_url,
+      location,
       created_at,
       coordinate_x,
       coordinate_y,

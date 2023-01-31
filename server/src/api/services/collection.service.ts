@@ -36,14 +36,22 @@ export class CollectionService {
     const { IPFS_BASE_URL } = process.env;
 
     // 400 Bad Request
-    const { img_url, coordinate_x, coordinate_y, owner_id, shop_name } = body;
+    const {
+      img_url,
+      location,
+      coordinate_x,
+      coordinate_y,
+      owner_id,
+      shop_name,
+    } = body;
     if (
       !img_url ||
+      !location ||
       !coordinate_x ||
       !coordinate_y ||
       !owner_id ||
       !shop_name ||
-      !(Object.keys(body).length == 5)
+      !(Object.keys(body).length == 6)
     ) {
       return res.status(400).send({ status: 'failed', message: 'Bad Request' });
     }
@@ -57,6 +65,7 @@ export class CollectionService {
     const newCollection = {
       collection_id,
       img_url,
+      location,
       created_at,
       coordinate_x,
       coordinate_y,
@@ -113,14 +122,22 @@ export class CollectionService {
     // 400 Bad Request
     const { IPFS_BASE_URL } = process.env;
 
-    const { img_url, coordinate_x, coordinate_y, owner_id, shop_name } = body;
+    const {
+      img_url,
+      location,
+      coordinate_x,
+      coordinate_y,
+      owner_id,
+      shop_name,
+    } = body;
     if (
       !img_url ||
+      !location ||
       !coordinate_x ||
       !coordinate_y ||
       !owner_id ||
       !shop_name ||
-      !(Object.keys(body).length == 5)
+      !(Object.keys(body).length == 6)
     ) {
       return res.status(400).send({ status: 'failed', message: 'Bad Request' });
     }
@@ -131,6 +148,7 @@ export class CollectionService {
     const newCollection = {
       collection_id,
       img_url,
+      location,
       created_at,
       coordinate_x,
       coordinate_y,
