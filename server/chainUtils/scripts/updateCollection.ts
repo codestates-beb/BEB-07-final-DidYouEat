@@ -1,7 +1,7 @@
 import { poapContract } from './setting';
 
 async function updateCollection(collectionName: string, metaURI: string) {
-  // console.log(poapContract);
+  console.log('this is update');
   try {
     const result = await poapContract.methods
       .updateCollection(collectionName, metaURI)
@@ -9,6 +9,7 @@ async function updateCollection(collectionName: string, metaURI: string) {
 
     return result;
   } catch (e) {
+    console.log(e);
     return null;
   }
 }

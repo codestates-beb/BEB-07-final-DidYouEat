@@ -18,7 +18,7 @@ contract Poap is ERC721URIStorage, Ownable, Sbt, Pausable {
 
   //events
   event CreateCollection(string collectionName, string metaURI);
-  event UpdateCollection(string collectionName, string newmetaURI);
+  event UpdateCollection(string collectionName, string newMetaURI);
   event MintToken(uint256 tokenId, string tokenURI, uint256 createdAt);
   
   //mapping

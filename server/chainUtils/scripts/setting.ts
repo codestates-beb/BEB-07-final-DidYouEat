@@ -36,6 +36,8 @@ async function setKeyring() {
 
 setKeyring();
 
+console.log('Setting complete');
+
 const testContract = caver.contract.create(tokenAbi as AbiItem[], MYTOKEN_CA);
 const poapContract = caver.contract.create(poapAbi as AbiItem[], POAP_CA);
 

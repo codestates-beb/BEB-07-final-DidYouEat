@@ -8,9 +8,10 @@ const updateCollection = async (data: collection) => {
     created_at,
     coordinate_x,
     coordinate_y,
-    owner_id,
     shop_name,
   } = data;
+
+  // console.log(data);
 
   try {
     const updateCollection = await prisma.collection.update({
@@ -22,7 +23,6 @@ const updateCollection = async (data: collection) => {
         created_at,
         coordinate_x,
         coordinate_y,
-        owner_id,
         shop_name,
       },
     });
