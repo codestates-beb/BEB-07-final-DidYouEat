@@ -5,6 +5,7 @@ const updateCollection = async (data: collection) => {
   const {
     collection_id,
     img_url,
+    location,
     created_at,
     coordinate_x,
     coordinate_y,
@@ -21,6 +22,7 @@ const updateCollection = async (data: collection) => {
       data: {
         img_url,
         created_at,
+        location,
         coordinate_x,
         coordinate_y,
         shop_name,
