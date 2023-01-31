@@ -51,7 +51,7 @@ jobs:
   deploy:
     needs: build
     name: Deploy
-    runs-on: [ self-hosted, label-development ]
+    runs-on: [self-hosted, label-development]
     steps:
       - name: Login to ghcr
         uses: docker/login-action@v2.1.0
@@ -59,8 +59,17 @@ jobs:
           registry: ghcr.io
           username: DongMinKwon
           password: ${{secrets.CR_PAT}}
-      
+
       - name: Docker run
         run: |
           docker stop ${{env.CONTAINER_NAME}} && docker rm ${{env.CONTAINER_NAME}} && docker rmi ${{env.DOCKER_IMAGE}}
-          docker run -d -p 80:3000 -e DATABASE_URL=${{secrets.DATABASE_URL}} --name ${{env.CONTAINER_NAME}} --restart always ${{env.DOCKER_IMAGE}}:latest
+          docker run -d -p 80:3000 \
+           -e DATABASE_URL=${{secrets.DATABASE_URL}} \
+           -e MY_TOKEN_CA=${{secrets.MY_TOKEN_CA}} \
+           -e POAP_CA=${{secrets.POAP_CA}} \
+           -e SERVER_ADDR=${{secrets.SERVER_ADDR}} \
+           -e SERVER_PRIVATE_KEY=${{secrets.SERVER_PRIVATE_KEY}} \
+           -e IPFS_PROJECT_ID=${{secrets.IPFS_PROJECT_ID}} \
+           -e IPFS_SECRET_KEY=${{secrets.IPFS_SECRET_KEY}} \
+           -e IPFS_BASE_URL=${{IPFS_BASE_URL}} \
+           --name ${{env.CONTAINER_NAME}} --restart always ${{env.DOCKER_IMAGE}}:latest
