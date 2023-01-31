@@ -22,15 +22,13 @@ export default function KlipButton() {
       if (res.data.result) {
         alert(`Connect Wallet Success!\nYour wallet address : ${res.data.result.klaytn_address}`);
         setShowModal(!showModal);
+        setClientAddress(res.data.result.klaytn_address);
+        router.push("/collection");
       } else if (res.status === 400) {
         alert(`Request Time Out`);
         setShowModal(!showModal);
       } else {
         alert(`Klip에서 인증을 진행해 주세요!`);
-      }
-      if (res.data.result.klaytn_address) {
-        setClientAddress(res.data.result.klaytn_address);
-        router.push("/collection");
       }
     });
   };
