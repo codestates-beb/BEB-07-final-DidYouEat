@@ -71,5 +71,5 @@ jobs:
            -e SERVER_PRIVATE_KEY=${{secrets.SERVER_PRIVATE_KEY}} \
            -e IPFS_PROJECT_ID=${{secrets.IPFS_PROJECT_ID}} \
            -e IPFS_SECRET_KEY=${{secrets.IPFS_SECRET_KEY}} \
-           -e IPFS_BASE_URL=${{IPFS_BASE_URL}} \
+           -e IPFS_BASE_URL=${{secrets.IPFS_BASE_URL}} \
            --name ${{env.CONTAINER_NAME}} --restart always ${{env.DOCKER_IMAGE}}:latest
