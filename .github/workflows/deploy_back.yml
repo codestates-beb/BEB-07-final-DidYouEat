@@ -65,7 +65,7 @@ jobs:
           docker stop ${{env.CONTAINER_NAME}} && docker rm ${{env.CONTAINER_NAME}} && docker rmi ${{env.DOCKER_IMAGE}}
           docker run -d -p 80:3000 \
            -e DATABASE_URL=${{secrets.DATABASE_URL}} \
-           -e MY_TOKEN_CA=${{secrets.MY_TOKEN_CA}} \
+           -e MYTOKEN_CA=${{secrets.MYTOKEN_CA}} \
            -e POAP_CA=${{secrets.POAP_CA}} \
            -e SERVER_ADDR=${{secrets.SERVER_ADDR}} \
            -e SERVER_PRIVATE_KEY=${{secrets.SERVER_PRIVATE_KEY}} \
