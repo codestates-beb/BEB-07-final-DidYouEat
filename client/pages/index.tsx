@@ -11,7 +11,7 @@ export default function Home() {
   const setClientAddress = useSetRecoilState(ClientAddress);
   useEffect(() => {
     const clientAddress = localStorage.getItem("clientAddress");
-    if (clientAddress !== "") {
+    if (clientAddress) {
       setClientAddress(clientAddress);
     }
   }, []);
