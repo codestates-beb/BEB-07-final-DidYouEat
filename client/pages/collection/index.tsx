@@ -3,29 +3,49 @@ import NFT from "@/src/components/nft";
 import { useRecoilValue } from "recoil";
 import { ClientAddress } from "@/src/recoil/states";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "react-modal";
+import { useSetRecoilState } from "recoil";
 
 export default function Collection() {
   const [showModal, setShowModal] = useState(false);
   const clientAddress = useRecoilValue(ClientAddress);
   const [currentNickname, setCurrentNickname] = useState("");
+  const setClientAddress = useSetRecoilState(ClientAddress);
 
-  const data = axios.get(
-    `https://port-0-didyoueat-testserver-3vw25lcimking.gksl2.cloudtype.app/dev/users/:${clientAddress}/tokens`,
-  );
+  useEffect(() => {
+    const localClientAddress = localStorage.getItem("clientAddress");
+    if (localClientAddress !== "") {
+      setClientAddress(localClientAddress);
+    }
+  }, []);
+
+  useEffect(() => {
+    console.log("clientAddress:" + clientAddress);
+  });
+
+  const getUserData = async function () {
+    await axios.get(process.env.SERVER_URL + `/users/${clientAddress}`);
+    console.log(getUserData);
+  };
 
   function handleNicknameChange(e: any) {
     setCurrentNickname(e.target.value);
   }
+
   function handleSubmit() {
     console.log(currentNickname);
     setShowModal(false);
+    axios.patch(process.env.SERVER_URL + `/users/changenick`, {
+      wallet_address: clientAddress,
+      nickname: currentNickname,
+    });
   }
 
   function handleButtonClick() {
     setShowModal(true);
   }
+
   return (
     <div className="collection">
       <Header />

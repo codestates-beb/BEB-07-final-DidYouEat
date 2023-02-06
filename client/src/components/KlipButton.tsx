@@ -23,6 +23,7 @@ export default function KlipButton() {
         alert(`Connect Wallet Success!\nYour wallet address : ${res.data.result.klaytn_address}`);
         setShowModal(!showModal);
         setClientAddress(res.data.result.klaytn_address);
+        localStorage.setItem("clientAddress", res.data.result.klaytn_address);
         router.push("/collection");
       } else if (res.status === 400) {
         alert(`Request Time Out`);
