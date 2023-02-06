@@ -5,7 +5,7 @@ async function createCollection(
   owner: string,
   metaURI: string,
 ) {
-  console.log(poapContract);
+  // console.log(poapContract);
   try {
     const result = await poapContract.methods
       .createCollection(collectionName, owner, metaURI)

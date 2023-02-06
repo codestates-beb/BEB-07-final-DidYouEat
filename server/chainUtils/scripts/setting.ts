@@ -15,7 +15,8 @@ const {
   POAP_CA = '',
 } = process.env;
 
-const caver = new Caver('https://api.baobab.klaytn.net:8651');
+// const caver = new Caver('https://api.baobab.klaytn.net:8651');
+const caver = new Caver('wss://public-node-api.klaytnapi.com/v1/baobab/ws');
 
 // console.log(SERVER_ADDR);
 // console.log(SERVER_PRIVATE_KEY);
