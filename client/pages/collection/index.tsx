@@ -15,7 +15,7 @@ export default function Collection() {
 
   useEffect(() => {
     const localClientAddress = localStorage.getItem("clientAddress");
-    if (localClientAddress !== "") {
+    if (localClientAddress) {
       setClientAddress(localClientAddress);
     }
   }, []);
