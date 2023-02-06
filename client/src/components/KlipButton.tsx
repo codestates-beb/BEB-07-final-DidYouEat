@@ -69,6 +69,7 @@ export default function KlipButton() {
       type: "auth",
     });
     const { request_key } = getAddress.data;
+    console.log(request_key)
     getKlipPrepareUrl(request_key);
     setReqKey(request_key);
   }
