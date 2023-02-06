@@ -22,6 +22,11 @@ export const AdminAccessTokenState = atom({
 });
 
 export const ClientAddress = atom({
-  key: `clientAddress/${v1()}`,
+  key: "clientAddress",
+  default: "",
+});
+
+export const RequestKey = atom({
+  key: "requestKey",
   default: "",
 });

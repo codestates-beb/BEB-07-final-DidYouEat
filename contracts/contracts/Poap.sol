@@ -18,8 +18,9 @@ contract Poap is ERC721URIStorage, Ownable, Sbt, Pausable {
 
   //events
   event CreateCollection(string collectionName, string metaURI);
+  event UpdateCollection(string collectionName, string newMetaURI);
   event MintToken(uint256 tokenId, string tokenURI, uint256 createdAt);
-
+  
   //mapping
 
   // tokenId => collectionName
@@ -66,6 +67,15 @@ contract Poap is ERC721URIStorage, Ownable, Sbt, Pausable {
     _collectionMeta[collectionName] = metaURI;
 
     emit CreateCollection(collectionName, metaURI);
+  }
+
+  function updateCollection(
+    string memory collectionName,
+    string memory newMetaURI
+  ) public onlyOwner whenNotPaused existCollection(collectionName){
+    _collectionMeta[collectionName] = newMetaURI;
+
+    emit UpdateCollection(collectionName, newMetaURI);
   }
 
   /**

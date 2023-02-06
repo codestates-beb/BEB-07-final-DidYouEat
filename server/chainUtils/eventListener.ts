@@ -60,6 +60,13 @@ const poapEventListener = () => {
       poapEventHandler.createCollection(event);
     })
     .on('error', console.error);
+
+  poapContract.events
+    .UpdateCollection(defaultOptions)
+    .on('data', (event: any) => {
+      poapEventHandler.updateCollection(event);
+    })
+    .on('error', console.error);
 };
 
 const eventListener = {

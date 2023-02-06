@@ -13,6 +13,7 @@ async function createCollection(
 
     return result;
   } catch (e) {
+    console.log(e);
     return null;
   }
 }

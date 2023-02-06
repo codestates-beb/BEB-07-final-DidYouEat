@@ -7,67 +7,15 @@ import { event } from 'src/api/dto/event.dto';
 import { uploadIpfs } from 'chainUtils/ipfs';
 import { chainUtils } from 'chainUtils/scripts';
 import { poapEmitter } from 'chainUtils/eventHandler';
+import { createCurDate } from 'src/utils/date';
+import { v4 } from 'uuid';
+import { DbSync } from 'src/utils/dbSync';
 
 import path from 'path';
 import dotenv from 'dotenv';
-import EventEmitter from 'events';
 
 const ROOT_DIR = path.join(__dirname, '../../..');
 dotenv.config({ path: `${ROOT_DIR}/.env` });
-
-class DbSync {
-  private eventName: string;
-  private complete: boolean;
-  private status: boolean;
-  private emitter: EventEmitter;
-  private interval: any;
-
-  constructor(eventName, emitter) {
-    this.eventName = eventName;
-    this.complete = false;
-    this.status = false;
-    this.emitter = emitter;
-  }
-
-  private clear() {
-    clearInterval(this.interval);
-  }
-
-  private callback(res, rej) {
-    return () => {
-      // console.log('interval is running');
-      if (this.complete) {
-        this.clear();
-        res(this.status);
-      }
-    };
-  }
-
-  public setEmitter() {
-    // console.log('set');
-    this.emitter.removeAllListeners(this.eventName);
-    this.emitter.once(this.eventName, (status: boolean) => {
-      this.fin(status);
-    });
-  }
-
-  public run() {
-    // console.log('run');
-    return new Promise((res, rej) => {
-      this.interval = setInterval(this.callback(res, rej), 1000);
-    });
-  }
-
-  private changeStatus(status: boolean) {
-    this.status = status;
-  }
-
-  public fin(status: boolean) {
-    // console.log('fin');
-    this.changeStatus(status);
-    this.complete = true;
-  }
-}
 
 @Injectable()
 export class CollectionService {
@@ -89,34 +37,40 @@ export class CollectionService {
 
     // 400 Bad Request
     const {
-      collection_id,
       img_url,
+      location,
       coordinate_x,
       coordinate_y,
       owner_id,
       shop_name,
-      event,
     } = body;
     if (
-      !collection_id ||
       !img_url ||
+      !location ||
       !coordinate_x ||
       !coordinate_y ||
       !owner_id ||
       !shop_name ||
-      !(Object.keys(body).length == 6 || Object.keys(body).length == 7)
+      !(Object.keys(body).length == 6)
     ) {
       return res.status(400).send({ status: 'failed', message: 'Bad Request' });
     }
 
+    //created_at
+    const created_at: string = createCurDate();
+
+    //uuid
+    const collection_id = v4();
+
     const newCollection = {
       collection_id,
       img_url,
+      location,
+      created_at,
       coordinate_x,
       coordinate_y,
       owner_id,
       shop_name,
-      event,
     };
 
     //ipfs upload
@@ -139,6 +93,84 @@ export class CollectionService {
       return res
         .status(200)
         .send({ status: 'failed', message: `${collection_id} already exist` });
+    }
+
+    //sync db
+    const status = await sync.run();
+    // console.log(status);
+
+    //if db error
+    if (!status) {
+      return res
+        .status(500)
+        .send({ status: 'fail', message: 'internal server error' });
+    }
+
+    //get collectiondata
+    const collectionData = await collectionUtils.getCollectionData(
+      collection_id,
+    );
+
+    return res.status(201).send({ status: 'success', message: collectionData });
+  }
+
+  async updateCollection(
+    collection_id: string,
+    body: collection,
+    res: Response,
+  ) {
+    // 400 Bad Request
+    const { IPFS_BASE_URL } = process.env;
+
+    const {
+      img_url,
+      location,
+      coordinate_x,
+      coordinate_y,
+      owner_id,
+      shop_name,
+    } = body;
+    if (
+      !img_url ||
+      !location ||
+      !coordinate_x ||
+      !coordinate_y ||
+      !owner_id ||
+      !shop_name ||
+      !(Object.keys(body).length == 6)
+    ) {
+      return res.status(400).send({ status: 'failed', message: 'Bad Request' });
+    }
+
+    //created_at
+    const created_at: string = createCurDate();
+
+    const newCollection = {
+      collection_id,
+      img_url,
+      location,
+      created_at,
+      coordinate_x,
+      coordinate_y,
+      owner_id,
+      shop_name,
+    };
+
+    //ipfs upload
+    const CID = await uploadIpfs(newCollection);
+    const uri = `${IPFS_BASE_URL}/${CID}`;
+
+    //sync db listener
+    const sync: DbSync = new DbSync('updateCollection', poapEmitter);
+    sync.setEmitter();
+
+    const result = await chainUtils.updateCollection(collection_id, uri);
+
+    //if collection_id is already exist
+    if (result === null) {
+      return res
+        .status(200)
+        .send({ status: 'failed', message: `${collection_id} not found` });
     }
 
     //sync db

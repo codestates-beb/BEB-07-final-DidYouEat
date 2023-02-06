@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { ClientAddress } from "../recoil/states";
+import { RequestKey } from "../recoil/states";
 import { useRouter } from "next/router";
 import Modal from "react-modal";
 import QRCode from "qrcode";
@@ -11,7 +12,7 @@ export default function KlipButton() {
   const [showModal, setShowModal] = useState(false);
   const [reqKey, setReqKey] = useState("");
   const [clientAddress, setClientAddress] = useRecoilState(ClientAddress);
-
+  const [requestKey, setRequestKey] = useRecoilState(RequestKey);
   const toggleModal = () => {
     setShowModal(!showModal);
   };
@@ -21,15 +22,16 @@ export default function KlipButton() {
       if (res.data.result) {
         alert(`Connect Wallet Success!\nYour wallet address : ${res.data.result.klaytn_address}`);
         setShowModal(!showModal);
+        setClientAddress(res.data.result.klaytn_address);
+        localStorage.setItem("clientAddress", res.data.result.klaytn_address);
+        router.push("/collection");
       } else if (res.status === 400) {
         alert(`Request Time Out`);
         setShowModal(!showModal);
       } else {
         alert(`Klip에서 인증을 진행해 주세요!`);
       }
-      if (res.data.result.klaytn_address) setClientAddress(res.data.result.klaytn_address);
     });
-    if (clientAddress) router.push("/collection");
   };
 
   async function handleConnect() {
@@ -69,6 +71,7 @@ export default function KlipButton() {
       type: "auth",
     });
     const { request_key } = getAddress.data;
+    setRequestKey(request_key);
     getKlipPrepareUrl(request_key);
     setReqKey(request_key);
   }
