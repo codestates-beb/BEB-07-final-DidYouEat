@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Router from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { AdminAccessTokenState, AdminIdState } from "../recoil/states";
 import AdminLogin from "./AdminLogin";
@@ -14,6 +14,10 @@ export default function AdminHeader() {
   const moveToAdmin = () => {
     Router.push("/admin");
   };
+  useEffect(() => {
+    console.log("adminId", adminId);
+  }, []);
+
   return (
     <>
       <nav className="admin-header">
@@ -22,7 +26,7 @@ export default function AdminHeader() {
             <div className="admin-header__logo">Did you Eat?</div>
           </Link>
           <div className="admin-header__li">
-            {adminId === "" && (
+            {adminId === null && (
               <div
                 onClick={() => {
                   setLoginToggle(true);
@@ -31,7 +35,7 @@ export default function AdminHeader() {
                 Log in
               </div>
             )}
-            {adminId === "" && (
+            {adminId === null && (
               <div
                 onClick={() => {
                   Router.push("/admin/signup");
@@ -40,11 +44,12 @@ export default function AdminHeader() {
                 Sign up
               </div>
             )}
-            {adminId !== "" && (
+            {adminId !== null && (
               <div
                 onClick={() => {
-                  setAdminAccessToken("");
-                  setAdminId("");
+                  setAdminId(null);
+                  setAdminAccessToken(null);
+                  localStorage.clear();
                   Router.push("/admin");
                 }}
                 className="admin-header__item">

@@ -9,7 +9,7 @@ import { useRecoilState } from "recoil";
 import { AdminAccessTokenState } from "@/src/recoil/states";
 
 export default function AdminSignup() {
-  const SERVER_URL = process.env.SERVER_URL + "/api/auth/owner/signup";
+  const SERVER_URL = process.env.SERVER_URL + "/auth/owner/signup";
   const router = useRouter();
 
   const [userEmail, setUserEmail] = useState("");

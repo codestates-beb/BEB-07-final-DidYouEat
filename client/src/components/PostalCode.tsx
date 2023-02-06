@@ -33,7 +33,7 @@ export default function PostalCode({
       address: fullAddress,
     });
     console.log("data", data);
-    console.log("fa", fullAddress);
+    console.log("full address", fullAddress);
     console.log(data.zonecode);
     console.log("store", store);
     setPopup(false);

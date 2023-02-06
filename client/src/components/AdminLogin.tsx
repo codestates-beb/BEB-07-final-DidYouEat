@@ -26,10 +26,13 @@ export default function AdminLogin({ setLoginToggle }: { setLoginToggle: any }) 
   };
   const handleLoginSubmit = () => {
     setIsWating(true);
-    setAdminId("jinwoo");
-    setAdminAccessToken("abc");
+    // setAdminId("jinwoo");
+    // setAdminAccessToken("abc");
+    // localStorage.setItem("accessToken", JSON.stringify("abc"));
+    // localStorage.setItem("adminId", JSON.stringify("jinwoo"));
+
     axios
-      .post(process.env.SERVER_URL + "/api/auth/owner/signin", {
+      .post(process.env.SERVER_URL + "/auth/owner/signin", {
         id: email,
         password: password,
       })
@@ -37,8 +40,12 @@ export default function AdminLogin({ setLoginToggle }: { setLoginToggle: any }) 
         const accessToken = res.data.message.accessToken;
 
         setAdminAccessToken(accessToken);
+
         setAdminId(email);
         setIsWating(false);
+
+        localStorage.setItem("accessToken", JSON.stringify(accessToken));
+        localStorage.setItem("adminId", JSON.stringify(email));
 
         router.push("/admin/store");
       })
