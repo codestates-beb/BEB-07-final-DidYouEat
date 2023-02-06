@@ -11,6 +11,11 @@ export const UserId = atom({
 });
 
 export const ClientAddress = atom({
-  key: "clientAddreaa",
+  key: "clientAddress",
+  default: "",
+});
+
+export const RequestKey = atom({
+  key: "requestKey",
   default: "",
 });

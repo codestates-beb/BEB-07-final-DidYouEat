@@ -36,6 +36,7 @@ model Collection {
   collection_id String  @id
   img_url       String
   created_at    String
+  location      String
   coordinate_x  Int
   coordinate_y  Int
   events        Event[]
