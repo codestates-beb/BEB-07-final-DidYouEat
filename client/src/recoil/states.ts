@@ -1,13 +1,24 @@
 import { atom } from "recoil";
-import { recoilPersist } from "recoil-persist";
-//import { v1 } from "uuid";
+import { v1 } from "uuid";
+// import { recoilPersist } from "recoil-persist";
 
-const { persistAtom } = recoilPersist();
+// const sessionStorage = typeof window !== "undefined" ? window.sessionStorage : undefined;
 
-export const UserId = atom({
-  key: `userId`,
+// const { persistAtom } = recoilPersist({
+//   key: "recoil-persist",
+//   storage: sessionStorage,
+// });
+
+export const AdminIdState = atom({
+  key: `adminId/${v1()}`,
   default: "",
-  effects_UNSTABLE: [persistAtom],
+  // effects_UNSTABLE: [persistAtom],
+});
+
+export const AdminAccessTokenState = atom({
+  key: `adminAccessToken/${v1()}`,
+  default: "",
+  // effects_UNSTABLE: [persistAtom],
 });
 
 export const ClientAddress = atom({

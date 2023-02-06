@@ -2,17 +2,26 @@ import AdminFooter from "@/src/components/AdminFooter";
 import AdminHeader from "@/src/components/AdminHeader";
 import AdminLayout from "@/src/components/AdminLayout";
 import AdminLogin from "@/src/components/AdminLogin";
+import { AdminIdState } from "@/src/recoil/states";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
+import { useRecoilState } from "recoil";
 
 export default function Admin() {
+  const router = useRouter();
+  const [adminId, setAdminId] = useRecoilState(AdminIdState);
   const [loginToggle, setLoginToggle] = useState(false);
 
-  return (
-    <AdminLayout setLoginToggle={setLoginToggle}>
-      <div className="admin">
-        {loginToggle && <AdminLogin setLoginToggle={setLoginToggle}></AdminLogin>}
+  const handleStartDYE = () => {
+    if (adminId === "") setLoginToggle(true);
+    else router.push("/admin/store");
+  };
 
+  return (
+    <AdminLayout>
+      {loginToggle && <AdminLogin setLoginToggle={setLoginToggle} />}
+      <div className="admin">
         <div id="stars"></div>
         <div id="stars2"></div>
         <div id="stars3"></div>
@@ -21,9 +30,9 @@ export default function Admin() {
             Introducing the new <br /> POAP and DID information offering system.
           </h1>
           <div className="admin-button__container">
-            <Link href="/admin/store">
-              <div className="admin__button">Start using "Did You Eat" system</div>
-            </Link>
+            <div onClick={handleStartDYE} className="admin__button">
+              Start using "Did You Eat" system
+            </div>
           </div>
         </div>
         <div className="admin__contact">

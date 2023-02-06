@@ -1,12 +1,39 @@
 import AdminCollection from "@/src/components/AdminCollection";
-import AdminFooter from "@/src/components/AdminFooter";
-import AdminHeader from "@/src/components/AdminHeader";
+
 import AdminLayout from "@/src/components/AdminLayout";
+import { AdminAccessTokenState, AdminIdState } from "@/src/recoil/states";
+import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
 
 export default function Store() {
+  const accessToken = useRecoilValue(AdminAccessTokenState);
+  const router = useRouter();
+  const adminId = useRecoilValue(AdminIdState);
+  const [collectionData, setCollectionData] = useState(null);
+
+  const getCollectionData = async (email: any) => {
+    const data = await axios.get(process.env.SERVER_URL + `/owners/${email}/collections`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    console.log(data);
+    setCollectionData(data);
+  };
+
+  useEffect(() => {
+    console.log("accessToken", accessToken);
+    if (accessToken === null) router.push("/admin");
+    else {
+      getCollectionData(adminId);
+    }
+  }, []);
+
   return (
-    <AdminLayout setLoginToggle={undefined}>
+    <AdminLayout>
       <div className="admin-store">
         <div className="admin-store__heading">
           <h2>My Store</h2>
