@@ -5,14 +5,14 @@ import AdminFooter from "./AdminFooter";
 import AdminHeader from "./AdminHeader";
 
 export default function AdminLayout({ children }: { children: any }) {
-  const setAdminAccessToken = useSetRecoilState(AdminAccessTokenState);
-  const setAdminId = useSetRecoilState(AdminIdState);
+  const setAdminAccessToken: any = useSetRecoilState(AdminAccessTokenState);
+  const setAdminId: any = useSetRecoilState(AdminIdState);
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
     if (accessToken !== "") {
-      setAdminAccessToken(JSON.parse(localStorage.getItem("accessToken")));
-      setAdminId(JSON.parse(localStorage.getItem("adminId")));
+      setAdminAccessToken(localStorage.getItem("accessToken"));
+      setAdminId(localStorage.getItem("adminId"));
     }
   }, []);
   return (
