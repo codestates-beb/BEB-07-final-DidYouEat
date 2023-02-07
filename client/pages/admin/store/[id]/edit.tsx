@@ -2,12 +2,17 @@ import AdminFooter from "@/src/components/AdminFooter";
 import AdminHeader from "@/src/components/AdminHeader";
 import AdminLayout from "@/src/components/AdminLayout";
 import PostalCode from "@/src/components/PostalCode";
+import { AdminAccessTokenState } from "@/src/recoil/states";
 import next from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 
 export default function Edit() {
+  const router = useRouter();
+  const accessToken = useRecoilValue(AdminAccessTokenState);
   const [date, setDate] = useState(new Date());
   const [popup, setPopup] = useState(false);
   const [image, setImage] = useState({
@@ -70,11 +75,12 @@ export default function Edit() {
   };
 
   useEffect(() => {
+    if (accessToken === "") router.push("/admin");
     return URL.revokeObjectURL(image.preview_URL);
   }, []);
 
   return (
-    <AdminLayout setLoginToggle={undefined}>
+    <AdminLayout>
       <div className="create-store">
         <div className="create-store__heading">
           <h2>Store NFT</h2>

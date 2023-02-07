@@ -5,11 +5,12 @@ const createCollection = async (data: collection) => {
   const {
     collection_id,
     img_url,
+    location,
+    created_at,
     coordinate_x,
     coordinate_y,
     owner_id,
     shop_name,
-    event,
   } = data;
 
   try {
@@ -17,6 +18,8 @@ const createCollection = async (data: collection) => {
       data: {
         collection_id,
         img_url,
+        location,
+        created_at,
         coordinate_x,
         coordinate_y,
         owner_id,
@@ -24,15 +27,6 @@ const createCollection = async (data: collection) => {
       },
     });
 
-    if (event) {
-      const newEvent = await prisma.event.create({
-        data: {
-          content: event,
-          collection_id,
-        },
-      });
-      newCollection[event] = newEvent.id;
-    }
     return newCollection;
   } catch (e) {
     console.log(e);

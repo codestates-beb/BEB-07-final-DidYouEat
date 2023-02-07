@@ -31,4 +31,7 @@
     height: 30px;
     font-family: var(--font-eng-emphasis);
   }
+  &__connect:hover {
+    cursor: pointer;
+  }
 }

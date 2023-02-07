@@ -31,7 +31,7 @@ export class OwnerAuthService {
         .send({ status: 'failed', message: 'No matching owner' });
     if (ownerData.owner_pw === body.password) {
       // 유저토큰 생성
-      const payload = { userId: body.id };
+      const payload = { userId: body.id, role: 'owner' };
       const accessToken = this.jwtService.sign(payload);
       return res
         .status(200)

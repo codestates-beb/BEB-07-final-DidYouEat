@@ -3,7 +3,19 @@ import Header from "@/src/components/Header";
 import Link from "next/link";
 import NFT from "@/src/components/nft";
 import KlipButton from "@/src/components/KlipButton";
+import { useEffect } from "react";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { ClientAddress } from "@/src/recoil/states";
+
 export default function Home() {
+  const setClientAddress = useSetRecoilState(ClientAddress);
+  useEffect(() => {
+    const clientAddress = localStorage.getItem("clientAddress");
+    if (clientAddress) {
+      setClientAddress(clientAddress);
+    }
+  }, []);
+
   return (
     <>
       <div className="landing">

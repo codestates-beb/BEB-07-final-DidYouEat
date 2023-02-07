@@ -12,7 +12,7 @@ datasource db {
 
 model Token {
   token_id            Int         @id
-  created_at          DateTime    @default(now())
+  created_at          String
   comment             String?
   user                User?       @relation(fields: [user_wallet_address], references: [wallet_address])
   user_wallet_address String
@@ -33,16 +33,17 @@ model Owner {
 }
 
 model Collection {
-  collection_id String   @id
+  collection_id String  @id
   img_url       String
-  created_at    DateTime @default(now())
+  created_at    String
+  location      String
   coordinate_x  Int
   coordinate_y  Int
   events        Event[]
   tokens        Token[]
-  minted        Int      @default(0)
+  minted        Int     @default(0)
   shop_name     String
-  owner         Owner?   @relation(fields: [owner_id], references: [owner_id])
+  owner         Owner?  @relation(fields: [owner_id], references: [owner_id])
   owner_id      String
 }
 

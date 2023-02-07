@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import DaumPostcode from "react-daum-postcode";
 
@@ -14,6 +15,7 @@ export default function PostalCode({
 }) {
   const handleComplete = (data: any) => {
     let fullAddress = data.address;
+    console.log(data);
     let extraAddress = "";
 
     if (data.addressType === "R") {
@@ -25,14 +27,15 @@ export default function PostalCode({
       }
       fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
     }
-    console.log(data);
-    console.log(fullAddress);
-    console.log(data.zonecode);
 
     setStore({
       ...store,
       address: fullAddress,
     });
+    console.log("data", data);
+    console.log("full address", fullAddress);
+    console.log(data.zonecode);
+    console.log("store", store);
     setPopup(false);
   };
 

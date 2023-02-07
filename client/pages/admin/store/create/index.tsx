@@ -2,16 +2,19 @@ import AdminFooter from "@/src/components/AdminFooter";
 import AdminHeader from "@/src/components/AdminHeader";
 import AdminLayout from "@/src/components/AdminLayout";
 import PostalCode from "@/src/components/PostalCode";
-import next from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import { useRecoilValue } from "recoil";
+import { AdminAccessTokenState, AdminIdState } from "@/src/recoil/states";
+import { useRouter } from "next/router";
 
 export default function CreateStore() {
-  const now = new Date();
+  const router = useRouter();
   const storeNameRef: any = useRef();
   const storeDetailAddressRef: any = useRef();
+
   const [date, setDate] = useState(new Date());
   const [popup, setPopup] = useState(false);
   const [image, setImage] = useState({
@@ -23,6 +26,12 @@ export default function CreateStore() {
     address: "",
     detail_address: "",
   });
+  const [storeCoordinate, setStoreCoordinate] = useState({
+    x: 0,
+    y: 0,
+  });
+  const accessToken = useRecoilValue(AdminAccessTokenState);
+  const adminId = useRecoilValue(AdminIdState);
 
   const handleStoreAddressInput = (e: any) => {
     setStore({
@@ -73,7 +82,31 @@ export default function CreateStore() {
     }
   };
 
-  const sendFileToIPFS = async (e: any) => {
+  const handleCreateCollection = async () => {
+    console.log(adminId, image.image_file, storeCoordinate.x, storeCoordinate.y, store.name, store.address);
+    // const imageUrl = await sendFileToIPFS();
+
+    const res = await axios.post(
+      process.env.SERVER_URL + "/collections/create",
+      {
+        img_url: "https://gateway.pinata.cloud/ipfs/QmVssnRt3eq5zsXZ8K6jKNjTQigPssTYgx4yQbVEBvNJXX",
+        location: store.address + store.detail_address,
+        coordinate_x: storeCoordinate.x,
+        coordinate_y: storeCoordinate.y,
+        owner_id: adminId,
+        shop_name: store.name,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+    );
+    console.log(res);
+    return res;
+  };
+
+  const sendFileToIPFS = async () => {
     if (image.image_file) {
       try {
         const formData = new FormData();
@@ -90,8 +123,10 @@ export default function CreateStore() {
           },
         });
 
-        const ImgHash = `ipfs://${resFile.data.IpfsHash}`;
+        const ImgHash = `https://gateway.pinata.cloud/ipfs/${resFile.data.IpfsHash}`;
         console.log(ImgHash);
+        console.log("resFile:", resFile);
+        return ImgHash;
       } catch (error) {
         console.log("Error sending File to IPFS: ");
         console.log(error);
@@ -99,12 +134,44 @@ export default function CreateStore() {
     }
   };
 
+  const getCoordinateByAddress = async (address: any) => {
+    const config = { headers: { Authorization: `KakaoAK ${process.env.NEXT_PUBLIC_KAKAO_RESTAPI}` } }; // 헤더 설정
+    const url = "https://dapi.kakao.com/v2/local/search/address.json?query=" + address; // REST API url에 data.address값 전송
+
+    axios
+      .get(url, config)
+      .then(function (result) {
+        console.log(result);
+        if (result.data !== undefined || result.data !== null) {
+          if (result.data.documents[0].x && result.data.documents[0].y) {
+            // Kakao Local API로 검색한 주소 정보 및 위도, 경도값 저장
+
+            setStoreCoordinate((prev) => {
+              const next = { ...prev };
+              next.x = Math.floor(result.data.documents[0].x * 1_000_000);
+              next.y = Math.floor(result.data.documents[0].y * 1_000_000);
+
+              return next;
+            });
+
+            return { x: result.data.documents[0].x, y: result.data.documents[0].y };
+          }
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
   useEffect(() => {
+    if (accessToken === "") router.push("/admin");
     return URL.revokeObjectURL(image.preview_URL);
   }, []);
 
+  useEffect(() => {
+    if (store.address) getCoordinateByAddress(store.address);
+  }, [store.address]);
+
   return (
-    <AdminLayout setLoginToggle={undefined}>
+    <AdminLayout>
       <div className="create-store">
         <div className="create-store__heading">
           <h2>Store NFT</h2>
@@ -217,7 +284,7 @@ export default function CreateStore() {
             </div>
           </fieldset>
           <fieldset className="create-store__fieldset">
-            <div onClick={sendFileToIPFS} className="classic-button yellow-color  margin-auto">
+            <div onClick={handleCreateCollection} className="classic-button yellow-color  margin-auto">
               생성하기
             </div>
           </fieldset>
