@@ -47,8 +47,8 @@ export default function AdminHeader() {
             {adminId !== null && (
               <div
                 onClick={() => {
-                  setAdminId(null);
-                  setAdminAccessToken(null);
+                  setAdminId("");
+                  setAdminAccessToken("");
                   localStorage.clear();
                   Router.push("/admin");
                 }}

@@ -15,7 +15,7 @@ export default function Store() {
   const [collectionData, setCollectionData] = useState(null);
 
   const getCollectionData = async (email: any) => {
-    const data = await axios.get(process.env.SERVER_URL + `/owners/${email}/collections`, {
+    const data: any = await axios.get(process.env.SERVER_URL + `/owners/${email}/collections`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
