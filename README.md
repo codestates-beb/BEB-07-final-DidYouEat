@@ -30,7 +30,6 @@ DID YOU EAT allows customers to collect unique, one-of-a-kind soul bound tokens 
 <img src="https://img.shields.io/badge/aptos sdk-000000?style=for-the-badge">
  <br><br>
 
-![image](https://user-images.githubusercontent.com/77462765/217274743-d2188172-ed22-4312-a140-14f2f1898235.png)
 
 
  
