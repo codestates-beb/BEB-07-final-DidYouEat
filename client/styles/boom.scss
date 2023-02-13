@@ -1,99 +1,69 @@
 .boom {
-  background-color: black;
-  width: 100vw;
-  height: 100vh;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
-  &__container {
-    overflow: hidden;
-    position: absolute;
-    scroll-behavior: smooth;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  color: white;
+  min-height: 100vh;
+  &__confetti {
+    min-width: 100vw;
+    min-height: 100vh;
+  }
+  &__info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &__circle {
+    width: 250px;
+    height: 250px;
+    background-color: white;
+    border-radius: 100%;
+    margin: 50px 0 100px 0;
+    object-fit: cover;
+    -webkit-animation: swirl-in-fwd 0.6s ease-out both;
+    animation: swirl-in-fwd 0.6s ease-out both;
+    @-webkit-keyframes swirl-in-fwd {
+      0% {
+        -webkit-transform: rotate(-540deg) scale(0);
+        transform: rotate(-540deg) scale(0);
+        opacity: 0;
+      }
+      100% {
+        -webkit-transform: rotate(0) scale(1);
+        transform: rotate(0) scale(1);
+        opacity: 1;
+      }
+    }
+    @keyframes swirl-in-fwd {
+      0% {
+        -webkit-transform: rotate(-540deg) scale(0);
+        transform: rotate(-540deg) scale(0);
+        opacity: 0;
+      }
+      100% {
+        -webkit-transform: rotate(0) scale(1);
+        transform: rotate(0) scale(1);
+        opacity: 1;
+      }
+    }
+  }
+  &__info {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 100%;
-    padding: 10px;
-    height: 100%;
     align-items: center;
   }
-
-  &__button {
-    position: fixed;
-    right: 15vw;
-    top: 10vh;
+  &__close {
+    margin-top: 50px;
     background-color: transparent;
-    color: white;
+    color: var(--point-color);
     border: none;
-    -webkit-animation: scale-in-center 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 3s both;
-    animation: scale-in-center 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 3s both;
   }
-
-  @-webkit-keyframes scale-in-center {
-    0% {
-      -webkit-transform: scale(0);
-      transform: scale(0);
-      opacity: 1;
-    }
-    100% {
-      -webkit-transform: scale(1);
-      transform: scale(1);
-      opacity: 1;
-    }
-  }
-  @keyframes scale-in-center {
-    0% {
-      -webkit-transform: scale(0);
-      transform: scale(0);
-      opacity: 1;
-    }
-    100% {
-      -webkit-transform: scale(1);
-      transform: scale(1);
-      opacity: 1;
-    }
-  }
-
-  &__return:hover {
+  &__close:hover {
     cursor: pointer;
-  }
-  &__nft {
-    width: 300px;
-    height: 300px;
-    background-color: white;
-    margin-bottom: 150px;
-
-    -webkit-animation: puff-in-center 0.7s cubic-bezier(0.47, 0, 0.745, 0.715) both;
-    animation: puff-in-center 0.7s cubic-bezier(0.47, 0, 0.745, 0.715) both;
-  }
-  @-webkit-keyframes puff-in-center {
-    0% {
-      -webkit-transform: scale(2);
-      transform: scale(2);
-      -webkit-filter: blur(4px);
-      filter: blur(4px);
-      opacity: 0;
-    }
-    100% {
-      -webkit-transform: scale(1);
-      transform: scale(1);
-      -webkit-filter: blur(0px);
-      filter: blur(0px);
-      opacity: 1;
-    }
-  }
-  @keyframes puff-in-center {
-    0% {
-      -webkit-transform: scale(2);
-      transform: scale(2);
-      -webkit-filter: blur(4px);
-      filter: blur(4px);
-      opacity: 0;
-    }
-    100% {
-      -webkit-transform: scale(1);
-      transform: scale(1);
-      -webkit-filter: blur(0px);
-      filter: blur(0px);
-      opacity: 1;
-    }
   }
 }

@@ -6,50 +6,41 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
 model Token {
-  token_id            Int         @id
-  created_at          String
-  comment             String?
-  user                User?       @relation(fields: [user_wallet_address], references: [wallet_address])
-  user_wallet_address String
-  collection          Collection? @relation(fields: [collection_id], references: [collection_id])
-  collection_id       String
+  token_id   Int         @id
+  created_at String
+  comment    String?
+  user       User?       @relation(fields: [public_key], references: [public_key])
+  public_key String
+  collection Collection? @relation(fields: [shop_name], references: [shop_name])
+  shop_name  String
 }
 
 model User {
-  wallet_address String  @id
-  nickname       String
-  tokens         Token[]
+  public_key  String  @id
+  private_key String  @default("")
+  address     String  @default("")
+  e_mail      String  @default("")
+  nickname    String  @default("unnamed")
+  tokens      Token[]
 }
 
 model Owner {
-  owner_id    String       @id
-  owner_pw    String
-  collections Collection[]
+  owner_address String       @id
+  collections   Collection[]
 }
 
 model Collection {
-  collection_id String  @id
-  img_url       String
-  created_at    String
-  location      String
-  coordinate_x  Int
-  coordinate_y  Int
-  events        Event[]
-  tokens        Token[]
-  minted        Int     @default(0)
-  shop_name     String
-  owner         Owner?  @relation(fields: [owner_id], references: [owner_id])
-  owner_id      String
-}
-
-model Event {
-  id            Int         @id @default(autoincrement())
-  content       String
-  collection    Collection? @relation(fields: [collection_id], references: [collection_id])
-  collection_id String
+  shop_name       String  @id
+  collection_uri  String
+  location        String
+  location_detail String
+  tokens          Token[]
+  minted          Int     @default(0)
+  owner           Owner?  @relation(fields: [owner_address], references: [owner_address])
+  owner_address   String
 }

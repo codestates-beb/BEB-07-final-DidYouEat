@@ -25,6 +25,18 @@
     align-items: center;
     grid-area: 1/6/2/7;
   }
+  &__login {
+    border: 2px solid black;
+    background-color: transparent;
+    width: 80px;
+    height: 30px;
+    font: var(--font-eng-emphasis);
+  }
+  &__login:hover {
+    cursor: pointer;
+    background-color: black;
+    color: var(--point-color);
+  }
   &__connect {
     background-color: transparent;
     width: 100px;
