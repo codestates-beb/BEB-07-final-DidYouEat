@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { Response } from 'express';
 import { getTokenData } from 'prisma/scripts/token/getTokenData';
-import { caver } from 'chainUtils/caver';
+// import { caver } from 'chainUtils/caver';
+import { getCaver } from 'chainUtils/caver';
 import dotenv from 'dotenv';
 import { mintToken } from '../dto/mintToken.dto';
 import { poapAbi } from 'chainUtils/abi/PoapAbi';
@@ -28,6 +29,7 @@ export class TokenService {
     console.log(body);
     const serverWallet = process.env.SERVER_ADDR;
     const serverWalletPKey = process.env.SERVER_PRIVATE_KEY;
+    const caver = getCaver();
     if (!caver.wallet.isExisted(serverWallet))
       caver.wallet.newKeyring(serverWallet, serverWalletPKey);
 

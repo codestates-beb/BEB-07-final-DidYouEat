@@ -11,6 +11,10 @@ import Caver from 'caver-js';
 const ws = new Caver.providers.HttpProvider(networkInfo.network, {
   keepAlive: true,
 });
+
+export const getCaver = () => {
+  return new Caver(networkInfo.network);
+};
 export const caver = new Caver(networkInfo.network);
 // export const caver = new Caver(ws);
 // export const caver = new Caver(
