@@ -1,18 +1,25 @@
-@import "./admin.scss";
+@import "./admin/header.scss";
+@import "./admin/layout.scss";
+@import "./admin/footer.scss";
+@import "./admin/landing.scss";
+@import "./admin/stars.scss";
+@import "./admin/store.scss";
+@import "./admin/create.scss";
+@import "./admin/detail.scss";
+@import "./admin/chart.scss";
+@import "./admin/wallet.scss";
+
 @import "./font.scss";
-@import "./landing.scss";
 @import "./header.scss";
+@import "./landing.scss";
 @import "./collection.scss";
-@import "./info.scss";
-@import "./store.scss";
-@import "./stars.scss";
-@import "./statistics.scss";
-@import "./failed.scss";
-@import "./loginsignin.scss";
-@import "./layout.scss";
-@import "./signup.scss";
+@import "./loading.scss";
+@import "./detail.scss";
+@import "./login.scss";
 @import "./boom.scss";
-:root  {
+@import "./boomloading.scss";
+
+:root {
   --max-width: 1100px;
   --border-radius: 12px;
 
@@ -42,10 +49,20 @@ body {
   font-size: var(--text-size);
   font-family: var(--font-eng-mono);
   background-color: #daff5b;
+  scroll-behavior: smooth;
 }
 
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+}
+
+img {
+  //max-width: 100%;
+  display: block;
+}
+
+#__next {
+  position: relative;
 }
