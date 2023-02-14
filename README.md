@@ -3,6 +3,8 @@
 ### Demo Link
 https://didyoueat.link <br>
 
+### Youtube Link
+https://www.youtube.com/watch?v=POFhfaOQHGY&t=12s
 
 <br><br>
 "DID You Eat"은 소비자들이 방문한 식당에 대한 유니크한 토큰(SBT)를 수집할 수 있게 해줍니다.
